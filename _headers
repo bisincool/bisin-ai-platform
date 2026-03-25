@@ -1,16 +1,18 @@
-# 所有页面 — 安全头
+# 所有页面 — 安全头 + 禁止缓存 HTML
 /*
   X-Frame-Options: DENY
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: camera=(), microphone=(), geolocation=()
+  Cache-Control: no-cache
 
-# 静态资源 — 长期缓存
+# 图片资源 — 长期缓存（文件名不变内容不变）
 /assets/*
   Cache-Control: public, max-age=31536000, immutable
 
+# JS / CSS — 每次都检查是否有更新
 /css/*
-  Cache-Control: public, max-age=31536000, immutable
+  Cache-Control: no-cache
 
 /js/*
-  Cache-Control: public, max-age=31536000, immutable
+  Cache-Control: no-cache
