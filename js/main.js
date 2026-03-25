@@ -141,6 +141,16 @@ if (langPicker) {
   const label   = langPicker.querySelector('.lang-picker__label');
   const items   = langPicker.querySelectorAll('.lang-picker__item');
 
+  // Initialize UI from saved language
+  const savedLang = window.BISIN_I18N ? window.BISIN_I18N.initLang() : 'ja';
+  items.forEach(item => {
+    const active = item.dataset.lang === savedLang;
+    item.classList.toggle('lang-picker__item--active', active);
+    item.setAttribute('aria-selected', active ? 'true' : 'false');
+    if (active) label.textContent = item.dataset.label;
+  });
+  if (window.BISIN_I18N) window.BISIN_I18N.applyLang(savedLang);
+
   trigger.addEventListener('click', e => {
     e.stopPropagation();
     const open = langPicker.classList.toggle('open');
@@ -158,6 +168,7 @@ if (langPicker) {
       label.textContent = item.dataset.label;
       langPicker.classList.remove('open');
       trigger.setAttribute('aria-expanded', 'false');
+      if (window.BISIN_I18N) window.BISIN_I18N.applyLang(item.dataset.lang);
     });
   });
 

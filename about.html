@@ -13,15 +13,15 @@
     <nav class="nav" aria-label="メインナビゲーション">
       <a href="index.html" class="nav__logo">
         <span class="nav__logo-en"><span class="logo-bi">BI</span>SIN</span>
-        <span class="nav__logo-ja">合同会社 美信</span>
+        <span class="nav__logo-ja" data-i18n="nav.logo.ja">合同会社 美信</span>
       </a>
       <ul class="nav__links">
-        <li><a href="about.html" class="nav__link--active">会社について</a></li>
-        <li><a href="product.html">製品</a></li>
-        <li><a href="service.html">サービス</a></li>
-        <li><a href="contact.html">お問い合わせ</a></li>
+        <li><a href="about.html" class="nav__link--active" data-i18n="nav.about">会社について</a></li>
+        <li><a href="product.html" data-i18n="nav.product">製品</a></li>
+        <li><a href="service.html" data-i18n="nav.service">サービス</a></li>
+        <li><a href="contact.html" data-i18n="nav.contact">お問い合わせ</a></li>
       </ul>
-      <a href="contact.html" class="nav__cta">無料相談</a>
+      <a href="contact.html" class="nav__cta" data-i18n="nav.cta">無料相談</a>
       <div class="lang-picker" id="langPicker">
         <button class="lang-picker__trigger" aria-expanded="false" aria-haspopup="listbox" aria-label="言語選択">
           <svg class="lang-picker__globe" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="8" cy="8" r="7"/><path d="M8 1c-1.5 2.5-2 4.5-2 7s.5 4.5 2 7"/><path d="M8 1c1.5 2.5 2 4.5 2 7s-.5 4.5-2 7"/><path d="M1 8h14"/><path d="M2 5h12"/><path d="M2 11h12"/></svg>
@@ -31,18 +31,15 @@
         <div class="lang-picker__panel" role="listbox" aria-label="言語を選択">
           <div class="lang-picker__panel-header">Language</div>
           <button class="lang-picker__item lang-picker__item--active" role="option" aria-selected="true" data-lang="ja" data-label="日本語">
-            <span class="lang-picker__code">JP</span>
-            <span class="lang-picker__name">日本語</span>
+            <span class="lang-picker__code">JP</span><span class="lang-picker__name">日本語</span>
             <svg class="lang-picker__check" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 8l4 4 6-7"/></svg>
           </button>
           <button class="lang-picker__item" role="option" aria-selected="false" data-lang="zh" data-label="中文">
-            <span class="lang-picker__code">CN</span>
-            <span class="lang-picker__name">中文</span>
+            <span class="lang-picker__code">CN</span><span class="lang-picker__name">中文</span>
             <svg class="lang-picker__check" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 8l4 4 6-7"/></svg>
           </button>
           <button class="lang-picker__item" role="option" aria-selected="false" data-lang="en" data-label="English">
-            <span class="lang-picker__code">EN</span>
-            <span class="lang-picker__name">English</span>
+            <span class="lang-picker__code">EN</span><span class="lang-picker__name">English</span>
             <svg class="lang-picker__check" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 8l4 4 6-7"/></svg>
           </button>
         </div>
@@ -58,8 +55,8 @@
     <section class="page-hero">
       <div class="container">
         <p class="page-hero__en">About Us</p>
-        <h1 class="page-hero__title">会社について</h1>
-        <p class="page-hero__desc">品質・革新・信頼</p>
+        <h1 class="page-hero__title" data-i18n="about.hero.title">会社について</h1>
+        <p class="page-hero__desc" data-i18n="about.hero.desc">品質・革新・信頼</p>
       </div>
     </section>
 
@@ -68,9 +65,9 @@
         <div class="about-mission__body">
           <div class="about-mission__text">
             <p class="section-eyebrow">Our Mission</p>
-            <h2 class="section-title">美容の未来を、<br />テクノロジーで切り拓く。</h2>
-            <p>合同会社BISINは、最先端の脂肪冷却技術を通じて、日本の美容業界に革新をもたらすことを使命としています。私たちは単に機器を販売するのではなく、クライアントのビジネス成功を共に実現するパートナーです。</p>
-            <p>COOLSPAの導入を通じて、サロン・クリニックの競争力を高め、エンドユーザーに真の美しさと自信を提供すること——それが私たちの存在意義です。</p>
+            <h2 class="section-title" data-i18n-html="about.mission.title">美容の未来を、<br />テクノロジーで切り拓く。</h2>
+            <p data-i18n="about.mission.p1">合同会社BISINは、最先端の脂肪冷却技術を通じて、日本の美容業界に革新をもたらすことを使命としています。私たちは単に機器を販売するのではなく、クライアントのビジネス成功を共に実現するパートナーです。</p>
+            <p data-i18n="about.mission.p2">COOLSPAの導入を通じて、サロン・クリニックの競争力を高め、エンドユーザーに真の美しさと自信を提供すること——それが私たちの存在意義です。</p>
           </div>
           <div class="about-mission__visual" aria-hidden="true">
             <div class="about-mission__glow"></div>
@@ -82,22 +79,22 @@
     <section class="about-values">
       <div class="container">
         <p class="section-eyebrow">Our Values</p>
-        <h2 class="section-title">私たちが大切にすること</h2>
+        <h2 class="section-title" data-i18n="about.values.title">私たちが大切にすること</h2>
         <div class="values-grid">
           <div class="value-card">
             <div class="value-card__num">01</div>
-            <h3 class="value-card__title">品質への妥協なき追求</h3>
-            <p class="value-card__desc">FDA認証・CE認証・PSE適合を取得した機器のみを取り扱います。安全性と効果の両立を最優先に、厳格な品質基準を設けています。</p>
+            <h3 class="value-card__title" data-i18n="about.val1.title">品質への妥協なき追求</h3>
+            <p class="value-card__desc" data-i18n="about.val1.desc">FDA認証・CE認証・PSE適合を取得した機器のみを取り扱います。安全性と効果の両立を最優先に、厳格な品質基準を設けています。</p>
           </div>
           <div class="value-card">
             <div class="value-card__num">02</div>
-            <h3 class="value-card__title">革新的なソリューション</h3>
-            <p class="value-card__desc">常に最新のテクノロジーを追い、クライアントに最先端のソリューションを提供します。業界トレンドを先取りし、競合他社との差別化を支援します。</p>
+            <h3 class="value-card__title" data-i18n="about.val2.title">革新的なソリューション</h3>
+            <p class="value-card__desc" data-i18n="about.val2.desc">常に最新のテクノロジーを追い、クライアントに最先端のソリューションを提供します。業界トレンドを先取りし、競合他社との差別化を支援します。</p>
           </div>
           <div class="value-card">
             <div class="value-card__num">03</div>
-            <h3 class="value-card__title">長期的な信頼関係</h3>
-            <p class="value-card__desc">一過性の取引ではなく、長期的なパートナーシップを重視します。導入後も継続的なサポートで、クライアントの成功を見守ります。</p>
+            <h3 class="value-card__title" data-i18n="about.val3.title">長期的な信頼関係</h3>
+            <p class="value-card__desc" data-i18n="about.val3.desc">一過性の取引ではなく、長期的なパートナーシップを重視します。導入後も継続的なサポートで、クライアントの成功を見守ります。</p>
           </div>
         </div>
       </div>
@@ -106,17 +103,17 @@
     <section class="company-info">
       <div class="container">
         <p class="section-eyebrow">Company Info</p>
-        <h2 class="section-title">会社概要</h2>
+        <h2 class="section-title" data-i18n="about.info.title">会社概要</h2>
         <table class="info-table" aria-label="会社概要">
           <tbody>
-            <tr><th scope="row">会社名</th><td>合同会社BISIN</td></tr>
-            <tr><th scope="row">設立</th><td>2026年3月</td></tr>
-            <tr><th scope="row">所在地</th><td>〒810-0004 福岡県福岡市中央区渡辺通５丁目２４−３０</td></tr>
-            <tr><th scope="row">代表者</th><td>代表社員 鳥居　暁美</td></tr>
-            <tr><th scope="row">事業内容</th><td>脂肪冷却機器の販売・導入支援・アフターサポート</td></tr>
-            <tr><th scope="row">対応エリア</th><td>全国47都道府県（離島を除く）</td></tr>
-            <tr><th scope="row">電話番号</th><td><a href="tel:0942806688">0942-80-6688</a></td></tr>
-            <tr><th scope="row">メールアドレス</th><td><a href="mailto:bisin202603@gmail.com">bisin202603@gmail.com</a></td></tr>
+            <tr><th scope="row" data-i18n="about.info.name.label">会社名</th><td data-i18n="about.info.name.val">合同会社BISIN</td></tr>
+            <tr><th scope="row" data-i18n="about.info.founded.label">設立</th><td data-i18n="about.info.founded.val">2026年3月</td></tr>
+            <tr><th scope="row" data-i18n="about.info.address.label">所在地</th><td data-i18n="about.info.address.val">〒810-0004 福岡県福岡市中央区渡辺通５丁目２４−３０</td></tr>
+            <tr><th scope="row" data-i18n="about.info.rep.label">代表者</th><td data-i18n="about.info.rep.val">代表社員 鳥居　暁美</td></tr>
+            <tr><th scope="row" data-i18n="about.info.biz.label">事業内容</th><td data-i18n="about.info.biz.val">脂肪冷却機器の販売・導入支援・アフターサポート</td></tr>
+            <tr><th scope="row" data-i18n="about.info.area.label">対応エリア</th><td data-i18n="about.info.area.val">全国47都道府県（離島を除く）</td></tr>
+            <tr><th scope="row" data-i18n="about.info.tel.label">電話番号</th><td><a href="tel:0942806688">0942-80-6688</a></td></tr>
+            <tr><th scope="row" data-i18n="about.info.email.label">メールアドレス</th><td><a href="mailto:bisin202603@gmail.com">bisin202603@gmail.com</a></td></tr>
           </tbody>
         </table>
       </div>
@@ -128,17 +125,17 @@
           <div class="stat">
             <span class="stat__number" data-count="2">0</span>
             <span class="stat__unit">+</span>
-            <p class="stat__label">導入サロン・クリニック数</p>
+            <p class="stat__label" data-i18n="stat.salon">導入サロン・クリニック数</p>
           </div>
           <div class="stat">
             <span class="stat__number" data-count="47">0</span>
-            <span class="stat__unit">都道府県</span>
-            <p class="stat__label">全国対応エリア</p>
+            <span class="stat__unit" data-i18n="stat.pref">都道府県</span>
+            <p class="stat__label" data-i18n="stat.area">全国対応エリア</p>
           </div>
           <div class="stat">
             <span class="stat__number" data-count="98">0</span>
             <span class="stat__unit">%</span>
-            <p class="stat__label">顧客満足度</p>
+            <p class="stat__label" data-i18n="stat.satisfaction">顧客満足度</p>
           </div>
         </div>
       </div>
@@ -146,9 +143,9 @@
 
     <section class="cta-banner">
       <div class="container">
-        <h2 class="cta-banner__title">まずは無料でご相談ください</h2>
-        <p class="cta-banner__desc">導入のご検討から資料請求まで、専任担当者が丁寧にご対応いたします。</p>
-        <a href="contact.html" class="btn btn--primary btn--large">お問い合わせはこちら</a>
+        <h2 class="cta-banner__title" data-i18n="about.cta.title">まずは無料でご相談ください</h2>
+        <p class="cta-banner__desc" data-i18n="about.cta.desc">導入のご検討から資料請求まで、専任担当者が丁寧にご対応いたします。</p>
+        <a href="contact.html" class="btn btn--primary btn--large" data-i18n="cta.btn">お問い合わせはこちら</a>
       </div>
     </section>
 
@@ -157,19 +154,19 @@
         <div class="line-banner__inner">
           <div class="line-banner__content">
             <h2 class="line-banner__heading">
-              <span>お問い合わせは</span>
+              <span data-i18n="line.before">お問い合わせは</span>
               <span class="line-banner__line-icon" aria-label="LINE">
                 <svg viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg"><rect width="44" height="44" rx="10" fill="#06C755"/><text x="22" y="29" text-anchor="middle" fill="white" font-family="Arial,sans-serif" font-weight="bold" font-size="13" letter-spacing="0.5">LINE</text></svg>
               </span>
-              <span>でいつでも♪</span>
+              <span data-i18n="line.after">でいつでも♪</span>
             </h2>
             <div class="line-banner__stores">
               <div class="line-banner__store">
-                <span class="line-banner__store-name">小郡店</span>
+                <span class="line-banner__store-name" data-i18n="line.ogori">小郡店</span>
                 <a href="tel:0942806688" class="line-banner__tel">0942-80-6688</a>
               </div>
               <div class="line-banner__store">
-                <span class="line-banner__store-name">天神店</span>
+                <span class="line-banner__store-name" data-i18n="line.tenjin">天神店</span>
                 <a href="tel:0927535515" class="line-banner__tel">0927-53-5515</a>
               </div>
             </div>
@@ -189,32 +186,33 @@
         <div class="footer__brand">
           <p class="footer__logo-mark"><span class="logo-bi">BI</span>SIN</p>
           <p class="footer__logo-llc">Limited Liability Company</p>
-          <p class="footer__logo-ja">合同会社 美信</p>
+          <p class="footer__logo-ja" data-i18n="nav.logo.ja">合同会社 美信</p>
           <p class="footer__tagline">Add vibrant color to your everyday life</p>
           <div class="footer__stores">
-            <span>小郡店 <a href="tel:0942806688">0942-80-6688</a></span>
-            <span>天神店 <a href="tel:0927535515">0927-53-5515</a></span>
+            <span><span data-i18n="line.ogori">小郡店</span> <a href="tel:0942806688">0942-80-6688</a></span>
+            <span><span data-i18n="line.tenjin">天神店</span> <a href="tel:0927535515">0927-53-5515</a></span>
           </div>
         </div>
         <nav class="footer__nav" aria-label="フッターナビゲーション">
           <ul>
-            <li><a href="about.html">会社について</a></li>
-            <li><a href="product.html">製品 COOLSPA</a></li>
-            <li><a href="service.html">導入支援サービス</a></li>
-            <li><a href="contact.html">お問い合わせ</a></li>
+            <li><a href="about.html" data-i18n="footer.nav.about">会社について</a></li>
+            <li><a href="product.html" data-i18n="footer.nav.product">製品 COOLSPA</a></li>
+            <li><a href="service.html" data-i18n="footer.nav.service">導入支援サービス</a></li>
+            <li><a href="contact.html" data-i18n="footer.nav.contact">お問い合わせ</a></li>
           </ul>
         </nav>
       </div>
       <div class="footer__bottom">
         <p class="footer__copy">&copy; 2025 合同会社BISIN. All Rights Reserved.</p>
         <ul class="footer__legal">
-          <li><a href="#">プライバシーポリシー</a></li>
-          <li><a href="#">特定商取引法に基づく表記</a></li>
+          <li><a href="#" data-i18n="footer.privacy">プライバシーポリシー</a></li>
+          <li><a href="#" data-i18n="footer.legal">特定商取引法に基づく表記</a></li>
         </ul>
       </div>
     </div>
   </footer>
 
+  <script src="js/i18n.js"></script>
   <script src="js/main.js"></script>
 
 </body>
