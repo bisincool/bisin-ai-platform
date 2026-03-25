@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="合同会社BISIN｜脂肪冷却機器COOLSPA導入支援。最先端の痩身テクノロジーで、あなたのサロンに革新を。" />
+  <title>合同会社BISIN | COOLSPA 脂肪冷却機器</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <header class="site-header">
+    <nav class="nav" aria-label="メインナビゲーション">
+      <a href="index.html" class="nav__logo">
+        <span class="nav__logo-en"><span class="logo-bi">BI</span>SIN</span>
+        <span class="nav__logo-ja">合同会社 美信</span>
+      </a>
+      <ul class="nav__links">
+        <li><a href="about.html">会社について</a></li>
+        <li><a href="product.html">製品</a></li>
+        <li><a href="service.html">サービス</a></li>
+        <li><a href="contact.html">お問い合わせ</a></li>
+      </ul>
+      <a href="contact.html" class="nav__cta">無料相談</a>
+      <div class="lang-picker" id="langPicker">
+        <button class="lang-picker__trigger" aria-expanded="false" aria-haspopup="listbox" aria-label="言語選択">
+          <svg class="lang-picker__globe" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="8" cy="8" r="7"/><path d="M8 1c-1.5 2.5-2 4.5-2 7s.5 4.5 2 7"/><path d="M8 1c1.5 2.5 2 4.5 2 7s-.5 4.5-2 7"/><path d="M1 8h14"/><path d="M2 5h12"/><path d="M2 11h12"/></svg>
+          <span class="lang-picker__label">日本語</span>
+          <svg class="lang-picker__chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M4 6l4 4 4-4"/></svg>
+        </button>
+        <div class="lang-picker__panel" role="listbox" aria-label="言語を選択">
+          <div class="lang-picker__panel-header">Language</div>
+          <button class="lang-picker__item lang-picker__item--active" role="option" aria-selected="true" data-lang="ja" data-label="日本語">
+            <span class="lang-picker__code">JP</span>
+            <span class="lang-picker__name">日本語</span>
+            <svg class="lang-picker__check" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 8l4 4 6-7"/></svg>
+          </button>
+          <button class="lang-picker__item" role="option" aria-selected="false" data-lang="zh" data-label="中文">
+            <span class="lang-picker__code">CN</span>
+            <span class="lang-picker__name">中文</span>
+            <svg class="lang-picker__check" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 8l4 4 6-7"/></svg>
+          </button>
+          <button class="lang-picker__item" role="option" aria-selected="false" data-lang="en" data-label="English">
+            <span class="lang-picker__code">EN</span>
+            <span class="lang-picker__name">English</span>
+            <svg class="lang-picker__check" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 8l4 4 6-7"/></svg>
+          </button>
+        </div>
+      </div>
+      <button class="nav__hamburger" type="button" aria-label="メニューを開く">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- HERO -->
+    <section class="hero" aria-label="メインビジュアル">
+      <div class="hero__bg">
+        <canvas id="particles-canvas" aria-hidden="true"></canvas>
+      </div>
+      <div class="hero__content">
+        <p class="hero__eyebrow">Next Generation Body Contouring</p>
+        <h1 class="hero__title">
+          <span class="hero__title-en">COOLSPA</span>
+          <span class="hero__title-ja">脂肪冷却の、新次元へ。</span>
+        </h1>
+        <p class="hero__desc">
+          科学と美の融合。合同会社BISINが提供する<br />
+          最先端の脂肪冷却テクノロジーで、<br />
+          あなたのサロンに革新をもたらします。
+        </p>
+        <div class="hero__actions">
+          <a href="product.html" class="btn btn--primary">製品を見る</a>
+          <a href="contact.html" class="btn btn--outline">導入相談（無料）</a>
+        </div>
+      </div>
+      <div class="hero__scroll-indicator" aria-hidden="true">
+        <span>SCROLL</span>
+        <div class="hero__scroll-line"></div>
+      </div>
+    </section>
+
+    <!-- OVERVIEW CARDS -->
+    <section class="overview">
+      <div class="container">
+        <div class="overview__grid">
+          <a href="about.html" class="overview-card">
+            <p class="overview-card__en">About</p>
+            <h2 class="overview-card__title">会社について</h2>
+            <p class="overview-card__desc">品質・革新・信頼を三本柱に、美容業界の未来を切り拓く専門企業です。</p>
+            <span class="overview-card__arrow">→</span>
+          </a>
+          <a href="product.html" class="overview-card">
+            <p class="overview-card__en">Product</p>
+            <h2 class="overview-card__title">製品 COOLSPA</h2>
+            <p class="overview-card__desc">FDA認証技術をベースとした次世代脂肪冷却機器。精密・安全・効果的。</p>
+            <span class="overview-card__arrow">→</span>
+          </a>
+          <a href="service.html" class="overview-card">
+            <p class="overview-card__en">Service</p>
+            <h2 class="overview-card__title">導入支援サービス</h2>
+            <p class="overview-card__desc">コンサルから設置・研修・アフターサポートまで一貫してご支援します。</p>
+            <span class="overview-card__arrow">→</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- STATS -->
+    <section class="stats-section">
+      <div class="container">
+        <div class="stats-grid">
+          <div class="stat">
+            <span class="stat__number" data-count="2">0</span>
+            <span class="stat__unit">+</span>
+            <p class="stat__label">導入サロン・クリニック数</p>
+          </div>
+          <div class="stat">
+            <span class="stat__number" data-count="47">0</span>
+            <span class="stat__unit">都道府県</span>
+            <p class="stat__label">全国対応エリア</p>
+          </div>
+          <div class="stat">
+            <span class="stat__number" data-count="98">0</span>
+            <span class="stat__unit">%</span>
+            <p class="stat__label">顧客満足度</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA BANNER -->
+    <section class="cta-banner">
+      <div class="container">
+        <h2 class="cta-banner__title">まずは無料でご相談ください</h2>
+        <p class="cta-banner__desc">導入のご検討から資料請求まで、専任担当者が丁寧にご対応いたします。</p>
+        <a href="contact.html" class="btn btn--primary btn--large">お問い合わせはこちら</a>
+      </div>
+    </section>
+
+    <section class="line-banner">
+      <div class="container">
+        <div class="line-banner__inner">
+          <div class="line-banner__content">
+            <h2 class="line-banner__heading">
+              <span>お問い合わせは</span>
+              <span class="line-banner__line-icon" aria-label="LINE">
+                <svg viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg"><rect width="44" height="44" rx="10" fill="#06C755"/><text x="22" y="29" text-anchor="middle" fill="white" font-family="Arial,sans-serif" font-weight="bold" font-size="13" letter-spacing="0.5">LINE</text></svg>
+              </span>
+              <span>でいつでも♪</span>
+            </h2>
+            <div class="line-banner__stores">
+              <div class="line-banner__store">
+                <span class="line-banner__store-name">小郡店</span>
+                <a href="tel:0942806688" class="line-banner__tel">0942-80-6688</a>
+              </div>
+              <div class="line-banner__store">
+                <span class="line-banner__store-name">天神店</span>
+                <a href="tel:0927535515" class="line-banner__tel">0927-53-5515</a>
+              </div>
+            </div>
+          </div>
+          <div class="line-banner__qr">
+            <img src="assets/line-qr.png" alt="LINE QRコード" width="130" height="130" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer__body">
+        <div class="footer__brand">
+          <p class="footer__logo-mark"><span class="logo-bi">BI</span>SIN</p>
+          <p class="footer__logo-llc">Limited Liability Company</p>
+          <p class="footer__logo-ja">合同会社 美信</p>
+          <p class="footer__tagline">Add vibrant color to your everyday life</p>
+          <div class="footer__stores">
+            <span>小郡店 <a href="tel:0942806688">0942-80-6688</a></span>
+            <span>天神店 <a href="tel:0927535515">0927-53-5515</a></span>
+          </div>
+        </div>
+        <nav class="footer__nav" aria-label="フッターナビゲーション">
+          <ul>
+            <li><a href="about.html">会社について</a></li>
+            <li><a href="product.html">製品 COOLSPA</a></li>
+            <li><a href="service.html">導入支援サービス</a></li>
+            <li><a href="contact.html">お問い合わせ</a></li>
+          </ul>
+        </nav>
+      </div>
+      <div class="footer__bottom">
+        <p class="footer__copy">&copy; 2025 合同会社BISIN. All Rights Reserved.</p>
+        <ul class="footer__legal">
+          <li><a href="#">プライバシーポリシー</a></li>
+          <li><a href="#">特定商取引法に基づく表記</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/particles.js"></script>
+
+</body>
+</html>
