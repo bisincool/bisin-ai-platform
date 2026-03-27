@@ -2544,57 +2544,63 @@ section {
   text-shadow: 0 0 80px rgba(75,179,255,0.40);
 }
 
-/* --- Glassmorphism cards ----------------------------------- */
+/* --- Light-gold glass cards -------------------------------- */
 .overview-card,
 .value-card,
 .service-card,
 .plan-card {
-  background: rgba(255,255,255,0.88);
+  background: rgba(255,246,210,0.90);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
-  border: 1px solid rgba(255,255,255,0.45);
-  box-shadow: 0 4px 24px rgba(0,0,0,0.12), inset 0 1px 0 rgba(255,255,255,0.5);
+  border: 1px solid rgba(201,163,75,0.28);
+  box-shadow: 0 4px 24px rgba(0,0,0,0.12), inset 0 1px 0 rgba(255,255,220,0.6);
 }
 .overview-card:hover,
 .value-card:hover,
 .service-card:hover,
 .plan-card:hover {
-  background: rgba(255,255,255,0.95);
-  border-color: rgba(75,179,255,0.35);
-  box-shadow: 0 12px 40px rgba(0,0,0,0.15), 0 0 0 1px rgba(75,179,255,0.20);
+  background: rgba(255,248,220,0.96);
+  border-color: rgba(201,163,75,0.50);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.14), 0 0 0 1px rgba(201,163,75,0.30);
 }
 .overview-card::before {
-  background: linear-gradient(90deg, var(--color-primary), transparent);
+  background: linear-gradient(90deg, #C9A34B, transparent);
 }
 .service-card::before {
-  background: linear-gradient(90deg, var(--color-primary), rgba(75,179,255,0.2), transparent);
+  background: linear-gradient(90deg, #C9A34B, rgba(201,163,75,0.2), transparent);
 }
 
-/* Card text overrides for white card backgrounds */
+/* Card text overrides for gold card backgrounds */
 .overview-card__title,
 .value-card__title,
 .service-card__title,
 .plan-card__name {
-  color: #1A3050;
+  color: #3A2600;
 }
 .overview-card__desc,
 .value-card__desc,
 .service-card__desc {
-  color: #4A6A8A;
+  color: #6B4E1A;
 }
 .overview-card__en,
 .value-card__num,
 .service-card__num {
-  color: var(--color-primary);
+  color: #8B6514;
 }
 .service-card__list li {
-  color: #4A6A8A;
+  color: #6B4E1A;
+}
+.service-card__list li::before {
+  color: #C9A34B;
 }
 .plan-card__features li {
-  color: #4A6A8A;
+  color: #6B4E1A;
+}
+.plan-card__features li::before {
+  color: #C9A34B;
 }
 .overview-card__arrow {
-  color: var(--color-primary);
+  color: #C9A34B;
 }
 
 /* Featured plan card stays semi-transparent blue */
@@ -2699,14 +2705,14 @@ section {
   border-bottom-color: rgba(75,179,255,0.15);
 }
 .contact-line-card {
-  background: rgba(255,255,255,0.88);
+  background: rgba(255,246,210,0.90);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
-  border: 1px solid rgba(255,255,255,0.45);
-  box-shadow: 0 4px 24px rgba(0,0,0,0.12);
+  border: 1px solid rgba(201,163,75,0.28);
+  box-shadow: 0 4px 24px rgba(0,0,0,0.12), inset 0 1px 0 rgba(255,255,220,0.6);
   max-width: 480px;
 }
-.contact-line-card__tagline { color: #1A3050; }
+.contact-line-card__tagline { color: #3A2600; }
 
 /* --- Stats ------------------------------------------------- */
 .stats-section {
