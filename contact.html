@@ -101,109 +101,31 @@
             </div>
           </aside>
 
-          <div class="contact-form-wrap">
-            <h2 class="contact-form-wrap__title" data-i18n="contact.form.title">お問い合わせフォーム</h2>
-            <form class="contact-form" action="#" method="post" novalidate>
-
-              <div class="form-row">
-                <div class="form-group">
-                  <label for="name" data-i18n-html="contact.form.name.label">お名前 <span class="required">*</span></label>
-                  <input type="text" id="name" name="name" data-i18n-ph="contact.form.name.ph" placeholder="山田 太郎" required autocomplete="name" />
+          <div class="contact-line-wrap">
+            <h2 class="contact-line-wrap__title" data-i18n="line.before">お問い合わせは</h2>
+            <div class="contact-line-card">
+              <div class="contact-line-card__top">
+                <span class="line-banner__line-icon" aria-label="LINE">
+                  <svg viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg"><rect width="44" height="44" rx="10" fill="#06C755"/><text x="22" y="29" text-anchor="middle" fill="white" font-family="Arial,sans-serif" font-weight="bold" font-size="13" letter-spacing="0.5">LINE</text></svg>
+                </span>
+                <span class="contact-line-card__tagline" data-i18n="line.after">でいつでも♪</span>
+              </div>
+              <div class="contact-line-card__qr">
+                <img src="assets/line-qr.png" alt="LINE QRコード" width="160" height="160" />
+              </div>
+              <div class="contact-line-card__stores">
+                <div class="line-banner__store">
+                  <span class="line-banner__store-name" data-i18n="line.ogori">小郡店</span>
+                  <a href="tel:0942806688" class="line-banner__tel">0942-80-6688</a>
                 </div>
-                <div class="form-group">
-                  <label for="company" data-i18n="contact.form.company.label">会社名・サロン名</label>
-                  <input type="text" id="company" name="company" data-i18n-ph="contact.form.company.ph" placeholder="株式会社〇〇サロン" autocomplete="organization" />
+                <div class="line-banner__store">
+                  <span class="line-banner__store-name" data-i18n="line.tenjin">天神店</span>
+                  <a href="tel:0927535515" class="line-banner__tel">0927-53-5515</a>
                 </div>
-              </div>
-
-              <div class="form-row">
-                <div class="form-group">
-                  <label for="email" data-i18n-html="contact.form.email.label">メールアドレス <span class="required">*</span></label>
-                  <input type="email" id="email" name="email" data-i18n-ph="contact.form.email.ph" placeholder="example@salon.co.jp" required autocomplete="email" />
-                </div>
-                <div class="form-group">
-                  <label for="phone" data-i18n="contact.form.phone.label">電話番号</label>
-                  <input type="tel" id="phone" name="phone" data-i18n-ph="contact.form.phone.ph" placeholder="03-0000-0000" autocomplete="tel" />
-                </div>
-              </div>
-
-              <div class="form-group form-group--full">
-                <label for="inquiry-type" data-i18n-html="contact.form.type.label">お問い合わせ種別 <span class="required">*</span></label>
-                <select id="inquiry-type" name="inquiry-type" required>
-                  <option value="" data-i18n="contact.form.type.ph">選択してください</option>
-                  <option value="intro" data-i18n="contact.form.type.intro">機器導入のご相談</option>
-                  <option value="catalog" data-i18n="contact.form.type.catalog">資料・カタログ請求</option>
-                  <option value="demo" data-i18n="contact.form.type.demo">デモ体験希望</option>
-                  <option value="price" data-i18n="contact.form.type.price">料金・プランについて</option>
-                  <option value="other" data-i18n="contact.form.type.other">その他</option>
-                </select>
-              </div>
-
-              <div class="form-group form-group--full">
-                <label for="message" data-i18n-html="contact.form.message.label">お問い合わせ内容 <span class="required">*</span></label>
-                <textarea id="message" name="message" rows="6" data-i18n-ph="contact.form.message.ph"
-                  placeholder="ご質問・ご要望などをご自由にご記入ください。" required></textarea>
-              </div>
-
-              <div class="form-group form-group--full">
-                <fieldset class="checkbox-group">
-                  <legend class="sr-only">ご希望の連絡方法</legend>
-                  <p class="form-label" data-i18n="contact.form.method.label">ご希望の連絡方法</p>
-                  <label class="checkbox-label">
-                    <input type="checkbox" name="contact-method" value="email" checked />
-                    <span data-i18n="contact.form.method.email">メール</span>
-                  </label>
-                  <label class="checkbox-label">
-                    <input type="checkbox" name="contact-method" value="phone" />
-                    <span data-i18n="contact.form.method.phone">電話</span>
-                  </label>
-                </fieldset>
-              </div>
-
-              <div class="form-group form-group--full">
-                <label class="checkbox-label">
-                  <input type="checkbox" name="privacy" required />
-                  <span data-i18n-html="contact.form.privacy"><a href="#" target="_blank" rel="noopener">プライバシーポリシー</a>に同意します <span class="required">*</span></span>
-                </label>
-              </div>
-
-              <div class="form-group form-group--full form-group--submit">
-                <button type="submit" class="btn btn--primary btn--large" data-i18n="contact.form.submit">送信する</button>
-                <p class="form-note" data-i18n="contact.form.note">※送信後、自動返信メールをお送りします。届かない場合はスパムフォルダをご確認ください。</p>
-              </div>
-
-            </form>
-          </div>
-
-        </div>
-      </div>
-    </section>
-
-    <section class="line-banner">
-      <div class="container">
-        <div class="line-banner__inner">
-          <div class="line-banner__content">
-            <h2 class="line-banner__heading">
-              <span data-i18n="line.before">お問い合わせは</span>
-              <span class="line-banner__line-icon" aria-label="LINE">
-                <svg viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg"><rect width="44" height="44" rx="10" fill="#06C755"/><text x="22" y="29" text-anchor="middle" fill="white" font-family="Arial,sans-serif" font-weight="bold" font-size="13" letter-spacing="0.5">LINE</text></svg>
-              </span>
-              <span data-i18n="line.after">でいつでも♪</span>
-            </h2>
-            <div class="line-banner__stores">
-              <div class="line-banner__store">
-                <span class="line-banner__store-name" data-i18n="line.ogori">小郡店</span>
-                <a href="tel:0942806688" class="line-banner__tel">0942-80-6688</a>
-              </div>
-              <div class="line-banner__store">
-                <span class="line-banner__store-name" data-i18n="line.tenjin">天神店</span>
-                <a href="tel:0927535515" class="line-banner__tel">0927-53-5515</a>
               </div>
             </div>
           </div>
-          <div class="line-banner__qr">
-            <img src="assets/line-qr.png" alt="LINE QRコード" width="130" height="130" />
-          </div>
+
         </div>
       </div>
     </section>
