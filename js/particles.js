@@ -1,6 +1,6 @@
 /* ============================================================
    合同会社BISIN — particles.js
-   Hero background: floating ice-blue particles
+   Hero background: white snowflake particles (slow falling)
    ============================================================ */
 
 'use strict';
@@ -10,16 +10,16 @@
   if (!canvas) return;
 
   const ctx = canvas.getContext('2d');
-  let W, H, particles, animId;
+  let W, H, flakes, animId;
 
   const CONFIG = {
-    count:      80,
-    maxRadius:  2.2,
-    minRadius:  0.4,
-    speed:      0.25,
-    color:      [201, 163, 75],   // --color-primary RGB (gold)
-    opacity:    { min: 0.06, max: 0.45 },
-    connect:    { distance: 130, opacity: 0.06 },
+    count:    40,
+    maxR:     1.5,
+    minR:     0.5,
+    speedY:   { min: 0.30, max: 0.75 },
+    speedX:   { min: -0.12, max: 0.12 },
+    opacity:  0.20,
+    color:    [255, 255, 255],
   };
 
   /* ---- Resize -------------------------------------------- */
@@ -33,25 +33,23 @@
     init();
   }, { passive: true });
 
-  /* ---- Particle factory ---------------------------------- */
-  function createParticle() {
-    const r = CONFIG.minRadius +
-              Math.random() * (CONFIG.maxRadius - CONFIG.minRadius);
+  /* ---- Flake factory ------------------------------------- */
+  function createFlake(startAnywhere) {
+    const r = CONFIG.minR + Math.random() * (CONFIG.maxR - CONFIG.minR);
     return {
       x:  Math.random() * W,
-      y:  Math.random() * H,
+      y:  startAnywhere ? Math.random() * H : -r * 2,
       r,
-      vx: (Math.random() - 0.5) * CONFIG.speed,
-      vy: (Math.random() - 0.5) * CONFIG.speed,
-      alpha: CONFIG.opacity.min +
-             Math.random() * (CONFIG.opacity.max - CONFIG.opacity.min),
-      pulse: Math.random() * Math.PI * 2,
-      pulseSpeed: 0.005 + Math.random() * 0.01,
+      vx: CONFIG.speedX.min + Math.random() * (CONFIG.speedX.max - CONFIG.speedX.min),
+      vy: CONFIG.speedY.min + Math.random() * (CONFIG.speedY.max - CONFIG.speedY.min),
+      alpha: CONFIG.opacity * (0.5 + Math.random() * 0.5),
+      wobble: Math.random() * Math.PI * 2,
+      wobbleSpeed: 0.008 + Math.random() * 0.012,
     };
   }
 
   function init() {
-    particles = Array.from({ length: CONFIG.count }, createParticle);
+    flakes = Array.from({ length: CONFIG.count }, () => createFlake(true));
   }
 
   /* ---- Draw --------------------------------------------- */
@@ -60,44 +58,21 @@
 
     const [r, g, b] = CONFIG.color;
 
-    // Connections
-    for (let i = 0; i < particles.length; i++) {
-      for (let j = i + 1; j < particles.length; j++) {
-        const dx = particles[i].x - particles[j].x;
-        const dy = particles[i].y - particles[j].y;
-        const dist = Math.sqrt(dx * dx + dy * dy);
-        if (dist < CONFIG.connect.distance) {
-          const alpha = CONFIG.connect.opacity *
-                        (1 - dist / CONFIG.connect.distance);
-          ctx.beginPath();
-          ctx.strokeStyle = `rgba(${r},${g},${b},${alpha})`;
-          ctx.lineWidth = 0.5;
-          ctx.moveTo(particles[i].x, particles[i].y);
-          ctx.lineTo(particles[j].x, particles[j].y);
-          ctx.stroke();
-        }
-      }
-    }
+    flakes.forEach(f => {
+      f.wobble += f.wobbleSpeed;
+      f.x += f.vx + Math.sin(f.wobble) * 0.25;
+      f.y += f.vy;
 
-    // Particles
-    particles.forEach(p => {
-      p.pulse += p.pulseSpeed;
-      const alpha = p.alpha * (0.7 + 0.3 * Math.sin(p.pulse));
+      if (f.y > H + 10) {
+        Object.assign(f, createFlake(false));
+      }
+      if (f.x < -10) f.x = W + 10;
+      if (f.x > W + 10) f.x = -10;
 
       ctx.beginPath();
-      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(${r},${g},${b},${alpha})`;
+      ctx.arc(f.x, f.y, f.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(${r},${g},${b},${f.alpha})`;
       ctx.fill();
-
-      // Move
-      p.x += p.vx;
-      p.y += p.vy;
-
-      // Wrap
-      if (p.x < -10) p.x = W + 10;
-      if (p.x > W + 10) p.x = -10;
-      if (p.y < -10) p.y = H + 10;
-      if (p.y > H + 10) p.y = -10;
     });
   }
 

@@ -7,31 +7,31 @@
    1. CSS Variables (Design Tokens)
    ============================================================ */
 :root {
-  /* Colors — Black × Gold */
-  --color-bg:         #080807;
-  --color-bg-2:       #0d0c09;
-  --color-surface:    #141210;
-  --color-surface-2:  #1a1815;
-  --color-border:     rgba(201, 163, 75, 0.14);
-  --color-border-2:   rgba(201, 163, 75, 0.32);
+  /* Colors — CoolSpa Blue Medical Aesthetics */
+  --color-bg:         #0A2A52;
+  --color-bg-2:       #061C36;
+  --color-surface:    rgba(6,28,54,0.82);
+  --color-surface-2:  rgba(6,28,54,0.92);
+  --color-border:     rgba(75,179,255,0.15);
+  --color-border-2:   rgba(75,179,255,0.40);
 
-  --color-primary:    #C9A34B;   /* gold */
-  --color-primary-dim:#7A6025;
-  --color-accent:     #E8D9B5;   /* light cream gold */
-  --color-silver:     #9A8E7A;
+  --color-primary:    #4BB3FF;   /* ice blue */
+  --color-primary-dim:#1E6EDB;
+  --color-accent:     #EAF6FF;   /* light ice white */
+  --color-silver:     #7EA8C8;
 
-  --color-text:       #F2EDE4;
-  --color-text-muted: #9A8E7A;
-  --color-text-dim:   #5A5040;
+  --color-text:       #EAF6FF;
+  --color-text-muted: #CBD8E7;
+  --color-text-dim:   rgba(203,216,231,0.5);
 
   --color-white:      #ffffff;
   --color-danger:     #e05a5a;
 
   /* Gradients */
-  --gradient-hero:    linear-gradient(135deg, #080807 0%, #0d0c09 50%, #111008 100%);
-  --gradient-glow:    radial-gradient(ellipse at center, rgba(201,163,75,0.15) 0%, transparent 70%);
-  --gradient-card:    linear-gradient(145deg, rgba(20,18,16,0.95) 0%, rgba(13,12,9,0.98) 100%);
-  --gradient-cta:     linear-gradient(135deg, #0d0c09 0%, #161208 100%);
+  --gradient-hero:    linear-gradient(180deg, #1E4F8A 0%, #123E73 35%, #0A2A52 70%, #061C36 100%);
+  --gradient-glow:    radial-gradient(ellipse at center, rgba(75,179,255,0.18) 0%, transparent 70%);
+  --gradient-card:    linear-gradient(145deg, rgba(255,255,255,0.88) 0%, rgba(255,255,255,0.78) 100%);
+  --gradient-cta:     linear-gradient(135deg, #0A2A52 0%, #061C36 100%);
 
   /* Typography */
   --font-ja:          'Noto Serif JP', 'Yu Mincho', '游明朝', serif;
@@ -57,9 +57,9 @@
   --radius-xl:  28px;
 
   /* Shadows */
-  --shadow-glow:  0 0 40px rgba(201, 163, 75, 0.18);
-  --shadow-card:  0 4px 32px rgba(0, 0, 0, 0.6);
-  --shadow-btn:   0 4px 24px rgba(201, 163, 75, 0.45);
+  --shadow-glow:  0 0 40px rgba(75,179,255,0.28);
+  --shadow-card:  0 4px 32px rgba(0,0,0,0.25);
+  --shadow-btn:   0 4px 24px rgba(75,179,255,0.55);
 
   /* Transitions */
   --transition:   0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -2447,4 +2447,312 @@ section {
     flex-wrap: wrap;
     justify-content: center;
   }
+}
+
+/* ============================================================
+   THEME OVERRIDES — CoolSpa Blue Medical Aesthetics
+   ============================================================ */
+
+/* --- Buttons ------------------------------------------------ */
+.btn--primary {
+  background: linear-gradient(135deg, #4BB3FF 0%, #1E6EDB 100%);
+  color: #ffffff;
+  box-shadow: 0 2px 14px rgba(75,179,255,0.35), inset 0 1px 0 rgba(255,255,255,0.2);
+}
+.btn--primary:hover {
+  background: linear-gradient(135deg, #6BC3FF 0%, #2E7EEB 100%);
+  box-shadow: 0 4px 24px rgba(75,179,255,0.55), inset 0 1px 0 rgba(255,255,255,0.25);
+}
+.btn--primary:active {
+  box-shadow: 0 1px 6px rgba(75,179,255,0.2);
+}
+.btn--outline {
+  background: rgba(75,179,255,0.06);
+  color: var(--color-accent);
+  border: 1px solid rgba(75,179,255,0.4);
+}
+.btn--outline:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+  background: rgba(75,179,255,0.12);
+  box-shadow: 0 4px 16px rgba(75,179,255,0.18);
+}
+
+/* --- Navigation -------------------------------------------- */
+.site-header {
+  background: rgba(6,28,54,0.88);
+  border-bottom-color: rgba(75,179,255,0.15);
+}
+.site-header.scrolled {
+  background: rgba(6,28,54,0.98);
+}
+.nav__cta:hover {
+  background: rgba(75,179,255,0.08);
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+/* Lang picker */
+.lang-picker__trigger:hover {
+  border-color: rgba(75,179,255,0.40);
+  background: rgba(75,179,255,0.06);
+  color: var(--color-accent);
+}
+.lang-picker.open .lang-picker__trigger {
+  color: var(--color-primary);
+  border-color: rgba(75,179,255,0.50);
+  background: rgba(75,179,255,0.08);
+}
+.lang-picker__panel {
+  background: rgba(6,28,54,0.97);
+  border-color: rgba(75,179,255,0.20);
+  box-shadow: 0 4px 6px rgba(0,0,0,0.4), 0 16px 48px rgba(0,0,0,0.6), inset 0 1px 0 rgba(75,179,255,0.06);
+}
+.lang-picker__panel-header {
+  border-bottom-color: rgba(75,179,255,0.10);
+}
+.lang-picker__item {
+  border-top-color: rgba(75,179,255,0.06);
+}
+.lang-picker__item:hover {
+  background: rgba(75,179,255,0.09);
+  color: var(--color-accent);
+}
+.lang-picker__item--active:hover {
+  background: rgba(75,179,255,0.12);
+}
+.lang-picker__code {
+  background: rgba(75,179,255,0.10);
+  border-color: rgba(75,179,255,0.18);
+}
+.lang-picker__item--active .lang-picker__code,
+.lang-picker__item:hover .lang-picker__code {
+  background: rgba(75,179,255,0.20);
+  border-color: rgba(75,179,255,0.40);
+  color: var(--color-primary);
+}
+.nav__links--open {
+  background: rgba(6,28,54,0.98);
+  border-bottom-color: rgba(75,179,255,0.15);
+}
+.nav__links--open a {
+  border-bottom-color: rgba(75,179,255,0.10);
+}
+
+/* --- Hero -------------------------------------------------- */
+.hero__title-en {
+  text-shadow: 0 0 80px rgba(75,179,255,0.40);
+}
+
+/* --- Glassmorphism cards ----------------------------------- */
+.overview-card,
+.value-card,
+.service-card,
+.plan-card {
+  background: rgba(255,255,255,0.88);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,0.45);
+  box-shadow: 0 4px 24px rgba(0,0,0,0.12), inset 0 1px 0 rgba(255,255,255,0.5);
+}
+.overview-card:hover,
+.value-card:hover,
+.service-card:hover,
+.plan-card:hover {
+  background: rgba(255,255,255,0.95);
+  border-color: rgba(75,179,255,0.35);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.15), 0 0 0 1px rgba(75,179,255,0.20);
+}
+.overview-card::before {
+  background: linear-gradient(90deg, var(--color-primary), transparent);
+}
+.service-card::before {
+  background: linear-gradient(90deg, var(--color-primary), rgba(75,179,255,0.2), transparent);
+}
+
+/* Card text overrides for white card backgrounds */
+.overview-card__title,
+.value-card__title,
+.service-card__title,
+.plan-card__name {
+  color: #1A3050;
+}
+.overview-card__desc,
+.value-card__desc,
+.service-card__desc {
+  color: #4A6A8A;
+}
+.overview-card__en,
+.value-card__num,
+.service-card__num {
+  color: var(--color-primary);
+}
+.service-card__list li {
+  color: #4A6A8A;
+}
+.plan-card__features li {
+  color: #4A6A8A;
+}
+.overview-card__arrow {
+  color: var(--color-primary);
+}
+
+/* Featured plan card stays semi-transparent blue */
+.plan-card--featured {
+  background: rgba(75,179,255,0.14) !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+  border-color: rgba(75,179,255,0.55) !important;
+  box-shadow: var(--shadow-glow), 0 2px 24px rgba(0,0,0,0.3) !important;
+}
+.plan-card--featured:hover {
+  box-shadow: 0 0 60px rgba(75,179,255,0.35), 0 20px 56px rgba(0,0,0,0.2) !important;
+}
+.plan-card--featured .plan-card__name { color: var(--color-accent); }
+.plan-card--featured .plan-card__features li { color: var(--color-text-muted); }
+.plan-card__badge {
+  background: var(--color-primary);
+  color: #061C36;
+}
+
+/* --- About ------------------------------------------------- */
+.about-mission__visual {
+  background: rgba(255,255,255,0.06);
+  border-color: rgba(75,179,255,0.2);
+}
+.about-mission__glow {
+  background: radial-gradient(ellipse, rgba(75,179,255,0.28) 0%, rgba(75,179,255,0.05) 50%, transparent 70%);
+}
+.about-values {
+  background: rgba(6,28,54,0.6);
+}
+
+/* --- Product ----------------------------------------------- */
+.product-machine-img {
+  filter: drop-shadow(0 20px 60px rgba(75,179,255,0.28));
+}
+.badge {
+  background: rgba(75,179,255,0.10);
+  border-color: rgba(75,179,255,0.30);
+  color: var(--color-accent);
+}
+
+/* --- Cryo sections ----------------------------------------- */
+.cryo-section--odd {
+  background: rgba(10,42,82,0.75);
+}
+.cryo-section--even {
+  background: rgba(6,28,54,0.75);
+}
+.cryo-benefits {
+  border-color: rgba(75,179,255,0.15);
+}
+.cryo-benefits__item {
+  background: rgba(255,255,255,0.06);
+  border-bottom-color: rgba(75,179,255,0.10);
+}
+.cryo-benefits__item:hover {
+  background: rgba(255,255,255,0.10);
+}
+
+/* --- VS Diet section --------------------------------------- */
+.vs-diet__panel {
+  background: rgba(255,255,255,0.08);
+  border-color: rgba(75,179,255,0.15);
+}
+.vs-diet__panel--cryo {
+  background: rgba(75,179,255,0.08);
+  border-top-color: rgba(75,179,255,0.6);
+}
+.vs-diet__vs-badge {
+  border-color: rgba(75,179,255,0.20);
+  background: rgba(6,28,54,0.9);
+}
+
+/* --- Service page ------------------------------------------ */
+.flow-step__num {
+  background: rgba(255,255,255,0.08);
+  border-color: rgba(75,179,255,0.35);
+}
+.service-card:hover {
+  box-shadow: 0 20px 56px rgba(0,0,0,0.15), 0 0 0 1px rgba(75,179,255,0.15);
+}
+
+/* --- Company info table ------------------------------------ */
+.info-table tr {
+  border-bottom-color: rgba(75,179,255,0.12);
+}
+.info-table a { color: var(--color-primary); }
+
+/* --- Contact page ------------------------------------------ */
+.contact-info__title {
+  border-bottom-color: rgba(75,179,255,0.15);
+}
+.contact-info__item {
+  border-bottom-color: rgba(75,179,255,0.12);
+}
+.contact-info__note {
+  background: rgba(255,255,255,0.07);
+  border-color: rgba(75,179,255,0.15);
+}
+.contact-line-wrap__title {
+  border-bottom-color: rgba(75,179,255,0.15);
+}
+.contact-line-card {
+  background: rgba(255,255,255,0.88);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,0.45);
+  box-shadow: 0 4px 24px rgba(0,0,0,0.12);
+  max-width: 480px;
+}
+.contact-line-card__tagline { color: #1A3050; }
+
+/* --- Stats ------------------------------------------------- */
+.stats-section {
+  border-top-color: rgba(75,179,255,0.15);
+  border-bottom-color: rgba(75,179,255,0.15);
+}
+.stat {
+  border-bottom-color: rgba(75,179,255,0.12);
+}
+
+/* --- Overview section -------------------------------------- */
+.overview {
+  background: rgba(6,28,54,0.65);
+}
+
+/* --- CTA Banner -------------------------------------------- */
+.cta-banner {
+  background: linear-gradient(135deg, #0A2A52 0%, #061C36 100%);
+  border-top-color: rgba(75,179,255,0.15);
+}
+
+/* --- Page hero --------------------------------------------- */
+.page-hero {
+  border-bottom-color: rgba(75,179,255,0.15);
+}
+
+/* --- LINE banner ------------------------------------------- */
+.line-banner {
+  background: rgba(255,255,255,0.06);
+  border-top-color: rgba(75,179,255,0.15);
+  border-bottom-color: rgba(75,179,255,0.15);
+}
+.line-banner__store-name {
+  color: var(--color-primary);
+}
+
+/* --- Footer ------------------------------------------------ */
+.site-footer {
+  background: rgba(6,28,54,0.96);
+  border-top-color: rgba(75,179,255,0.15);
+}
+.footer__body {
+  border-bottom-color: rgba(75,179,255,0.12);
+}
+.footer__nav a:hover,
+.footer__stores a:hover,
+.footer__legal a:hover {
+  color: var(--color-primary);
 }
