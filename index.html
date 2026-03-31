@@ -706,6 +706,14 @@
       height: 100%;
       object-fit: cover;
     }
+    @media (max-width: 768px), (orientation: portrait) {
+      #intro-video {
+        width: 100%;
+        height: auto;
+        max-height: 100%;
+        object-fit: contain;
+      }
+    }
     #intro-skip {
       position: absolute;
       bottom: 2.5rem;
