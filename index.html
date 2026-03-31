@@ -1837,11 +1837,13 @@
         setTimeout(() => { overlay.style.display = 'none'; }, 820);
       }
 
-      video.addEventListener('ended', dismiss);
+      video.addEventListener('ended', () => {
+        setTimeout(dismiss, 2000);
+      });
       skip.addEventListener('click', dismiss);
 
-      // Fallback: if video fails to load/play, dismiss after 8s
-      setTimeout(dismiss, 8000);
+      // Fallback: if video fails to load/play, dismiss after 12s
+      setTimeout(dismiss, 12000);
     })();
 
     /* ── FAQ Accordion ── */
