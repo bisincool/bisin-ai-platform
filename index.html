@@ -686,6 +686,46 @@
     /* ── NAV TWEAK: LP has no lang picker ── */
     .lp-page .lang-picker { display: none; }
 
+    /* ── INTRO VIDEO OVERLAY ── */
+    #intro-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.8s ease;
+    }
+    #intro-overlay.fade-out {
+      opacity: 0;
+      pointer-events: none;
+    }
+    #intro-video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    #intro-skip {
+      position: absolute;
+      bottom: 2.5rem;
+      right: 2rem;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.35);
+      color: #fff;
+      font-size: 0.82rem;
+      letter-spacing: 0.1em;
+      padding: 0.55em 1.4em;
+      border-radius: 2em;
+      cursor: pointer;
+      backdrop-filter: blur(6px);
+      transition: background 0.2s;
+      z-index: 10000;
+    }
+    #intro-skip:hover {
+      background: rgba(255,255,255,0.25);
+    }
+
     /* btn sizes */
     .btn--large {
       padding: 1rem 2.6rem;
@@ -1031,6 +1071,14 @@
   </style>
 </head>
 <body class="lp-page">
+
+  <!-- INTRO VIDEO OVERLAY -->
+  <div id="intro-overlay">
+    <video id="intro-video" autoplay muted playsinline preload="auto">
+      <source src="assets/intro.mp4" type="video/mp4">
+    </video>
+    <button id="intro-skip">SKIP ›</button>
+  </div>
 
   <!-- ============================================================
        HEADER / NAV (simplified — no lang switcher on LP)
@@ -1778,6 +1826,24 @@
   <script src="js/main.js?v=6"></script>
   <script src="js/particles.js?v=5"></script>
   <script>
+    /* ── Intro Video ── */
+    (function() {
+      const overlay = document.getElementById('intro-overlay');
+      const video   = document.getElementById('intro-video');
+      const skip    = document.getElementById('intro-skip');
+
+      function dismiss() {
+        overlay.classList.add('fade-out');
+        setTimeout(() => { overlay.style.display = 'none'; }, 820);
+      }
+
+      video.addEventListener('ended', dismiss);
+      skip.addEventListener('click', dismiss);
+
+      // Fallback: if video fails to load/play, dismiss after 8s
+      setTimeout(dismiss, 8000);
+    })();
+
     /* ── FAQ Accordion ── */
     document.querySelectorAll('.lp-faq-item__q').forEach(btn => {
       btn.addEventListener('click', () => {
