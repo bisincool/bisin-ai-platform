@@ -34,14 +34,6 @@ if (hamburger && navLinks) {
     });
   });
 
-  // Inject mobile language switcher at bottom of dropdown
-  const mobileLangRow = document.createElement('div');
-  mobileLangRow.className = 'nav__mobile-lang';
-  mobileLangRow.innerHTML =
-    '<button class="nav__mobile-lang-btn" data-lang="ja">日本語</button>' +
-    '<button class="nav__mobile-lang-btn" data-lang="zh">中文</button>' +
-    '<button class="nav__mobile-lang-btn" data-lang="en">EN</button>';
-  navLinks.appendChild(mobileLangRow);
 }
 
 /* ---- Scroll: fade-in-up animation ------------------------- */
@@ -196,52 +188,6 @@ if (langPicker) {
     }
   });
 }
-
-/* ---- Mobile lang buttons (wired after langPicker init) ---- */
-(function () {
-  var btns = document.querySelectorAll('.nav__mobile-lang-btn');
-  if (!btns.length) return;
-
-  function syncMobileBtns(lang) {
-    btns.forEach(function (b) {
-      b.classList.toggle('active', b.dataset.lang === lang);
-    });
-  }
-
-  btns.forEach(function (btn) {
-    btn.addEventListener('click', function () {
-      var lang = btn.dataset.lang;
-
-      // Apply translation
-      if (window.BISIN_I18N) window.BISIN_I18N.applyLang(lang);
-      syncMobileBtns(lang);
-
-      // Sync desktop lang-picker UI
-      var lp = document.getElementById('langPicker');
-      if (lp) {
-        lp.querySelectorAll('.lang-picker__item').forEach(function (item) {
-          var active = item.dataset.lang === lang;
-          item.classList.toggle('lang-picker__item--active', active);
-          item.setAttribute('aria-selected', String(active));
-        });
-        var lbl = lp.querySelector('.lang-picker__label');
-        var ai  = lp.querySelector('.lang-picker__item[data-lang="' + lang + '"]');
-        if (lbl && ai) lbl.textContent = ai.dataset.label;
-      }
-
-      // Close mobile menu
-      var hbg = document.querySelector('.nav__hamburger');
-      var nl  = document.querySelector('.nav__links');
-      var cta = document.querySelector('.nav__cta');
-      if (hbg) { hbg.classList.remove('open'); hbg.setAttribute('aria-label', 'メニューを開く'); }
-      if (nl)  nl.classList.remove('nav__links--open');
-      if (cta) cta.classList.remove('nav__cta--open');
-    });
-  });
-
-  // Initialise active state from saved language
-  syncMobileBtns(localStorage.getItem('bisin-lang') || 'ja');
-})();
 
 /* ---- Contact form: basic client-side validation ----------- */
 const contactForm = document.querySelector('.contact-form');
