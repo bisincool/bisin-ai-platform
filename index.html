@@ -1837,13 +1837,20 @@
         setTimeout(() => { overlay.style.display = 'none'; }, 820);
       }
 
-      video.addEventListener('ended', () => {
-        setTimeout(dismiss, 2000);
-      });
-      skip.addEventListener('click', dismiss);
+      // Skip intro if already seen this session
+      if (sessionStorage.getItem('introSeen')) {
+        overlay.style.display = 'none';
+      } else {
+        sessionStorage.setItem('introSeen', '1');
 
-      // Fallback: if video fails to load/play, dismiss after 12s
-      setTimeout(dismiss, 12000);
+        video.addEventListener('ended', () => {
+          setTimeout(dismiss, 2000);
+        });
+        skip.addEventListener('click', dismiss);
+
+        // Fallback: dismiss after 12s if video fails
+        setTimeout(dismiss, 12000);
+      }
     })();
 
     /* ── FAQ Accordion ── */
