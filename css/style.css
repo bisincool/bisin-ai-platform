@@ -2595,6 +2595,44 @@ section {
   .cryo-results__case-count { font-size: 0.68rem; }
 }
 
+/* --- Mobile language row ----------------------------------- */
+.nav__mobile-lang {
+  display: none; /* desktop: hidden (desktop uses #langPicker) */
+}
+
+@media (max-width: 768px) {
+  .nav__mobile-lang {
+    display: flex;
+    justify-content: center;
+    gap: 0.6rem;
+    padding: var(--space-sm) 0 0.25rem;
+    margin-top: 0.5rem;
+    border-top: 1px solid rgba(75,179,255,0.12);
+  }
+
+  .nav__mobile-lang-btn {
+    font-family: var(--font-en);
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    padding: 0.38rem 1.1rem;
+    border: 1px solid rgba(75,179,255,0.30);
+    border-radius: 99px;
+    color: var(--color-text-muted);
+    background: transparent;
+    cursor: pointer;
+    transition: all var(--transition);
+    line-height: 1;
+  }
+
+  .nav__mobile-lang-btn:hover,
+  .nav__mobile-lang-btn.active {
+    background: rgba(75,179,255,0.16);
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+  }
+}
+
 /* --- Buttons ------------------------------------------------ */
 .btn--primary {
   background: linear-gradient(135deg, #4BB3FF 0%, #1E6EDB 100%);
