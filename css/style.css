@@ -2273,7 +2273,8 @@ section {
   }
 
   .about-mission__visual {
-    height: 280px;
+    max-width: 100%;
+    margin-left: 0;
   }
 
   .contact-body {
