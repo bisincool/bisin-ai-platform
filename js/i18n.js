@@ -3,6 +3,7 @@
 const TRANSLATIONS = {
   ja: {
     'nav.about': '会社について', 'nav.product': '製品', 'nav.service': 'サービス',
+    'nav.outsourcing': '業務委託',
     'nav.contact': 'お問い合わせ', 'nav.cta': '導入相談/無料デモ予約', 'nav.logo.ja': '合同会社 美信',
     'footer.nav.about': '会社について', 'footer.nav.product': '製品 COOLSPA',
     'footer.nav.service': '導入支援サービス', 'footer.nav.contact': 'お問い合わせ',
@@ -173,6 +174,7 @@ const TRANSLATIONS = {
 
   zh: {
     'nav.about': '关于公司', 'nav.product': '产品', 'nav.service': '服务',
+    'nav.outsourcing': '业务外包',
     'nav.contact': '联系我们', 'nav.cta': '导入咨询/免费演示预约', 'nav.logo.ja': '合同会社 美信',
     'footer.nav.about': '关于公司', 'footer.nav.product': '产品 COOLSPA',
     'footer.nav.service': '导入支援服务', 'footer.nav.contact': '联系我们',
@@ -358,6 +360,7 @@ const TRANSLATIONS = {
 
   en: {
     'nav.about': 'About', 'nav.product': 'Product', 'nav.service': 'Service',
+    'nav.outsourcing': 'Outsourcing',
     'nav.contact': 'Contact', 'nav.cta': 'Book Demo / Consultation', 'nav.logo.ja': 'BISIN LLC',
     'footer.nav.about': 'About Us', 'footer.nav.product': 'Product COOLSPA',
     'footer.nav.service': 'Introduction Support', 'footer.nav.contact': 'Contact',
