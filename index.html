@@ -1041,57 +1041,6 @@
       .lp-sticky-cta { justify-content: center; }
     }
 
-    /* ── BGM PLAYER ── */
-    .bgm-btn {
-      position: fixed;
-      bottom: 5.5rem;
-      right: 1.5rem;
-      z-index: 490;
-      width: 3rem;
-      height: 3rem;
-      border-radius: 50%;
-      background: rgba(6,28,54,0.92);
-      border: 1px solid rgba(75,179,255,0.4);
-      backdrop-filter: blur(10px);
-      color: var(--color-primary);
-      font-size: 1.1rem;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.35);
-      transition: border-color 0.2s, box-shadow 0.2s, transform 0.15s;
-    }
-    .bgm-btn:hover {
-      border-color: rgba(75,179,255,0.8);
-      box-shadow: 0 4px 24px rgba(75,179,255,0.25);
-      transform: scale(1.08);
-    }
-    .bgm-btn.playing {
-      border-color: rgba(75,179,255,0.7);
-      animation: bgmPulse 2.4s ease-in-out infinite;
-    }
-    @keyframes bgmPulse {
-      0%, 100% { box-shadow: 0 0 0 0 rgba(75,179,255,0.25); }
-      50% { box-shadow: 0 0 0 8px rgba(75,179,255,0); }
-    }
-    .bgm-btn__tooltip {
-      position: absolute;
-      right: 3.6rem;
-      white-space: nowrap;
-      font-size: 0.72rem;
-      background: rgba(6,28,54,0.95);
-      border: 1px solid rgba(75,179,255,0.25);
-      color: var(--color-text-muted);
-      padding: 0.3em 0.7em;
-      border-radius: 0.4em;
-      pointer-events: none;
-      opacity: 0;
-      transition: opacity 0.2s;
-    }
-    .bgm-btn:hover .bgm-btn__tooltip {
-      opacity: 1;
-    }
   </style>
 </head>
 <body class="lp-page">
@@ -1839,14 +1788,6 @@
     <button class="lp-sticky-cta__close" id="stickyCtaClose" aria-label="閉じる">✕</button>
   </div>
 
-  <!-- BGM PLAYER -->
-  <button class="bgm-btn" id="bgmBtn" aria-label="BGMを再生">
-    <span class="bgm-btn__tooltip" id="bgmTooltip">BGMを再生</span>
-    <span id="bgmIcon">♪</span>
-  </button>
-  <audio id="bgmAudio" loop preload="none">
-    <source src="assets/bgm2.mp3" type="audio/mpeg">
-  </audio>
 
   <script src="js/i18n.js?v=4"></script>
   <script src="js/main.js?v=6"></script>
@@ -1925,67 +1866,6 @@
       stickyCta.classList.remove('visible');
     });
 
-    /* ── BGM Auto-play ── */
-    const bgmBtn   = document.getElementById('bgmBtn');
-    const bgmAudio = document.getElementById('bgmAudio');
-    const bgmIcon  = document.getElementById('bgmIcon');
-    const bgmTooltip = document.getElementById('bgmTooltip');
-    let bgmPlaying = false;
-    let bgmStarted = false;
-
-    bgmAudio.volume = 0.14;
-
-    function startBgm() {
-      if (bgmStarted) return;
-      bgmStarted = true;
-      bgmAudio.play().then(() => {
-        bgmPlaying = true;
-        bgmBtn.classList.add('playing');
-        bgmIcon.textContent = '⏸';
-        bgmTooltip.textContent = 'BGMを停止';
-        bgmBtn.setAttribute('aria-label', 'BGMを停止');
-      }).catch(() => {});
-    }
-
-    // Try immediate autoplay
-    bgmAudio.play().then(() => {
-      bgmStarted = true;
-      bgmPlaying = true;
-      bgmBtn.classList.add('playing');
-      bgmIcon.textContent = '⏸';
-      bgmTooltip.textContent = 'BGMを停止';
-      bgmBtn.setAttribute('aria-label', 'BGMを停止');
-    }).catch(() => {
-      // Blocked — trigger on first interaction
-      ['scroll', 'click', 'touchstart', 'keydown'].forEach(evt => {
-        window.addEventListener(evt, startBgm, { once: true, passive: true });
-      });
-    });
-
-    // Button toggles pause/resume
-    bgmBtn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      if (!bgmStarted) {
-        startBgm();
-        return;
-      }
-      if (bgmPlaying) {
-        bgmAudio.pause();
-        bgmPlaying = false;
-        bgmBtn.classList.remove('playing');
-        bgmIcon.textContent = '♪';
-        bgmTooltip.textContent = 'BGMを再生';
-        bgmBtn.setAttribute('aria-label', 'BGMを再生');
-      } else {
-        bgmAudio.play().then(() => {
-          bgmPlaying = true;
-          bgmBtn.classList.add('playing');
-          bgmIcon.textContent = '⏸';
-          bgmTooltip.textContent = 'BGMを停止';
-          bgmBtn.setAttribute('aria-label', 'BGMを停止');
-        }).catch(() => {});
-      }
-    });
   </script>
 
 </body>
