@@ -2453,6 +2453,152 @@ section {
    THEME OVERRIDES — CoolSpa Blue Medical Aesthetics
    ============================================================ */
 
+/* ============================================================
+   BEFORE / AFTER RESULTS SECTION
+   ============================================================ */
+.cryo-results-section {
+  padding: var(--space-lg) 0;
+  background: rgba(6,28,54,0.7);
+  text-align: center;
+}
+
+.cryo-results__header {
+  max-width: 720px;
+  margin: 0 auto var(--space-md);
+}
+
+.cryo-results__lead {
+  color: var(--color-text-muted);
+  font-size: 1rem;
+  line-height: 1.85;
+  margin-top: var(--space-sm);
+  white-space: pre-line;
+}
+
+/* Image + overlaid case labels */
+.cryo-results__img-wrap {
+  position: relative;
+  display: inline-block;
+  max-width: 900px;
+  width: 100%;
+  margin: 0 auto;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: 0 8px 48px rgba(0,0,0,0.45);
+}
+
+.cryo-results__img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: var(--radius-lg);
+}
+
+/* Subtle gradient overlay so labels read cleanly */
+.cryo-results__img-wrap::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(6,28,54,0.35) 0%,
+    transparent 18%,
+    transparent 82%,
+    rgba(6,28,54,0.25) 100%
+  );
+  border-radius: var(--radius-lg);
+  pointer-events: none;
+}
+
+.cryo-results__labels {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  display: flex;
+  justify-content: space-between;
+  padding: 14px 18px;
+  z-index: 1;
+}
+
+.cryo-results__case-label {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+}
+.cryo-results__case-label--right {
+  align-items: flex-end;
+}
+
+.cryo-results__case-name {
+  font-family: var(--font-ja);
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: #ffffff;
+  text-shadow: 0 1px 6px rgba(0,0,0,0.7);
+  letter-spacing: 0.04em;
+}
+
+.cryo-results__case-count {
+  font-size: 0.78rem;
+  color: #4BB3FF;
+  font-weight: 600;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.8);
+  letter-spacing: 0.06em;
+}
+
+/* Three-point highlights */
+.cryo-results__points {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-md);
+  flex-wrap: wrap;
+  margin-top: var(--space-md);
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.cryo-results__point {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255,246,210,0.90);
+  border: 1px solid rgba(201,163,75,0.30);
+  border-radius: var(--radius-xl);
+  padding: 10px 22px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #3A2600;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.10);
+}
+
+.cryo-results__point-icon {
+  color: #4BB3FF;
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.cryo-results__disclaimer {
+  margin-top: var(--space-sm);
+  font-size: 0.78rem;
+  color: var(--color-text-dim);
+  letter-spacing: 0.03em;
+}
+
+@media (max-width: 600px) {
+  .cryo-results__points {
+    flex-direction: column;
+    align-items: center;
+  }
+  .cryo-results__labels {
+    padding: 8px 10px;
+  }
+  .cryo-results__case-name { font-size: 0.78rem; }
+  .cryo-results__case-count { font-size: 0.68rem; }
+}
+
 /* --- Buttons ------------------------------------------------ */
 .btn--primary {
   background: linear-gradient(135deg, #4BB3FF 0%, #1E6EDB 100%);
