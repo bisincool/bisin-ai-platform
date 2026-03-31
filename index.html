@@ -1808,16 +1808,50 @@
       stickyCta.classList.remove('visible');
     });
 
-    /* ── BGM Player ── */
-    const bgmBtn  = document.getElementById('bgmBtn');
+    /* ── BGM Auto-play ── */
+    const bgmBtn   = document.getElementById('bgmBtn');
     const bgmAudio = document.getElementById('bgmAudio');
     const bgmIcon  = document.getElementById('bgmIcon');
     const bgmTooltip = document.getElementById('bgmTooltip');
     let bgmPlaying = false;
+    let bgmStarted = false;
 
     bgmAudio.volume = 0.28;
 
-    bgmBtn.addEventListener('click', () => {
+    function startBgm() {
+      if (bgmStarted) return;
+      bgmStarted = true;
+      bgmAudio.play().then(() => {
+        bgmPlaying = true;
+        bgmBtn.classList.add('playing');
+        bgmIcon.textContent = '⏸';
+        bgmTooltip.textContent = 'BGMを停止';
+        bgmBtn.setAttribute('aria-label', 'BGMを停止');
+      }).catch(() => {});
+    }
+
+    // Try immediate autoplay
+    bgmAudio.play().then(() => {
+      bgmStarted = true;
+      bgmPlaying = true;
+      bgmBtn.classList.add('playing');
+      bgmIcon.textContent = '⏸';
+      bgmTooltip.textContent = 'BGMを停止';
+      bgmBtn.setAttribute('aria-label', 'BGMを停止');
+    }).catch(() => {
+      // Blocked — trigger on first interaction
+      ['scroll', 'click', 'touchstart', 'keydown'].forEach(evt => {
+        window.addEventListener(evt, startBgm, { once: true, passive: true });
+      });
+    });
+
+    // Button toggles pause/resume
+    bgmBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (!bgmStarted) {
+        startBgm();
+        return;
+      }
       if (bgmPlaying) {
         bgmAudio.pause();
         bgmPlaying = false;
@@ -1832,9 +1866,7 @@
           bgmIcon.textContent = '⏸';
           bgmTooltip.textContent = 'BGMを停止';
           bgmBtn.setAttribute('aria-label', 'BGMを停止');
-        }).catch(() => {
-          /* autoplay blocked — user interaction needed, already handled by click */
-        });
+        }).catch(() => {});
       }
     });
   </script>
