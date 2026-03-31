@@ -732,6 +732,302 @@
       text-transform: uppercase;
       margin-bottom: 0.5rem;
     }
+
+    /* ── TRUST STRIP ── */
+    .lp-trust {
+      background: rgba(6,28,54,0.95);
+      border-top: 1px solid rgba(75,179,255,0.15);
+      border-bottom: 1px solid rgba(75,179,255,0.15);
+      padding: 1.6rem 0;
+    }
+    .lp-trust__inner {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem 2.5rem;
+      justify-content: center;
+      align-items: center;
+    }
+    .lp-trust-item {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: #fff;
+      white-space: nowrap;
+    }
+    .lp-trust-item__icon {
+      width: 2rem;
+      height: 2rem;
+      border-radius: 50%;
+      background: rgba(75,179,255,0.18);
+      border: 1px solid rgba(75,179,255,0.35);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.95rem;
+      flex-shrink: 0;
+    }
+    .lp-trust__sep {
+      width: 1px;
+      height: 1.8rem;
+      background: rgba(75,179,255,0.2);
+    }
+    @media (max-width: 640px) {
+      .lp-trust__sep { display: none; }
+      .lp-trust__inner { gap: 0.8rem 1.4rem; }
+    }
+
+    /* ── TESTIMONIALS ── */
+    .lp-testimonials {
+      padding: 6rem 0;
+      background: rgba(18,62,115,0.35);
+    }
+    .lp-testimonials__grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+    .lp-testi-card {
+      border-radius: var(--radius-lg);
+      padding: 2.2rem 2rem;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(75,179,255,0.18);
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      position: relative;
+    }
+    .lp-testi-card::before {
+      content: '\201C';
+      position: absolute;
+      top: 1rem;
+      right: 1.5rem;
+      font-size: 4rem;
+      color: rgba(75,179,255,0.15);
+      line-height: 1;
+      font-family: Georgia, serif;
+    }
+    .lp-testi-card__stars {
+      color: #C9A34B;
+      font-size: 0.9rem;
+      letter-spacing: 0.1em;
+    }
+    .lp-testi-card__text {
+      font-size: 0.92rem;
+      color: var(--color-text-muted);
+      line-height: 1.85;
+      flex: 1;
+    }
+    .lp-testi-card__author {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      padding-top: 1rem;
+      border-top: 1px solid rgba(75,179,255,0.12);
+    }
+    .lp-testi-card__avatar {
+      width: 2.4rem;
+      height: 2.4rem;
+      border-radius: 50%;
+      background: linear-gradient(135deg, rgba(75,179,255,0.3), rgba(75,179,255,0.1));
+      border: 1px solid rgba(75,179,255,0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+    .lp-testi-card__name {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #fff;
+    }
+    .lp-testi-card__role {
+      font-size: 0.75rem;
+      color: var(--color-text-muted);
+    }
+
+    /* ── FAQ ── */
+    .lp-faq {
+      padding: 6rem 0;
+    }
+    .lp-faq__list {
+      margin-top: 3rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .lp-faq-item {
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(75,179,255,0.18);
+      background: rgba(255,255,255,0.03);
+      overflow: hidden;
+      transition: border-color 0.25s;
+    }
+    .lp-faq-item.open {
+      border-color: rgba(75,179,255,0.45);
+    }
+    .lp-faq-item__q {
+      width: 100%;
+      background: none;
+      border: none;
+      padding: 1.3rem 1.8rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      cursor: pointer;
+      text-align: left;
+    }
+    .lp-faq-item__q-text {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #fff;
+      line-height: 1.5;
+    }
+    .lp-faq-item__q-icon {
+      width: 1.6rem;
+      height: 1.6rem;
+      border-radius: 50%;
+      background: rgba(75,179,255,0.15);
+      border: 1px solid rgba(75,179,255,0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: transform 0.3s, background 0.25s;
+      font-size: 1rem;
+      color: var(--color-primary);
+      font-weight: 300;
+    }
+    .lp-faq-item.open .lp-faq-item__q-icon {
+      transform: rotate(45deg);
+      background: rgba(75,179,255,0.3);
+    }
+    .lp-faq-item__a {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s ease, padding 0.25s ease;
+      padding: 0 1.8rem;
+    }
+    .lp-faq-item.open .lp-faq-item__a {
+      max-height: 300px;
+      padding: 0 1.8rem 1.3rem;
+    }
+    .lp-faq-item__a-text {
+      font-size: 0.88rem;
+      color: var(--color-text-muted);
+      line-height: 1.85;
+      border-top: 1px solid rgba(75,179,255,0.1);
+      padding-top: 1rem;
+    }
+
+    /* ── STICKY CTA BAR ── */
+    .lp-sticky-cta {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 500;
+      background: rgba(6,28,54,0.97);
+      backdrop-filter: blur(12px);
+      border-top: 1px solid rgba(75,179,255,0.25);
+      padding: 0.9rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1.5rem;
+      transform: translateY(100%);
+      transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1);
+    }
+    .lp-sticky-cta.visible {
+      transform: translateY(0);
+    }
+    .lp-sticky-cta__text {
+      font-size: 0.88rem;
+      color: var(--color-text-muted);
+      white-space: nowrap;
+    }
+    .lp-sticky-cta__text strong {
+      color: #fff;
+    }
+    .lp-sticky-cta__close {
+      position: absolute;
+      right: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: rgba(255,255,255,0.3);
+      font-size: 1.1rem;
+      cursor: pointer;
+      padding: 0.3rem;
+      line-height: 1;
+    }
+    .lp-sticky-cta__close:hover {
+      color: rgba(255,255,255,0.7);
+    }
+    @media (max-width: 560px) {
+      .lp-sticky-cta__text { display: none; }
+      .lp-sticky-cta { justify-content: center; }
+    }
+
+    /* ── BGM PLAYER ── */
+    .bgm-btn {
+      position: fixed;
+      bottom: 5.5rem;
+      right: 1.5rem;
+      z-index: 490;
+      width: 3rem;
+      height: 3rem;
+      border-radius: 50%;
+      background: rgba(6,28,54,0.92);
+      border: 1px solid rgba(75,179,255,0.4);
+      backdrop-filter: blur(10px);
+      color: var(--color-primary);
+      font-size: 1.1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.35);
+      transition: border-color 0.2s, box-shadow 0.2s, transform 0.15s;
+    }
+    .bgm-btn:hover {
+      border-color: rgba(75,179,255,0.8);
+      box-shadow: 0 4px 24px rgba(75,179,255,0.25);
+      transform: scale(1.08);
+    }
+    .bgm-btn.playing {
+      border-color: rgba(75,179,255,0.7);
+      animation: bgmPulse 2.4s ease-in-out infinite;
+    }
+    @keyframes bgmPulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(75,179,255,0.25); }
+      50% { box-shadow: 0 0 0 8px rgba(75,179,255,0); }
+    }
+    .bgm-btn__tooltip {
+      position: absolute;
+      right: 3.6rem;
+      white-space: nowrap;
+      font-size: 0.72rem;
+      background: rgba(6,28,54,0.95);
+      border: 1px solid rgba(75,179,255,0.25);
+      color: var(--color-text-muted);
+      padding: 0.3em 0.7em;
+      border-radius: 0.4em;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+    .bgm-btn:hover .bgm-btn__tooltip {
+      opacity: 1;
+    }
   </style>
 </head>
 <body class="lp-page">
@@ -792,6 +1088,38 @@
         <div class="lp-hero__scroll-line"></div>
       </div>
     </section>
+
+    <!-- TRUST STRIP -->
+    <div class="lp-trust">
+      <div class="container">
+        <div class="lp-trust__inner">
+          <div class="lp-trust-item">
+            <div class="lp-trust-item__icon">🇯🇵</div>
+            <span>全国対応</span>
+          </div>
+          <div class="lp-trust__sep"></div>
+          <div class="lp-trust-item">
+            <div class="lp-trust-item__icon">🛡</div>
+            <span>1年間メーカー保証</span>
+          </div>
+          <div class="lp-trust__sep"></div>
+          <div class="lp-trust-item">
+            <div class="lp-trust-item__icon">🎁</div>
+            <span>無料デモ体験受付中</span>
+          </div>
+          <div class="lp-trust__sep"></div>
+          <div class="lp-trust-item">
+            <div class="lp-trust-item__icon">📞</div>
+            <span>電話・LINE対応</span>
+          </div>
+          <div class="lp-trust__sep"></div>
+          <div class="lp-trust-item">
+            <div class="lp-trust-item__icon">💰</div>
+            <span>50万円以下で導入可能</span>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <!-- ============================================================
          02 サロンの悩み — PAIN POINTS
@@ -1105,6 +1433,54 @@
     </section>
 
     <!-- ============================================================
+         07b お客様の声 — TESTIMONIALS
+         ============================================================ -->
+    <section class="lp-testimonials">
+      <div class="container">
+        <div class="lp-center">
+          <p class="lp-eyebrow">Voice of Owners</p>
+          <h2 class="lp-title">導入されたオーナー様の声</h2>
+          <div class="lp-divider"></div>
+        </div>
+        <div class="lp-testimonials__grid">
+          <div class="lp-testi-card">
+            <div class="lp-testi-card__stars">★★★★★</div>
+            <p class="lp-testi-card__text">「フェイシャル専門だった私のサロンに初めてボディメニューを追加しました。放置型なので、施術中に他のお客様の対応ができて、スタッフ一人でも回せています。回数券の先売りで、月末の資金繰りの不安がなくなりました。」</p>
+            <div class="lp-testi-card__author">
+              <div class="lp-testi-card__avatar">👩</div>
+              <div>
+                <p class="lp-testi-card__name">T.M. 様</p>
+                <p class="lp-testi-card__role">福岡県 / 個人エステサロン オーナー</p>
+              </div>
+            </div>
+          </div>
+          <div class="lp-testi-card">
+            <div class="lp-testi-card__stars">★★★★★</div>
+            <p class="lp-testi-card__text">「導入前は機械操作に自信がなくて不安でしたが、BISINさんの研修がとても丁寧で、すぐに自信を持って使えるようになりました。地域で脂肪冷却を提供できる数少ないサロンになれたことで、新規のお問い合わせが増えています。」</p>
+            <div class="lp-testi-card__author">
+              <div class="lp-testi-card__avatar">👩</div>
+              <div>
+                <p class="lp-testi-card__name">K.Y. 様</p>
+                <p class="lp-testi-card__role">熊本県 / 痩身エステサロン オーナー</p>
+              </div>
+            </div>
+          </div>
+          <div class="lp-testi-card">
+            <div class="lp-testi-card__stars">★★★★★</div>
+            <p class="lp-testi-card__text">「美容室を経営していますが、ボディケアの需要があることは感じていました。COOLSPAは待ち時間に受けていただける手軽さが好評で、リピーターのお客様が増えました。アフターサポートも心強く、安心して継続できています。」</p>
+            <div class="lp-testi-card__author">
+              <div class="lp-testi-card__avatar">👨</div>
+              <div>
+                <p class="lp-testi-card__name">S.H. 様</p>
+                <p class="lp-testi-card__role">大分県 / 美容室 オーナー</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
          08 導入がおすすめのサロン — TARGET
          ============================================================ -->
     <section class="lp-section lp-section--alt" id="section-target">
@@ -1155,6 +1531,75 @@
           上記に当てはまるサロン様は、ぜひ一度<em>無料デモ</em>にお越しください。<br>
           実機を体験していただきながら、貴サロンに合った導入プランをご提案します。
         </p>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         08b よくあるご質問 — FAQ
+         ============================================================ -->
+    <section class="lp-faq lp-section--alt" id="section-faq">
+      <div class="container">
+        <div class="lp-center">
+          <p class="lp-eyebrow">FAQ</p>
+          <h2 class="lp-title">よくあるご質問</h2>
+          <div class="lp-divider"></div>
+        </div>
+        <div class="lp-faq__list">
+          <div class="lp-faq-item">
+            <button class="lp-faq-item__q">
+              <span class="lp-faq-item__q-text">Q. 導入に必要なスペースはどのくらいですか？</span>
+              <span class="lp-faq-item__q-icon">+</span>
+            </button>
+            <div class="lp-faq-item__a">
+              <p class="lp-faq-item__a-text">既存の施術ベッド周りに設置できるコンパクト設計です。大掛かりな工事や専用ルームの準備は必要ありません。詳細なサイズはお問い合わせ時にご案内します。</p>
+            </div>
+          </div>
+          <div class="lp-faq-item">
+            <button class="lp-faq-item__q">
+              <span class="lp-faq-item__q-text">Q. スタッフに特別な資格は必要ですか？</span>
+              <span class="lp-faq-item__q-icon">+</span>
+            </button>
+            <div class="lp-faq-item__a">
+              <p class="lp-faq-item__a-text">特別な国家資格は不要です。導入時にBISINが現地で操作研修を行い、マニュアルも完備しています。未経験のスタッフでも短期間で習得できるよう設計されています。</p>
+            </div>
+          </div>
+          <div class="lp-faq-item">
+            <button class="lp-faq-item__q">
+              <span class="lp-faq-item__q-text">Q. 故障した場合はどうなりますか？</span>
+              <span class="lp-faq-item__q-icon">+</span>
+            </button>
+            <div class="lp-faq-item__a">
+              <p class="lp-faq-item__a-text">導入後1年間はメーカー保証が付いています。九州エリアでは万が一の故障の際に24時間以内の代替機手配にも対応しています。遠方のサロン様も電話・LINEで迅速にサポートします。</p>
+            </div>
+          </div>
+          <div class="lp-faq-item">
+            <button class="lp-faq-item__q">
+              <span class="lp-faq-item__q-text">Q. 無料デモ体験はどこで受けられますか？</span>
+              <span class="lp-faq-item__q-icon">+</span>
+            </button>
+            <div class="lp-faq-item__a">
+              <p class="lp-faq-item__a-text">小郡店・天神店のいずれかでお受けいただけます。また、条件によっては出張デモにも対応可能です。まずはお気軽にお問い合わせください。遠方のオーナー様もご相談ください。</p>
+            </div>
+          </div>
+          <div class="lp-faq-item">
+            <button class="lp-faq-item__q">
+              <span class="lp-faq-item__q-text">Q. 導入後のメニュー設計はサポートしてもらえますか？</span>
+              <span class="lp-faq-item__q-icon">+</span>
+            </button>
+            <div class="lp-faq-item__a">
+              <p class="lp-faq-item__a-text">はい、対応しています。価格設定・回数券コースの設計・集客アドバイスなど、貴サロンの規模や客層に合わせたメニュープランをご提案します。導入後も継続的にご相談いただけます。</p>
+            </div>
+          </div>
+          <div class="lp-faq-item">
+            <button class="lp-faq-item__q">
+              <span class="lp-faq-item__q-text">Q. デモを見た後、すぐに購入を決めなければなりませんか？</span>
+              <span class="lp-faq-item__q-icon">+</span>
+            </button>
+            <div class="lp-faq-item__a">
+              <p class="lp-faq-item__a-text">いいえ、全く問題ありません。無理な勧誘は一切行っておりません。デモ後にご自身のペースでご検討いただけます。ご不明な点はいつでもご連絡ください。</p>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -1313,9 +1758,87 @@
     </div>
   </footer>
 
+  <!-- STICKY CTA BAR -->
+  <div class="lp-sticky-cta" id="stickyCta" aria-label="お問い合わせ案内">
+    <span class="lp-sticky-cta__text"><strong>COOLSPA</strong> 無料デモ受付中 — 勧誘なし・完全無料</span>
+    <a href="contact.html" class="btn btn--primary" style="padding:0.65rem 1.8rem;font-size:0.9rem;white-space:nowrap;">無料デモを予約する →</a>
+    <button class="lp-sticky-cta__close" id="stickyCtaClose" aria-label="閉じる">✕</button>
+  </div>
+
+  <!-- BGM PLAYER -->
+  <button class="bgm-btn" id="bgmBtn" aria-label="BGMを再生">
+    <span class="bgm-btn__tooltip" id="bgmTooltip">BGMを再生</span>
+    <span id="bgmIcon">♪</span>
+  </button>
+  <audio id="bgmAudio" loop preload="none">
+    <source src="assets/bgm.mp3" type="audio/mpeg">
+    <source src="assets/bgm.ogg" type="audio/ogg">
+  </audio>
+
   <script src="js/i18n.js?v=4"></script>
   <script src="js/main.js?v=6"></script>
   <script src="js/particles.js?v=5"></script>
+  <script>
+    /* ── FAQ Accordion ── */
+    document.querySelectorAll('.lp-faq-item__q').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const item = btn.closest('.lp-faq-item');
+        const isOpen = item.classList.contains('open');
+        // close all
+        document.querySelectorAll('.lp-faq-item.open').forEach(el => el.classList.remove('open'));
+        if (!isOpen) item.classList.add('open');
+      });
+    });
+
+    /* ── Sticky CTA Bar ── */
+    const stickyCta = document.getElementById('stickyCta');
+    const stickyClose = document.getElementById('stickyCtaClose');
+    let stickyClosed = false;
+
+    window.addEventListener('scroll', () => {
+      if (stickyClosed) return;
+      if (window.scrollY > 400) {
+        stickyCta.classList.add('visible');
+      } else {
+        stickyCta.classList.remove('visible');
+      }
+    }, { passive: true });
+
+    stickyClose.addEventListener('click', () => {
+      stickyClosed = true;
+      stickyCta.classList.remove('visible');
+    });
+
+    /* ── BGM Player ── */
+    const bgmBtn  = document.getElementById('bgmBtn');
+    const bgmAudio = document.getElementById('bgmAudio');
+    const bgmIcon  = document.getElementById('bgmIcon');
+    const bgmTooltip = document.getElementById('bgmTooltip');
+    let bgmPlaying = false;
+
+    bgmAudio.volume = 0.28;
+
+    bgmBtn.addEventListener('click', () => {
+      if (bgmPlaying) {
+        bgmAudio.pause();
+        bgmPlaying = false;
+        bgmBtn.classList.remove('playing');
+        bgmIcon.textContent = '♪';
+        bgmTooltip.textContent = 'BGMを再生';
+        bgmBtn.setAttribute('aria-label', 'BGMを再生');
+      } else {
+        bgmAudio.play().then(() => {
+          bgmPlaying = true;
+          bgmBtn.classList.add('playing');
+          bgmIcon.textContent = '⏸';
+          bgmTooltip.textContent = 'BGMを停止';
+          bgmBtn.setAttribute('aria-label', 'BGMを停止');
+        }).catch(() => {
+          /* autoplay blocked — user interaction needed, already handled by click */
+        });
+      }
+    });
+  </script>
 
 </body>
 </html>
