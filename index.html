@@ -683,9 +683,6 @@
       margin-right: auto;
     }
 
-    /* ── NAV TWEAK: LP has no lang picker ── */
-    .lp-page .lang-picker { display: none; }
-
     /* ── INTRO VIDEO OVERLAY ── */
     #intro-overlay {
       position: fixed;
@@ -1061,16 +1058,38 @@
     <nav class="nav" aria-label="メインナビゲーション">
       <a href="index.html" class="nav__logo">
         <span class="nav__logo-en"><span class="logo-bi">BI</span>SIN</span>
-        <span class="nav__logo-ja">合同会社 美信</span>
+        <span class="nav__logo-ja" data-i18n="nav.logo.ja">合同会社 美信</span>
       </a>
       <ul class="nav__links">
-        <li><a href="about.html">会社について</a></li>
-        <li><a href="product.html">製品</a></li>
-        <li><a href="service.html">サービス</a></li>
-        <li><a href="outsourcing.html">業務委託</a></li>
-        <li><a href="contact.html">お問い合わせ</a></li>
+        <li><a href="about.html" data-i18n="nav.about">会社について</a></li>
+        <li><a href="product.html" data-i18n="nav.product">製品</a></li>
+        <li><a href="service.html" data-i18n="nav.service">サービス</a></li>
+        <li><a href="outsourcing.html" data-i18n="nav.outsourcing">業務委託</a></li>
+        <li><a href="contact.html" data-i18n="nav.contact">お問い合わせ</a></li>
       </ul>
-      <a href="contact.html" class="nav__cta">導入相談/無料デモ予約</a>
+      <a href="contact.html" class="nav__cta" data-i18n="nav.cta">導入相談/無料デモ予約</a>
+      <div class="lang-picker" id="langPicker">
+        <button class="lang-picker__trigger" aria-expanded="false" aria-haspopup="listbox" aria-label="言語選択">
+          <svg class="lang-picker__globe" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="8" cy="8" r="7"/><path d="M8 1c-1.5 2.5-2 4.5-2 7s.5 4.5 2 7"/><path d="M8 1c1.5 2.5 2 4.5 2 7s-.5 4.5-2 7"/><path d="M1 8h14"/><path d="M2 5h12"/><path d="M2 11h12"/></svg>
+          <span class="lang-picker__label">日本語</span>
+          <svg class="lang-picker__chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M4 6l4 4 4-4"/></svg>
+        </button>
+        <div class="lang-picker__panel" role="listbox" aria-label="言語を選択">
+          <div class="lang-picker__panel-header">Language</div>
+          <button class="lang-picker__item lang-picker__item--active" role="option" aria-selected="true" data-lang="ja" data-label="日本語">
+            <span class="lang-picker__code">JP</span><span class="lang-picker__name">日本語</span>
+            <svg class="lang-picker__check" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 8l4 4 6-7"/></svg>
+          </button>
+          <button class="lang-picker__item" role="option" aria-selected="false" data-lang="zh" data-label="中文">
+            <span class="lang-picker__code">CN</span><span class="lang-picker__name">中文</span>
+            <svg class="lang-picker__check" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 8l4 4 6-7"/></svg>
+          </button>
+          <button class="lang-picker__item" role="option" aria-selected="false" data-lang="en" data-label="English">
+            <span class="lang-picker__code">EN</span><span class="lang-picker__name">English</span>
+            <svg class="lang-picker__check" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 8l4 4 6-7"/></svg>
+          </button>
+        </div>
+      </div>
       <button class="nav__hamburger" type="button" aria-label="メニューを開く">
         <span></span><span></span><span></span>
       </button>
@@ -1087,23 +1106,23 @@
       <div class="lp-hero__overlay"></div>
       <div class="lp-hero__content">
         <p class="lp-hero__eyebrow">For Beauty Salon Owners</p>
-        <h1 class="lp-hero__catch">
+        <h1 class="lp-hero__catch" data-i18n-html="lp.hero.catch">
           施術中は<em>置くだけ</em>。<br>
           スタッフ不要で、<br>
           サロンに<em>新しい収益</em>が生まれる。
         </h1>
-        <p class="lp-hero__sub">
+        <p class="lp-hero__sub" data-i18n="lp.hero.sub">
           脂肪冷却マシン「COOLSPA」は、専門知識不要・施術中スタッフ不在でも稼働できる次世代のボディケア機器です。美容サロン・エステサロンの新たな柱として、多くのオーナー様から支持されています。
         </p>
         <div class="lp-hero__badges">
-          <span class="lp-badge">50万円以下で導入</span>
-          <span class="lp-badge">放置型・スタッフ不要</span>
-          <span class="lp-badge">初期研修サポート付き</span>
-          <span class="lp-badge">全国対応</span>
+          <span class="lp-badge" data-i18n="lp.hero.badge1">50万円以下で導入</span>
+          <span class="lp-badge" data-i18n="lp.hero.badge2">放置型・スタッフ不要</span>
+          <span class="lp-badge" data-i18n="lp.hero.badge3">初期研修サポート付き</span>
+          <span class="lp-badge" data-i18n="lp.hero.badge4">全国対応</span>
         </div>
         <div class="lp-hero__cta">
-          <a href="contact.html" class="btn btn--primary btn--xl">無料デモを予約する</a>
-          <a href="#section-roi" class="btn btn--outline btn--large">導入シミュレーションを見る</a>
+          <a href="contact.html" class="btn btn--primary btn--xl" data-i18n="lp.hero.btn.demo">無料デモを予約する</a>
+          <a href="#section-roi" class="btn btn--outline btn--large" data-i18n="lp.hero.btn.roi">導入シミュレーションを見る</a>
         </div>
       </div>
       <div class="lp-hero__scroll" aria-hidden="true">
@@ -1118,27 +1137,27 @@
         <div class="lp-trust__inner">
           <div class="lp-trust-item">
             <div class="lp-trust-item__icon">🇯🇵</div>
-            <span>全国対応</span>
+            <span data-i18n="lp.trust.1">全国対応</span>
           </div>
           <div class="lp-trust__sep"></div>
           <div class="lp-trust-item">
             <div class="lp-trust-item__icon">🛡</div>
-            <span>1年間メーカー保証</span>
+            <span data-i18n="lp.trust.2">1年間メーカー保証</span>
           </div>
           <div class="lp-trust__sep"></div>
           <div class="lp-trust-item">
             <div class="lp-trust-item__icon">🎁</div>
-            <span>無料デモ体験受付中</span>
+            <span data-i18n="lp.trust.3">無料デモ体験受付中</span>
           </div>
           <div class="lp-trust__sep"></div>
           <div class="lp-trust-item">
             <div class="lp-trust-item__icon">📞</div>
-            <span>電話・LINE対応</span>
+            <span data-i18n="lp.trust.4">電話・LINE対応</span>
           </div>
           <div class="lp-trust__sep"></div>
           <div class="lp-trust-item">
             <div class="lp-trust-item__icon">💰</div>
-            <span>50万円以下で導入可能</span>
+            <span data-i18n="lp.trust.5">50万円以下で導入可能</span>
           </div>
         </div>
       </div>
@@ -1152,58 +1171,58 @@
         <div class="lp-center">
           <p class="lp-section-num">Section 02</p>
           <p class="lp-eyebrow">Pain Points</p>
-          <h2 class="lp-title">こんなお悩み、ありませんか？</h2>
+          <h2 class="lp-title" data-i18n="lp.pain.title">こんなお悩み、ありませんか？</h2>
           <div class="lp-divider"></div>
-          <p class="lp-lead">多くのサロンオーナーが、同じ課題を抱えています。</p>
+          <p class="lp-lead" data-i18n="lp.pain.lead">多くのサロンオーナーが、同じ課題を抱えています。</p>
         </div>
 
         <div class="lp-pain__grid">
           <div class="lp-pain-card">
             <div class="lp-pain-card__icon">😔</div>
             <div>
-              <p class="lp-pain-card__title">施術単価が上げられない</p>
-              <p class="lp-pain-card__body">フェイシャルやリラクゼーションは競合が多く、価格競争になりがち。客単価を引き上げる新メニューが欲しい。</p>
+              <p class="lp-pain-card__title" data-i18n="lp.pain1.title">施術単価が上げられない</p>
+              <p class="lp-pain-card__body" data-i18n="lp.pain1.body">フェイシャルやリラクゼーションは競合が多く、価格競争になりがち。客単価を引き上げる新メニューが欲しい。</p>
             </div>
           </div>
           <div class="lp-pain-card">
             <div class="lp-pain-card__icon">⏰</div>
             <div>
-              <p class="lp-pain-card__title">スタッフの手が足りない</p>
-              <p class="lp-pain-card__body">施術者が施術中は他の対応ができない。人を増やせば人件費も増える。稼働率を上げる方法が見つからない。</p>
+              <p class="lp-pain-card__title" data-i18n="lp.pain2.title">スタッフの手が足りない</p>
+              <p class="lp-pain-card__body" data-i18n="lp.pain2.body">施術者が施術中は他の対応ができない。人を増やせば人件費も増える。稼働率を上げる方法が見つからない。</p>
             </div>
           </div>
           <div class="lp-pain-card">
             <div class="lp-pain-card__icon">📉</div>
             <div>
-              <p class="lp-pain-card__title">リピーターが定着しない</p>
-              <p class="lp-pain-card__body">一度来店してもらっても、継続動機が弱い。「また来たい」と思ってもらえるメニューが少ない。</p>
+              <p class="lp-pain-card__title" data-i18n="lp.pain3.title">リピーターが定着しない</p>
+              <p class="lp-pain-card__body" data-i18n="lp.pain3.body">一度来店してもらっても、継続動機が弱い。「また来たい」と思ってもらえるメニューが少ない。</p>
             </div>
           </div>
           <div class="lp-pain-card">
             <div class="lp-pain-card__icon">💰</div>
             <div>
-              <p class="lp-pain-card__title">設備投資の回収が不安</p>
-              <p class="lp-pain-card__body">高額な機器を導入しても元が取れるか分からない。リスクを考えると一歩踏み出せない。</p>
+              <p class="lp-pain-card__title" data-i18n="lp.pain4.title">設備投資の回収が不安</p>
+              <p class="lp-pain-card__body" data-i18n="lp.pain4.body">高額な機器を導入しても元が取れるか分からない。リスクを考えると一歩踏み出せない。</p>
             </div>
           </div>
           <div class="lp-pain-card">
             <div class="lp-pain-card__icon">🏋️</div>
             <div>
-              <p class="lp-pain-card__title">痩身メニューへの参入が難しい</p>
-              <p class="lp-pain-card__body">痩身・ボディ系は専門知識や技術が必要なイメージがある。スタッフの習得コストが高い。</p>
+              <p class="lp-pain-card__title" data-i18n="lp.pain5.title">痩身メニューへの参入が難しい</p>
+              <p class="lp-pain-card__body" data-i18n="lp.pain5.body">痩身・ボディ系は専門知識や技術が必要なイメージがある。スタッフの習得コストが高い。</p>
             </div>
           </div>
           <div class="lp-pain-card">
             <div class="lp-pain-card__icon">🔄</div>
             <div>
-              <p class="lp-pain-card__title">季節変動・集客の波が激しい</p>
-              <p class="lp-pain-card__body">夏前や年末など繁忙期と閑散期の差が大きい。通年で安定した売上を確保したい。</p>
+              <p class="lp-pain-card__title" data-i18n="lp.pain6.title">季節変動・集客の波が激しい</p>
+              <p class="lp-pain-card__body" data-i18n="lp.pain6.body">夏前や年末など繁忙期と閑散期の差が大きい。通年で安定した売上を確保したい。</p>
             </div>
           </div>
         </div>
 
         <div class="lp-pain__resolve">
-          <p class="lp-pain__resolve-text">
+          <p class="lp-pain__resolve-text" data-i18n-html="lp.pain.resolve">
             これらすべてのお悩みを、<br>
             <em>脂肪冷却マシン「COOLSPA」1台</em>で解決できます。
           </p>
@@ -1218,7 +1237,7 @@
       <div class="container">
         <p class="lp-section-num">Section 03</p>
         <p class="lp-eyebrow">Why COOLSPA</p>
-        <h2 class="lp-title">なぜ脂肪冷却が<br>サロンの課題を解決するのか</h2>
+        <h2 class="lp-title" data-i18n-html="lp.why.title">なぜ脂肪冷却が<br>サロンの課題を解決するのか</h2>
         <div class="lp-divider"></div>
 
         <div class="lp-why__layout">
@@ -1229,29 +1248,29 @@
             <div class="lp-why-point">
               <div class="lp-why-point__num">1</div>
               <div>
-                <p class="lp-why-point__title">お客様が「結果」を実感できる</p>
-                <p class="lp-why-point__body">脂肪冷却は、ダイエットや食事制限では難しい「部分的な脂肪へのアプローチ」が可能です。継続利用への動機が自然に生まれます。</p>
+                <p class="lp-why-point__title" data-i18n="lp.why1.title">お客様が「結果」を実感できる</p>
+                <p class="lp-why-point__body" data-i18n="lp.why1.body">脂肪冷却は、ダイエットや食事制限では難しい「部分的な脂肪へのアプローチ」が可能です。継続利用への動機が自然に生まれます。</p>
               </div>
             </div>
             <div class="lp-why-point">
               <div class="lp-why-point__num">2</div>
               <div>
-                <p class="lp-why-point__title">施術中はスタッフ不要・放置型</p>
-                <p class="lp-why-point__body">COOLSPAは装着後、機器が自動で管理します。施術者は別の業務や他のお客様の対応が可能。1人スタッフでも売上を最大化できます。</p>
+                <p class="lp-why-point__title" data-i18n="lp.why2.title">施術中はスタッフ不要・放置型</p>
+                <p class="lp-why-point__body" data-i18n="lp.why2.body">COOLSPAは装着後、機器が自動で管理します。施術者は別の業務や他のお客様の対応が可能。1人スタッフでも売上を最大化できます。</p>
               </div>
             </div>
             <div class="lp-why-point">
               <div class="lp-why-point__num">3</div>
               <div>
-                <p class="lp-why-point__title">回数券で安定収益をつくれる</p>
-                <p class="lp-why-point__body">1回では完結しない施術の性質上、複数回コースへの誘導がしやすく、先払い型の回数券販売による売上先行が可能です。</p>
+                <p class="lp-why-point__title" data-i18n="lp.why3.title">回数券で安定収益をつくれる</p>
+                <p class="lp-why-point__body" data-i18n="lp.why3.body">1回では完結しない施術の性質上、複数回コースへの誘導がしやすく、先払い型の回数券販売による売上先行が可能です。</p>
               </div>
             </div>
             <div class="lp-why-point">
               <div class="lp-why-point__num">4</div>
               <div>
-                <p class="lp-why-point__title">競合との明確な差別化</p>
-                <p class="lp-why-point__body">脂肪冷却メニューはまだ導入店が少なく、「この地域で受けるならここ」というポジションを確立しやすい段階です。</p>
+                <p class="lp-why-point__title" data-i18n="lp.why4.title">競合との明確な差別化</p>
+                <p class="lp-why-point__body" data-i18n="lp.why4.body">脂肪冷却メニューはまだ導入店が少なく、「この地域で受けるならここ」というポジションを確立しやすい段階です。</p>
               </div>
             </div>
           </div>
@@ -1259,8 +1278,8 @@
 
         <div class="lp-quote">
           <p class="lp-quote__text">
-            「COOLSPAを置いてから、ボディ系の問い合わせが増えました。<br>施術中は他のお客様のケアができるので、以前より回転率が上がっています。」<br>
-            <span style="font-size:0.82rem;color:var(--color-text-muted);margin-top:0.5rem;display:block;">— 福岡県内 個人エステサロン オーナー</span>
+            <span data-i18n-html="lp.why.quote">「COOLSPAを置いてから、ボディ系の問い合わせが増えました。<br>施術中は他のお客様のケアができるので、以前より回転率が上がっています。」</span><br>
+            <span style="font-size:0.82rem;color:var(--color-text-muted);margin-top:0.5rem;display:block;" data-i18n="lp.why.quote.author">— 福岡県内 個人エステサロン オーナー</span>
           </p>
         </div>
       </div>
@@ -1274,41 +1293,41 @@
         <div class="lp-center">
           <p class="lp-section-num">Section 04</p>
           <p class="lp-eyebrow">Low Barrier to Entry</p>
-          <h2 class="lp-title">「難しそう」を、全部解決します</h2>
+          <h2 class="lp-title" data-i18n="lp.barrier.title">「難しそう」を、全部解決します</h2>
           <div class="lp-divider"></div>
-          <p class="lp-lead">脂肪冷却の導入に不安を感じるオーナー様のために、BISINは手厚いサポート体制を整えています。</p>
+          <p class="lp-lead" data-i18n="lp.barrier.lead">脂肪冷却の導入に不安を感じるオーナー様のために、BISINは手厚いサポート体制を整えています。</p>
         </div>
 
         <div class="lp-barrier__grid">
           <div class="lp-barrier-card">
             <div class="lp-barrier-card__icon">📦</div>
-            <h3 class="lp-barrier-card__title">専門スペース不要</h3>
-            <p class="lp-barrier-card__body">既存の施術ベッド周りに設置可能。大掛かりな工事や専用ルームは必要ありません。</p>
+            <h3 class="lp-barrier-card__title" data-i18n="lp.barrier1.title">専門スペース不要</h3>
+            <p class="lp-barrier-card__body" data-i18n="lp.barrier1.body">既存の施術ベッド周りに設置可能。大掛かりな工事や専用ルームは必要ありません。</p>
           </div>
           <div class="lp-barrier-card">
             <div class="lp-barrier-card__icon">🎓</div>
-            <h3 class="lp-barrier-card__title">研修・マニュアル完備</h3>
-            <p class="lp-barrier-card__body">導入時に現地研修を実施。初めての方でも安心してスタートできる操作マニュアルをご用意しています。</p>
+            <h3 class="lp-barrier-card__title" data-i18n="lp.barrier2.title">研修・マニュアル完備</h3>
+            <p class="lp-barrier-card__body" data-i18n="lp.barrier2.body">導入時に現地研修を実施。初めての方でも安心してスタートできる操作マニュアルをご用意しています。</p>
           </div>
           <div class="lp-barrier-card">
             <div class="lp-barrier-card__icon">🤝</div>
-            <h3 class="lp-barrier-card__title">導入後も継続サポート</h3>
-            <p class="lp-barrier-card__body">稼働後のご質問は電話・LINEでいつでも受付。メニュー設計のご相談にも対応しています。</p>
+            <h3 class="lp-barrier-card__title" data-i18n="lp.barrier3.title">導入後も継続サポート</h3>
+            <p class="lp-barrier-card__body" data-i18n="lp.barrier3.body">稼働後のご質問は電話・LINEでいつでも受付。メニュー設計のご相談にも対応しています。</p>
           </div>
           <div class="lp-barrier-card">
             <div class="lp-barrier-card__icon">🔧</div>
-            <h3 class="lp-barrier-card__title">1年間メーカー保証</h3>
-            <p class="lp-barrier-card__body">万が一の故障も安心。九州エリアは24時間以内に代替機の手配にも対応しています。</p>
+            <h3 class="lp-barrier-card__title" data-i18n="lp.barrier4.title">1年間メーカー保証</h3>
+            <p class="lp-barrier-card__body" data-i18n="lp.barrier4.body">万が一の故障も安心。九州エリアは24時間以内に代替機の手配にも対応しています。</p>
           </div>
           <div class="lp-barrier-card">
             <div class="lp-barrier-card__icon">💳</div>
-            <h3 class="lp-barrier-card__title">50万円以下で導入可能</h3>
-            <p class="lp-barrier-card__body">高性能な脂肪冷却機器でありながら、リーズナブルな導入価格を実現。初期投資の負担を最小化しています。</p>
+            <h3 class="lp-barrier-card__title" data-i18n="lp.barrier5.title">50万円以下で導入可能</h3>
+            <p class="lp-barrier-card__body" data-i18n="lp.barrier5.body">高性能な脂肪冷却機器でありながら、リーズナブルな導入価格を実現。初期投資の負担を最小化しています。</p>
           </div>
           <div class="lp-barrier-card">
             <div class="lp-barrier-card__icon">📋</div>
-            <h3 class="lp-barrier-card__title">メニュー設計をご支援</h3>
-            <p class="lp-barrier-card__body">価格設定・コース内容・集客施策など、サロン運営に合わせた導入プランをご提案します。</p>
+            <h3 class="lp-barrier-card__title" data-i18n="lp.barrier6.title">メニュー設計をご支援</h3>
+            <p class="lp-barrier-card__body" data-i18n="lp.barrier6.body">価格設定・コース内容・集客施策など、サロン運営に合わせた導入プランをご提案します。</p>
           </div>
         </div>
       </div>
@@ -1321,40 +1340,40 @@
       <div class="container">
         <p class="lp-section-num">Section 05</p>
         <p class="lp-eyebrow">ROI Model</p>
-        <h2 class="lp-title">費用はどのくらいで回収できるか</h2>
+        <h2 class="lp-title" data-i18n="lp.roi.title">費用はどのくらいで回収できるか</h2>
         <div class="lp-divider"></div>
-        <p class="lp-lead">以下はあくまで一例のシミュレーションです。実際の数値はサロンの規模・稼働状況によって異なります。</p>
+        <p class="lp-lead" data-i18n="lp.roi.lead">以下はあくまで一例のシミュレーションです。実際の数値はサロンの規模・稼働状況によって異なります。</p>
 
         <div class="lp-roi__layout">
           <div class="lp-roi__box lp-roi__box--sim">
-            <p class="lp-roi__box-title">シミュレーション例</p>
+            <p class="lp-roi__box-title" data-i18n="lp.roi.sim.title">シミュレーション例</p>
             <div class="lp-roi__row">
-              <span class="lp-roi__row-label">施術1回あたりの設定単価（目安）</span>
-              <span class="lp-roi__row-val">応相談</span>
+              <span class="lp-roi__row-label" data-i18n="lp.roi.row1.label">施術1回あたりの設定単価（目安）</span>
+              <span class="lp-roi__row-val" data-i18n="lp.roi.row1.val">応相談</span>
             </div>
             <div class="lp-roi__row">
-              <span class="lp-roi__row-label">月間稼働回数（例）</span>
-              <span class="lp-roi__row-val">週5回前後</span>
+              <span class="lp-roi__row-label" data-i18n="lp.roi.row2.label">月間稼働回数（例）</span>
+              <span class="lp-roi__row-val" data-i18n="lp.roi.row2.val">週5回前後</span>
             </div>
             <div class="lp-roi__row">
-              <span class="lp-roi__row-label">月次売上（目安）</span>
-              <span class="lp-roi__row-val">サロンにより異なります</span>
+              <span class="lp-roi__row-label" data-i18n="lp.roi.row3.label">月次売上（目安）</span>
+              <span class="lp-roi__row-val" data-i18n="lp.roi.row3.val">サロンにより異なります</span>
             </div>
             <div class="lp-roi__row lp-roi__row--total">
-              <span class="lp-roi__row-label">費用回収の目安</span>
-              <span class="lp-roi__row-val">数ヶ月〜半年程度</span>
+              <span class="lp-roi__row-label" data-i18n="lp.roi.row4.label">費用回収の目安</span>
+              <span class="lp-roi__row-val" data-i18n="lp.roi.row4.val">数ヶ月〜半年程度</span>
             </div>
-            <p class="lp-roi__disclaimer">※本シミュレーションは目安であり、収益を保証するものではありません。詳細はお問い合わせください。</p>
+            <p class="lp-roi__disclaimer" data-i18n="lp.roi.disclaimer">※本シミュレーションは目安であり、収益を保証するものではありません。詳細はお問い合わせください。</p>
           </div>
 
           <div class="lp-roi__box lp-roi__box--note">
-            <p class="lp-roi__box-title">費用回収を早めるポイント</p>
+            <p class="lp-roi__box-title" data-i18n="lp.roi.note.title">費用回収を早めるポイント</p>
             <ul class="lp-roi__note-list">
-              <li>回数券の先行販売で、導入直後から売上を立てることができます。</li>
-              <li>既存のフェイシャル・リラクゼーション客にクロスセルする導線をつくることで稼働率が上がります。</li>
-              <li>放置型なので、施術中の空き時間を他メニューに充てられ、スタッフあたりの売上が向上します。</li>
-              <li>「部分ケア」という訴求は体験単価を高めやすく、初回から高客単価を実現しやすいメニューです。</li>
-              <li>BISINのメニュー設計サポートを活用することで、価格設定ミスを防ぎスムーズな立ち上げが可能です。</li>
+              <li data-i18n="lp.roi.note.li1">回数券の先行販売で、導入直後から売上を立てることができます。</li>
+              <li data-i18n="lp.roi.note.li2">既存のフェイシャル・リラクゼーション客にクロスセルする導線をつくることで稼働率が上がります。</li>
+              <li data-i18n="lp.roi.note.li3">放置型なので、施術中の空き時間を他メニューに充てられ、スタッフあたりの売上が向上します。</li>
+              <li data-i18n="lp.roi.note.li4">「部分ケア」という訴求は体験単価を高めやすく、初回から高客単価を実現しやすいメニューです。</li>
+              <li data-i18n="lp.roi.note.li5">BISINのメニュー設計サポートを活用することで、価格設定ミスを防ぎスムーズな立ち上げが可能です。</li>
             </ul>
           </div>
         </div>
@@ -1369,39 +1388,39 @@
         <div class="lp-center">
           <p class="lp-section-num">Section 06</p>
           <p class="lp-eyebrow">Revenue Model</p>
-          <h2 class="lp-title">回数券モデルで<br>安定した売上をつくる</h2>
+          <h2 class="lp-title" data-i18n-html="lp.revenue.title">回数券モデルで<br>安定した売上をつくる</h2>
           <div class="lp-divider"></div>
-          <p class="lp-lead">脂肪冷却施術は複数回の継続が効果を高めます。この特性を活かした「回数券先売り」モデルが、サロンの売上を安定化させます。</p>
+          <p class="lp-lead" data-i18n="lp.revenue.lead">脂肪冷却施術は複数回の継続が効果を高めます。この特性を活かした「回数券先売り」モデルが、サロンの売上を安定化させます。</p>
         </div>
 
         <div class="lp-revenue__flow" style="margin-top:3rem;flex-wrap:wrap;">
           <div class="lp-revenue-card" style="flex:1;min-width:160px;">
             <p class="lp-revenue-card__step">Step 01</p>
-            <h3 class="lp-revenue-card__title">体験施術で<br>効果を実感</h3>
-            <p class="lp-revenue-card__body">まず1回の体験施術をご案内。お客様自身に変化を感じてもらうことが最初のステップです。</p>
+            <h3 class="lp-revenue-card__title" data-i18n-html="lp.revenue.s1.title">体験施術で<br>効果を実感</h3>
+            <p class="lp-revenue-card__body" data-i18n="lp.revenue.s1.body">まず1回の体験施術をご案内。お客様自身に変化を感じてもらうことが最初のステップです。</p>
           </div>
           <div class="lp-revenue__arrow">→</div>
           <div class="lp-revenue-card" style="flex:1;min-width:160px;">
             <p class="lp-revenue-card__step">Step 02</p>
-            <h3 class="lp-revenue-card__title">回数券コースへ<br>スムーズに誘導</h3>
-            <p class="lp-revenue-card__body">「続けることで結果が出やすい」という特性を説明しながら、複数回コースをご提案します。</p>
+            <h3 class="lp-revenue-card__title" data-i18n-html="lp.revenue.s2.title">回数券コースへ<br>スムーズに誘導</h3>
+            <p class="lp-revenue-card__body" data-i18n="lp.revenue.s2.body">「続けることで結果が出やすい」という特性を説明しながら、複数回コースをご提案します。</p>
           </div>
           <div class="lp-revenue__arrow">→</div>
           <div class="lp-revenue-card" style="flex:1;min-width:160px;">
             <p class="lp-revenue-card__step">Step 03</p>
-            <h3 class="lp-revenue-card__title">先払い売上で<br>キャッシュが安定</h3>
-            <p class="lp-revenue-card__body">回数券の前払いにより、施術前に売上を確保。月次の収支予測が立てやすくなります。</p>
+            <h3 class="lp-revenue-card__title" data-i18n-html="lp.revenue.s3.title">先払い売上で<br>キャッシュが安定</h3>
+            <p class="lp-revenue-card__body" data-i18n="lp.revenue.s3.body">回数券の前払いにより、施術前に売上を確保。月次の収支予測が立てやすくなります。</p>
           </div>
           <div class="lp-revenue__arrow">→</div>
           <div class="lp-revenue-card" style="flex:1;min-width:160px;">
             <p class="lp-revenue-card__step">Step 04</p>
-            <h3 class="lp-revenue-card__title">結果が出て<br>紹介・口コミへ</h3>
-            <p class="lp-revenue-card__body">継続により変化を実感したお客様が、自然と周囲に紹介してくれる好循環が生まれます。</p>
+            <h3 class="lp-revenue-card__title" data-i18n-html="lp.revenue.s4.title">結果が出て<br>紹介・口コミへ</h3>
+            <p class="lp-revenue-card__body" data-i18n="lp.revenue.s4.body">継続により変化を実感したお客様が、自然と周囲に紹介してくれる好循環が生まれます。</p>
           </div>
         </div>
 
         <div class="lp-quote" style="margin-top:3rem;">
-          <p class="lp-quote__text">
+          <p class="lp-quote__text" data-i18n="lp.revenue.quote">
             回数券はサロンにとって「先払い売上」です。月末になって売上が足りなかった、という状況を防ぐことができ、安定した経営の土台づくりにつながります。
           </p>
         </div>
@@ -1416,40 +1435,40 @@
         <div class="lp-center">
           <p class="lp-section-num">Section 07</p>
           <p class="lp-eyebrow">Benefits</p>
-          <h2 class="lp-title">COOLSPA を選ぶ理由</h2>
+          <h2 class="lp-title" data-i18n="lp.merits.title">COOLSPA を選ぶ理由</h2>
           <div class="lp-divider"></div>
         </div>
 
         <div class="lp-merits__grid">
           <div class="lp-merit-card">
             <p class="lp-merit-card__num">Merit 01</p>
-            <h3 class="lp-merit-card__title">360°ケアで<br>高い満足度を実現</h3>
-            <p class="lp-merit-card__body">COOLSPAは複数のカップを同時使用可能。腹部・太もも・二の腕など複数部位を効率よくケアできるため、お客様満足度が高まります。</p>
+            <h3 class="lp-merit-card__title" data-i18n-html="lp.merit1.title">360°ケアで<br>高い満足度を実現</h3>
+            <p class="lp-merit-card__body" data-i18n="lp.merit1.body">COOLSPAは複数のカップを同時使用可能。腹部・太もも・二の腕など複数部位を効率よくケアできるため、お客様満足度が高まります。</p>
           </div>
           <div class="lp-merit-card">
             <p class="lp-merit-card__num">Merit 02</p>
-            <h3 class="lp-merit-card__title">操作が簡単で<br>スタッフの負担ゼロ</h3>
-            <p class="lp-merit-card__body">タッチパネルによる直感的な操作設計。複雑な技術習得は不要で、短期間の研修後すぐに稼働できます。</p>
+            <h3 class="lp-merit-card__title" data-i18n-html="lp.merit2.title">操作が簡単で<br>スタッフの負担ゼロ</h3>
+            <p class="lp-merit-card__body" data-i18n="lp.merit2.body">タッチパネルによる直感的な操作設計。複雑な技術習得は不要で、短期間の研修後すぐに稼働できます。</p>
           </div>
           <div class="lp-merit-card">
             <p class="lp-merit-card__num">Merit 03</p>
-            <h3 class="lp-merit-card__title">安全設計で<br>安心して提供できる</h3>
-            <p class="lp-merit-card__body">温度センサーと自動制御システムにより、過度な冷却を防ぐ安全機構を搭載。お客様・スタッフ双方に安心です。</p>
+            <h3 class="lp-merit-card__title" data-i18n-html="lp.merit3.title">安全設計で<br>安心して提供できる</h3>
+            <p class="lp-merit-card__body" data-i18n="lp.merit3.body">温度センサーと自動制御システムにより、過度な冷却を防ぐ安全機構を搭載。お客様・スタッフ双方に安心です。</p>
           </div>
           <div class="lp-merit-card">
             <p class="lp-merit-card__num">Merit 04</p>
-            <h3 class="lp-merit-card__title">ダウンタイムなし<br>日常に溶け込む施術</h3>
-            <p class="lp-merit-card__body">施術後すぐに日常生活に戻れるため、忙しい方にも受け入れられやすく、幅広いお客様層への訴求が可能です。</p>
+            <h3 class="lp-merit-card__title" data-i18n-html="lp.merit4.title">ダウンタイムなし<br>日常に溶け込む施術</h3>
+            <p class="lp-merit-card__body" data-i18n="lp.merit4.body">施術後すぐに日常生活に戻れるため、忙しい方にも受け入れられやすく、幅広いお客様層への訴求が可能です。</p>
           </div>
           <div class="lp-merit-card">
             <p class="lp-merit-card__num">Merit 05</p>
-            <h3 class="lp-merit-card__title">他メニューとの<br>相乗効果が高い</h3>
-            <p class="lp-merit-card__body">フェイシャルや痩身ハンドトリートメントと組み合わせることで、コース単価を大幅に引き上げることができます。</p>
+            <h3 class="lp-merit-card__title" data-i18n-html="lp.merit5.title">他メニューとの<br>相乗効果が高い</h3>
+            <p class="lp-merit-card__body" data-i18n="lp.merit5.body">フェイシャルや痩身ハンドトリートメントと組み合わせることで、コース単価を大幅に引き上げることができます。</p>
           </div>
           <div class="lp-merit-card">
             <p class="lp-merit-card__num">Merit 06</p>
-            <h3 class="lp-merit-card__title">BISINの<br>一貫サポート体制</h3>
-            <p class="lp-merit-card__body">導入前のコンサルから、設置・研修・メニュー設計・アフターサポートまで。合同会社BISINが一気通貫でお手伝いします。</p>
+            <h3 class="lp-merit-card__title" data-i18n-html="lp.merit6.title">BISINの<br>一貫サポート体制</h3>
+            <p class="lp-merit-card__body" data-i18n="lp.merit6.body">導入前のコンサルから、設置・研修・メニュー設計・アフターサポートまで。合同会社BISINが一気通貫でお手伝いします。</p>
           </div>
         </div>
       </div>
@@ -1462,40 +1481,40 @@
       <div class="container">
         <div class="lp-center">
           <p class="lp-eyebrow">Voice of Owners</p>
-          <h2 class="lp-title">導入されたオーナー様の声</h2>
+          <h2 class="lp-title" data-i18n="lp.testi.title">導入されたオーナー様の声</h2>
           <div class="lp-divider"></div>
         </div>
         <div class="lp-testimonials__grid">
           <div class="lp-testi-card">
             <div class="lp-testi-card__stars">★★★★★</div>
-            <p class="lp-testi-card__text">「フェイシャル専門だった私のサロンに初めてボディメニューを追加しました。放置型なので、施術中に他のお客様の対応ができて、スタッフ一人でも回せています。回数券の先売りで、月末の資金繰りの不安がなくなりました。」</p>
+            <p class="lp-testi-card__text" data-i18n="lp.testi1.text">「フェイシャル専門だった私のサロンに初めてボディメニューを追加しました。放置型なので、施術中に他のお客様の対応ができて、スタッフ一人でも回せています。回数券の先売りで、月末の資金繰りの不安がなくなりました。」</p>
             <div class="lp-testi-card__author">
               <div class="lp-testi-card__avatar">👩</div>
               <div>
                 <p class="lp-testi-card__name">T.M. 様</p>
-                <p class="lp-testi-card__role">福岡県 / 個人エステサロン オーナー</p>
+                <p class="lp-testi-card__role" data-i18n="lp.testi1.role">福岡県 / 個人エステサロン オーナー</p>
               </div>
             </div>
           </div>
           <div class="lp-testi-card">
             <div class="lp-testi-card__stars">★★★★★</div>
-            <p class="lp-testi-card__text">「導入前は機械操作に自信がなくて不安でしたが、BISINさんの研修がとても丁寧で、すぐに自信を持って使えるようになりました。地域で脂肪冷却を提供できる数少ないサロンになれたことで、新規のお問い合わせが増えています。」</p>
+            <p class="lp-testi-card__text" data-i18n="lp.testi2.text">「導入前は機械操作に自信がなくて不安でしたが、BISINさんの研修がとても丁寧で、すぐに自信を持って使えるようになりました。地域で脂肪冷却を提供できる数少ないサロンになれたことで、新規のお問い合わせが増えています。」</p>
             <div class="lp-testi-card__author">
               <div class="lp-testi-card__avatar">👩</div>
               <div>
                 <p class="lp-testi-card__name">K.Y. 様</p>
-                <p class="lp-testi-card__role">熊本県 / 痩身エステサロン オーナー</p>
+                <p class="lp-testi-card__role" data-i18n="lp.testi2.role">熊本県 / 痩身エステサロン オーナー</p>
               </div>
             </div>
           </div>
           <div class="lp-testi-card">
             <div class="lp-testi-card__stars">★★★★★</div>
-            <p class="lp-testi-card__text">「美容室を経営していますが、ボディケアの需要があることは感じていました。COOLSPAは待ち時間に受けていただける手軽さが好評で、リピーターのお客様が増えました。アフターサポートも心強く、安心して継続できています。」</p>
+            <p class="lp-testi-card__text" data-i18n="lp.testi3.text">「美容室を経営していますが、ボディケアの需要があることは感じていました。COOLSPAは待ち時間に受けていただける手軽さが好評で、リピーターのお客様が増えました。アフターサポートも心強く、安心して継続できています。」</p>
             <div class="lp-testi-card__author">
               <div class="lp-testi-card__avatar">👨</div>
               <div>
                 <p class="lp-testi-card__name">S.H. 様</p>
-                <p class="lp-testi-card__role">大分県 / 美容室 オーナー</p>
+                <p class="lp-testi-card__role" data-i18n="lp.testi3.role">大分県 / 美容室 オーナー</p>
               </div>
             </div>
           </div>
@@ -1511,46 +1530,46 @@
         <div class="lp-center">
           <p class="lp-section-num">Section 08</p>
           <p class="lp-eyebrow">Recommended For</p>
-          <h2 class="lp-title">こんなサロンに<br>特におすすめです</h2>
+          <h2 class="lp-title" data-i18n-html="lp.target.title">こんなサロンに<br>特におすすめです</h2>
           <div class="lp-divider"></div>
         </div>
 
         <div class="lp-target__list">
           <div class="lp-target-item">
             <div class="lp-target-item__check">✓</div>
-            <p class="lp-target-item__text">フェイシャル・リラクゼーション中心で、ボディメニューの追加を検討しているサロン</p>
+            <p class="lp-target-item__text" data-i18n="lp.target1">フェイシャル・リラクゼーション中心で、ボディメニューの追加を検討しているサロン</p>
           </div>
           <div class="lp-target-item">
             <div class="lp-target-item__check">✓</div>
-            <p class="lp-target-item__text">1〜3名の少人数スタッフで運営しており、稼働効率を上げたいサロン</p>
+            <p class="lp-target-item__text" data-i18n="lp.target2">1〜3名の少人数スタッフで運営しており、稼働効率を上げたいサロン</p>
           </div>
           <div class="lp-target-item">
             <div class="lp-target-item__check">✓</div>
-            <p class="lp-target-item__text">客単価を上げたい、または高付加価値メニューを探しているオーナー様</p>
+            <p class="lp-target-item__text" data-i18n="lp.target3">客単価を上げたい、または高付加価値メニューを探しているオーナー様</p>
           </div>
           <div class="lp-target-item">
             <div class="lp-target-item__check">✓</div>
-            <p class="lp-target-item__text">既存のお客様にボディケアをクロスセルして、リピート率を上げたいサロン</p>
+            <p class="lp-target-item__text" data-i18n="lp.target4">既存のお客様にボディケアをクロスセルして、リピート率を上げたいサロン</p>
           </div>
           <div class="lp-target-item">
             <div class="lp-target-item__check">✓</div>
-            <p class="lp-target-item__text">周辺に痩身専門サロンがなく、地域でのポジショニングを確立したい方</p>
+            <p class="lp-target-item__text" data-i18n="lp.target5">周辺に痩身専門サロンがなく、地域でのポジショニングを確立したい方</p>
           </div>
           <div class="lp-target-item">
             <div class="lp-target-item__check">✓</div>
-            <p class="lp-target-item__text">機器導入が初めてで、丁寧なサポートを求めているサロン・個人事業主の方</p>
+            <p class="lp-target-item__text" data-i18n="lp.target6">機器導入が初めてで、丁寧なサポートを求めているサロン・個人事業主の方</p>
           </div>
           <div class="lp-target-item">
             <div class="lp-target-item__check">✓</div>
-            <p class="lp-target-item__text">50万円以下の初期投資で、新しい収益の柱をつくりたいオーナー様</p>
+            <p class="lp-target-item__text" data-i18n="lp.target7">50万円以下の初期投資で、新しい収益の柱をつくりたいオーナー様</p>
           </div>
           <div class="lp-target-item">
             <div class="lp-target-item__check">✓</div>
-            <p class="lp-target-item__text">エステサロン・痩身サロン・ネイルサロン・美容室など、ボディケアを追加したいあらゆる業種</p>
+            <p class="lp-target-item__text" data-i18n="lp.target8">エステサロン・痩身サロン・ネイルサロン・美容室など、ボディケアを追加したいあらゆる業種</p>
           </div>
         </div>
 
-        <p class="lp-target__note" style="margin-top:3rem;">
+        <p class="lp-target__note" style="margin-top:3rem;" data-i18n-html="lp.target.note">
           上記に当てはまるサロン様は、ぜひ一度<em>無料デモ</em>にお越しください。<br>
           実機を体験していただきながら、貴サロンに合った導入プランをご提案します。
         </p>
@@ -1564,62 +1583,62 @@
       <div class="container">
         <div class="lp-center">
           <p class="lp-eyebrow">FAQ</p>
-          <h2 class="lp-title">よくあるご質問</h2>
+          <h2 class="lp-title" data-i18n="lp.faq.title">よくあるご質問</h2>
           <div class="lp-divider"></div>
         </div>
         <div class="lp-faq__list">
           <div class="lp-faq-item">
             <button class="lp-faq-item__q">
-              <span class="lp-faq-item__q-text">Q. 導入に必要なスペースはどのくらいですか？</span>
+              <span class="lp-faq-item__q-text" data-i18n="lp.faq1.q">Q. 導入に必要なスペースはどのくらいですか？</span>
               <span class="lp-faq-item__q-icon">+</span>
             </button>
             <div class="lp-faq-item__a">
-              <p class="lp-faq-item__a-text">既存の施術ベッド周りに設置できるコンパクト設計です。大掛かりな工事や専用ルームの準備は必要ありません。詳細なサイズはお問い合わせ時にご案内します。</p>
+              <p class="lp-faq-item__a-text" data-i18n="lp.faq1.a">既存の施術ベッド周りに設置できるコンパクト設計です。大掛かりな工事や専用ルームの準備は必要ありません。詳細なサイズはお問い合わせ時にご案内します。</p>
             </div>
           </div>
           <div class="lp-faq-item">
             <button class="lp-faq-item__q">
-              <span class="lp-faq-item__q-text">Q. スタッフに特別な資格は必要ですか？</span>
+              <span class="lp-faq-item__q-text" data-i18n="lp.faq2.q">Q. スタッフに特別な資格は必要ですか？</span>
               <span class="lp-faq-item__q-icon">+</span>
             </button>
             <div class="lp-faq-item__a">
-              <p class="lp-faq-item__a-text">特別な国家資格は不要です。導入時にBISINが現地で操作研修を行い、マニュアルも完備しています。未経験のスタッフでも短期間で習得できるよう設計されています。</p>
+              <p class="lp-faq-item__a-text" data-i18n="lp.faq2.a">特別な国家資格は不要です。導入時にBISINが現地で操作研修を行い、マニュアルも完備しています。未経験のスタッフでも短期間で習得できるよう設計されています。</p>
             </div>
           </div>
           <div class="lp-faq-item">
             <button class="lp-faq-item__q">
-              <span class="lp-faq-item__q-text">Q. 故障した場合はどうなりますか？</span>
+              <span class="lp-faq-item__q-text" data-i18n="lp.faq3.q">Q. 故障した場合はどうなりますか？</span>
               <span class="lp-faq-item__q-icon">+</span>
             </button>
             <div class="lp-faq-item__a">
-              <p class="lp-faq-item__a-text">導入後1年間はメーカー保証が付いています。九州エリアでは万が一の故障の際に24時間以内の代替機手配にも対応しています。遠方のサロン様も電話・LINEで迅速にサポートします。</p>
+              <p class="lp-faq-item__a-text" data-i18n="lp.faq3.a">導入後1年間はメーカー保証が付いています。九州エリアでは万が一の故障の際に24時間以内の代替機手配にも対応しています。遠方のサロン様も電話・LINEで迅速にサポートします。</p>
             </div>
           </div>
           <div class="lp-faq-item">
             <button class="lp-faq-item__q">
-              <span class="lp-faq-item__q-text">Q. 無料デモ体験はどこで受けられますか？</span>
+              <span class="lp-faq-item__q-text" data-i18n="lp.faq4.q">Q. 無料デモ体験はどこで受けられますか？</span>
               <span class="lp-faq-item__q-icon">+</span>
             </button>
             <div class="lp-faq-item__a">
-              <p class="lp-faq-item__a-text">小郡店・天神店のいずれかでお受けいただけます。また、条件によっては出張デモにも対応可能です。まずはお気軽にお問い合わせください。遠方のオーナー様もご相談ください。</p>
+              <p class="lp-faq-item__a-text" data-i18n="lp.faq4.a">小郡店・天神店のいずれかでお受けいただけます。また、条件によっては出張デモにも対応可能です。まずはお気軽にお問い合わせください。遠方のオーナー様もご相談ください。</p>
             </div>
           </div>
           <div class="lp-faq-item">
             <button class="lp-faq-item__q">
-              <span class="lp-faq-item__q-text">Q. 導入後のメニュー設計はサポートしてもらえますか？</span>
+              <span class="lp-faq-item__q-text" data-i18n="lp.faq5.q">Q. 導入後のメニュー設計はサポートしてもらえますか？</span>
               <span class="lp-faq-item__q-icon">+</span>
             </button>
             <div class="lp-faq-item__a">
-              <p class="lp-faq-item__a-text">はい、対応しています。価格設定・回数券コースの設計・集客アドバイスなど、貴サロンの規模や客層に合わせたメニュープランをご提案します。導入後も継続的にご相談いただけます。</p>
+              <p class="lp-faq-item__a-text" data-i18n="lp.faq5.a">はい、対応しています。価格設定・回数券コースの設計・集客アドバイスなど、貴サロンの規模や客層に合わせたメニュープランをご提案します。導入後も継続的にご相談いただけます。</p>
             </div>
           </div>
           <div class="lp-faq-item">
             <button class="lp-faq-item__q">
-              <span class="lp-faq-item__q-text">Q. デモを見た後、すぐに購入を決めなければなりませんか？</span>
+              <span class="lp-faq-item__q-text" data-i18n="lp.faq6.q">Q. デモを見た後、すぐに購入を決めなければなりませんか？</span>
               <span class="lp-faq-item__q-icon">+</span>
             </button>
             <div class="lp-faq-item__a">
-              <p class="lp-faq-item__a-text">いいえ、全く問題ありません。無理な勧誘は一切行っておりません。デモ後にご自身のペースでご検討いただけます。ご不明な点はいつでもご連絡ください。</p>
+              <p class="lp-faq-item__a-text" data-i18n="lp.faq6.a">いいえ、全く問題ありません。無理な勧誘は一切行っておりません。デモ後にご自身のペースでご検討いただけます。ご不明な点はいつでもご連絡ください。</p>
             </div>
           </div>
         </div>
@@ -1633,7 +1652,7 @@
       <div class="container">
         <p class="lp-section-num">Section 09</p>
         <p class="lp-eyebrow">Free Demo</p>
-        <h2 class="lp-title">まず、体験してみてください</h2>
+        <h2 class="lp-title" data-i18n="lp.demo.title">まず、体験してみてください</h2>
         <div class="lp-divider"></div>
 
         <div class="lp-demo__layout">
@@ -1641,7 +1660,7 @@
             <img src="assets/machine.jpg" alt="COOLSPA 脂肪冷却マシン" />
           </div>
           <div class="lp-demo__content">
-            <p style="font-size:1rem;color:var(--color-text-muted);line-height:1.85;">
+            <p style="font-size:1rem;color:var(--color-text-muted);line-height:1.85;" data-i18n-html="lp.demo.intro">
               「本当に効果があるの？」「自分のサロンに合うか分からない」<br>
               そんな疑問は、<strong style="color:#fff;">実際に体験することが一番の近道</strong>です。
             </p>
@@ -1650,41 +1669,41 @@
               <div class="lp-demo-step">
                 <div class="lp-demo-step__num">1</div>
                 <div>
-                  <p class="lp-demo-step__title">お問い合わせ・日程調整</p>
-                  <p class="lp-demo-step__body">フォームまたはLINE・お電話でご連絡ください。担当者が丁寧にご案内します。</p>
+                  <p class="lp-demo-step__title" data-i18n="lp.demo.step1.title">お問い合わせ・日程調整</p>
+                  <p class="lp-demo-step__body" data-i18n="lp.demo.step1.body">フォームまたはLINE・お電話でご連絡ください。担当者が丁寧にご案内します。</p>
                 </div>
               </div>
               <div class="lp-demo-step">
                 <div class="lp-demo-step__num">2</div>
                 <div>
-                  <p class="lp-demo-step__title">無料デモ体験（約60〜90分）</p>
-                  <p class="lp-demo-step__body">実際のマシンを使った施術体験と、操作説明・Q&amp;Aを実施します。疑問は何でもお聞きください。</p>
+                  <p class="lp-demo-step__title" data-i18n="lp.demo.step2.title">無料デモ体験（約60〜90分）</p>
+                  <p class="lp-demo-step__body" data-i18n="lp.demo.step2.body">実際のマシンを使った施術体験と、操作説明・Q&amp;Aを実施します。疑問は何でもお聞きください。</p>
                 </div>
               </div>
               <div class="lp-demo-step">
                 <div class="lp-demo-step__num">3</div>
                 <div>
-                  <p class="lp-demo-step__title">導入プランのご提案</p>
-                  <p class="lp-demo-step__body">デモ後、貴サロンの規模・客層・目標に合わせた導入プランとサポート内容をご提案します。無理な勧誘は一切ありません。</p>
+                  <p class="lp-demo-step__title" data-i18n="lp.demo.step3.title">導入プランのご提案</p>
+                  <p class="lp-demo-step__body" data-i18n="lp.demo.step3.body">デモ後、貴サロンの規模・客層・目標に合わせた導入プランとサポート内容をご提案します。無理な勧誘は一切ありません。</p>
                 </div>
               </div>
               <div class="lp-demo-step">
                 <div class="lp-demo-step__num">4</div>
                 <div>
-                  <p class="lp-demo-step__title">ご検討・導入スタート</p>
-                  <p class="lp-demo-step__body">ご納得いただけた場合のみ、お申し込みへ進みます。検討期間も柔軟にご対応しています。</p>
+                  <p class="lp-demo-step__title" data-i18n="lp.demo.step4.title">ご検討・導入スタート</p>
+                  <p class="lp-demo-step__body" data-i18n="lp.demo.step4.body">ご納得いただけた場合のみ、お申し込みへ進みます。検討期間も柔軟にご対応しています。</p>
                 </div>
               </div>
             </div>
 
             <div style="display:flex;flex-wrap:wrap;gap:0.6rem;margin-top:0.5rem;">
-              <span class="lp-pill">完全無料</span>
-              <span class="lp-pill">勧誘なし</span>
-              <span class="lp-pill">全国対応</span>
-              <span class="lp-pill">出張デモも相談可</span>
+              <span class="lp-pill" data-i18n="lp.demo.pill1">完全無料</span>
+              <span class="lp-pill" data-i18n="lp.demo.pill2">勧誘なし</span>
+              <span class="lp-pill" data-i18n="lp.demo.pill3">全国対応</span>
+              <span class="lp-pill" data-i18n="lp.demo.pill4">出張デモも相談可</span>
             </div>
 
-            <a href="contact.html" class="btn btn--primary btn--large" style="align-self:flex-start;">無料デモを予約する →</a>
+            <a href="contact.html" class="btn btn--primary btn--large" style="align-self:flex-start;" data-i18n="lp.demo.btn">無料デモを予約する →</a>
           </div>
         </div>
       </div>
@@ -1696,23 +1715,23 @@
     <section class="lp-cta" id="section-cta">
       <div class="container lp-cta__inner">
         <p class="lp-eyebrow" style="text-align:center;margin-bottom:1.2rem;">Contact</p>
-        <h2 class="lp-cta__title">
+        <h2 class="lp-cta__title" data-i18n-html="lp.cta.title">
           サロンに新しい柱を。<br>
           <em>まずは無料でご相談ください。</em>
         </h2>
-        <p class="lp-cta__desc">
+        <p class="lp-cta__desc" data-i18n-html="lp.cta.desc">
           初期費用・メニュー設計・集客など、どんなご質問でも構いません。<br>
           専任担当者が丁寧にお答えします。完全無料・無理な勧誘は一切ありません。
         </p>
         <div class="lp-cta__btns">
-          <a href="contact.html" class="btn btn--primary btn--xl">お問い合わせ・無料デモ予約</a>
-          <a href="tel:0942806688" class="btn btn--outline btn--large">お電話で相談する</a>
+          <a href="contact.html" class="btn btn--primary btn--xl" data-i18n="lp.cta.btn.contact">お問い合わせ・無料デモ予約</a>
+          <a href="tel:0942806688" class="btn btn--outline btn--large" data-i18n="lp.cta.btn.tel">お電話で相談する</a>
         </div>
         <div class="lp-cta__reassure">
-          <span class="lp-reassure-item">完全無料・無理な勧誘なし</span>
-          <span class="lp-reassure-item">全国対応</span>
-          <span class="lp-reassure-item">導入後もサポート継続</span>
-          <span class="lp-reassure-item">1年間メーカー保証付き</span>
+          <span class="lp-reassure-item" data-i18n="lp.cta.reassure1">完全無料・無理な勧誘なし</span>
+          <span class="lp-reassure-item" data-i18n="lp.cta.reassure2">全国対応</span>
+          <span class="lp-reassure-item" data-i18n="lp.cta.reassure3">導入後もサポート継続</span>
+          <span class="lp-reassure-item" data-i18n="lp.cta.reassure4">1年間メーカー保証付き</span>
         </div>
 
         <div style="margin-top:4rem;padding-top:3rem;border-top:1px solid rgba(75,179,255,0.15);">
@@ -1764,18 +1783,18 @@
         </div>
         <nav class="footer__nav" aria-label="フッターナビゲーション">
           <ul>
-            <li><a href="about.html">会社について</a></li>
-            <li><a href="product.html">製品 COOLSPA</a></li>
-            <li><a href="service.html">導入支援サービス</a></li>
-            <li><a href="contact.html">お問い合わせ</a></li>
+            <li><a href="about.html" data-i18n="lp.footer.about">会社について</a></li>
+            <li><a href="product.html" data-i18n="lp.footer.product">製品 COOLSPA</a></li>
+            <li><a href="service.html" data-i18n="lp.footer.service">導入支援サービス</a></li>
+            <li><a href="contact.html" data-i18n="lp.footer.contact">お問い合わせ</a></li>
           </ul>
         </nav>
       </div>
       <div class="footer__bottom">
         <p class="footer__copy">&copy; 2025 合同会社BISIN. All Rights Reserved.</p>
         <ul class="footer__legal">
-          <li><a href="#">プライバシーポリシー</a></li>
-          <li><a href="#">特定商取引法に基づく表記</a></li>
+          <li><a href="#" data-i18n="lp.footer.privacy">プライバシーポリシー</a></li>
+          <li><a href="#" data-i18n="lp.footer.legal">特定商取引法に基づく表記</a></li>
         </ul>
       </div>
     </div>
@@ -1783,13 +1802,13 @@
 
   <!-- STICKY CTA BAR -->
   <div class="lp-sticky-cta" id="stickyCta" aria-label="お問い合わせ案内">
-    <span class="lp-sticky-cta__text"><strong>COOLSPA</strong> 無料デモ受付中 — 勧誘なし・完全無料</span>
-    <a href="contact.html" class="btn btn--primary" style="padding:0.65rem 1.8rem;font-size:0.9rem;white-space:nowrap;">無料デモを予約する →</a>
+    <span class="lp-sticky-cta__text" data-i18n-html="lp.sticky.text"><strong>COOLSPA</strong> 無料デモ受付中 — 勧誘なし・完全無料</span>
+    <a href="contact.html" class="btn btn--primary" style="padding:0.65rem 1.8rem;font-size:0.9rem;white-space:nowrap;" data-i18n="lp.sticky.btn">無料デモを予約する →</a>
     <button class="lp-sticky-cta__close" id="stickyCtaClose" aria-label="閉じる">✕</button>
   </div>
 
 
-  <script src="js/i18n.js?v=4"></script>
+  <script src="js/i18n.js?v=5"></script>
   <script src="js/main.js?v=6"></script>
   <script src="js/particles.js?v=5"></script>
   <script>
