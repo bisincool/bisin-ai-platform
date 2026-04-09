@@ -87,18 +87,76 @@
                 </div>
                 <div class="contact-info__item">
                   <dt data-i18n="contact.info.hours.label">営業時間</dt>
-                  <dd data-i18n-html="contact.info.hours.val">平日 10:00 〜 20:00<br />（土日祝休）</dd>
+                  <dd data-i18n-html="contact.info.hours.val">月曜から土曜 10:00 〜 20:00<br />（日祝休）</dd>
                 </div>
               </dl>
             </address>
             <div class="contact-info__note">
-              <h3 data-i18n="contact.info.faq.title">よくあるご相談</h3>
-              <ul>
-                <li data-i18n="contact.info.faq.q1">機器導入の初期費用はどのくらいですか？</li>
-                <li data-i18n="contact.info.faq.q2">小規模サロンでも導入できますか？</li>
-                <li data-i18n="contact.info.faq.q3">デモ体験はどこで受けられますか？</li>
-                <li data-i18n="contact.info.faq.q4">導入後のサポート体制を教えてください。</li>
-              </ul>
+              <h3 data-i18n="contact.info.faq.title">よくあるご相談（FAQ）</h3>
+              <dl class="faq-accordion">
+
+                <div class="faq-accordion__item">
+                  <dt>
+                    <button class="faq-accordion__btn" type="button" aria-expanded="false">
+                      <span data-i18n="contact.info.faq.q1">機器導入の初期費用はどのくらいですか？</span>
+                      <svg class="faq-accordion__chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M4 6l4 4 4-4"/></svg>
+                    </button>
+                  </dt>
+                  <dd class="faq-accordion__body" hidden data-i18n-html="contact.info.faq.a1">
+                    <p>COOLSPA脂肪冷却マシンは、<mark class="faq-hl">50万円以下</mark>の初期費用で導入可能です。高額な美容機器と比べて導入ハードルが低く、個人サロンでも導入しやすい価格設定となっています。</p>
+                    <p>また、回数券販売などの仕組みを活用することで、<mark class="faq-hl">数ヶ月〜半年程度で費用回収</mark>を目指すことも可能です。サロンの規模や客層に合わせた導入プランもご提案していますので、まずはお気軽にご相談ください。</p>
+                  </dd>
+                </div>
+
+                <div class="faq-accordion__item">
+                  <dt>
+                    <button class="faq-accordion__btn" type="button" aria-expanded="false">
+                      <span data-i18n="contact.info.faq.q2">小規模サロンでも導入できますか？</span>
+                      <svg class="faq-accordion__chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M4 6l4 4 4-4"/></svg>
+                    </button>
+                  </dt>
+                  <dd class="faq-accordion__body" hidden data-i18n-html="contact.info.faq.a2">
+                    <p>はい、<mark class="faq-hl">1人〜少人数で運営されているサロン</mark>でも導入可能です。</p>
+                    <p>COOLSPAは装着後に自動で施術を行う<mark class="faq-hl">「放置型マシン」</mark>のため、施術中はスタッフが付きっきりになる必要がありません。そのため、1人サロンでも他のお客様対応と同時に運用できるのが特徴です。</p>
+                    <p>また、既存の施術ベッド周りに設置できるため、<mark class="faq-hl">特別なスペースや大掛かりな工事も不要</mark>です。</p>
+                  </dd>
+                </div>
+
+                <div class="faq-accordion__item">
+                  <dt>
+                    <button class="faq-accordion__btn" type="button" aria-expanded="false">
+                      <span data-i18n="contact.info.faq.q3">デモ体験はどこで受けられますか？</span>
+                      <svg class="faq-accordion__chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M4 6l4 4 4-4"/></svg>
+                    </button>
+                  </dt>
+                  <dd class="faq-accordion__body" hidden data-i18n-html="contact.info.faq.a3">
+                    <p><mark class="faq-hl">無料</mark>デモ体験は、<mark class="faq-hl">小郡店または天神店</mark>で受けていただけます。</p>
+                    <p>実際の機器を使った施術体験に加え、マシン操作説明・メニュー作りのポイント・サロン導入シミュレーションなどを<mark class="faq-hl">約60〜90分</mark>でご案内します。</p>
+                    <p>遠方のサロン様には、条件により<mark class="faq-hl">出張デモ</mark>も対応可能です。</p>
+                  </dd>
+                </div>
+
+                <div class="faq-accordion__item">
+                  <dt>
+                    <button class="faq-accordion__btn" type="button" aria-expanded="false">
+                      <span data-i18n="contact.info.faq.q4">導入後のサポート体制を教えてください。</span>
+                      <svg class="faq-accordion__chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M4 6l4 4 4-4"/></svg>
+                    </button>
+                  </dt>
+                  <dd class="faq-accordion__body" hidden data-i18n-html="contact.info.faq.a4">
+                    <p>BISINでは、導入後も安心して運用できるように継続的なサポート体制を整えています。</p>
+                    <ul>
+                      <li>導入時の操作研修・マニュアル提供</li>
+                      <li>メニュー設計や価格設定のアドバイス</li>
+                      <li><mark class="faq-hl">電話・LINEによる随時サポート</mark></li>
+                      <li><mark class="faq-hl">1年間メーカー保証付き</mark></li>
+                      <li><mark class="faq-hl">エリアにより迅速な代替機対応可能</mark></li>
+                    </ul>
+                    <p>機器導入だけでなく、売上を作るメニュー設計や運用相談までサポートしています。</p>
+                  </dd>
+                </div>
+
+              </dl>
             </div>
           </aside>
 
@@ -168,6 +226,16 @@
   <script src="js/i18n.js?v=4"></script>
   <script src="js/main.js?v=6"></script>
   <script src="js/particles.js?v=5"></script>
+  <script>
+    document.querySelectorAll('.faq-accordion__btn').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var isOpen = this.getAttribute('aria-expanded') === 'true';
+        var body = this.closest('.faq-accordion__item').querySelector('.faq-accordion__body');
+        this.setAttribute('aria-expanded', isOpen ? 'false' : 'true');
+        body.hidden = isOpen;
+      });
+    });
+  </script>
 
 </body>
 </html>
