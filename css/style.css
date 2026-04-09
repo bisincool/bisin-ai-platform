@@ -1893,7 +1893,7 @@ section {
 .faq-accordion__btn {
   width: 100%;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
   gap: 0.3rem;
   background: none;
@@ -1907,15 +1907,18 @@ section {
   line-height: 1.5;
 }
 
-.faq-accordion__btn::before {
-  content: 'Q.';
+.faq-accordion__btn [data-i18n] {
+  flex: 1;
+}
+
+.faq-q-label {
   flex-shrink: 0;
   color: var(--color-primary);
-  font-size: 0.65rem;
   font-family: var(--font-en);
-  font-weight: 600;
-  align-self: flex-start;
+  font-size: 0.65rem;
+  font-weight: 700;
   margin-top: 0.15rem;
+  line-height: 1;
 }
 
 .faq-accordion__chevron {
@@ -1925,6 +1928,7 @@ section {
   color: var(--color-primary);
   transition: transform 0.25s ease;
   opacity: 0.7;
+  margin-top: 0.2rem;
 }
 
 .faq-accordion__btn[aria-expanded="true"] .faq-accordion__chevron {
