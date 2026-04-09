@@ -233,6 +233,15 @@
         var body = this.closest('.faq-accordion__item').querySelector('.faq-accordion__body');
         this.setAttribute('aria-expanded', isOpen ? 'false' : 'true');
         body.hidden = isOpen;
+        // 開くたびに現在の言語を再適用（モバイルキャッシュ対策）
+        if (!isOpen && window.BISIN_I18N) {
+          var lang = localStorage.getItem('bisin-lang') || 'ja';
+          var key = body.getAttribute('data-i18n-html');
+          var t = BISIN_I18N.TRANSLATIONS[lang];
+          if (key && t && t[key] !== undefined) {
+            body.innerHTML = t[key];
+          }
+        }
       });
     });
   </script>
