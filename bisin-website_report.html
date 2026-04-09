@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BISIN Website Project Report</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Noto+Sans+JP:wght@400;500&family=Noto+Serif+JP:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --color-bg:         #0A2A52;
+      --color-bg-2:       #061C36;
+      --color-surface:    rgba(6,28,54,0.82);
+      --color-border:     rgba(75,179,255,0.15);
+      --color-primary:    #4BB3FF;
+      --color-accent:     #EAF6FF;
+      --color-text:       #EAF6FF;
+      --color-text-muted: #CBD8E7;
+      --font-ja:   'Noto Serif JP', serif;
+      --font-en:   'Montserrat', sans-serif;
+      --font-body: 'Noto Sans JP', sans-serif;
+      --radius-md: 12px;
+      --radius-lg: 20px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: linear-gradient(180deg, #0A2A52 0%, #061C36 100%);
+      min-height: 100vh;
+      color: var(--color-text);
+      font-family: var(--font-body);
+      line-height: 1.8;
+    }
+
+    /* ── Header ── */
+    .header {
+      background: rgba(6,28,54,0.95);
+      border-bottom: 1px solid var(--color-border);
+      padding: 0 2rem;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(12px);
+    }
+    .header__logo {
+      font-family: var(--font-en);
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--color-accent);
+      letter-spacing: 0.05em;
+    }
+    .header__logo span { color: var(--color-primary); }
+    .header__meta {
+      font-size: 0.75rem;
+      color: var(--color-text-muted);
+      font-family: var(--font-en);
+    }
+
+    /* ── Lang Picker ── */
+    .lang-picker { position: relative; }
+    .lang-picker__trigger {
+      display: flex; align-items: center; gap: 0.4rem;
+      background: rgba(75,179,255,0.08);
+      border: 1px solid var(--color-border);
+      border-radius: 8px;
+      padding: 0.35rem 0.75rem;
+      color: var(--color-text);
+      cursor: pointer;
+      font-family: var(--font-en);
+      font-size: 0.8rem;
+    }
+    .lang-picker__globe { width: 14px; height: 14px; }
+    .lang-picker__chevron { width: 12px; height: 12px; transition: transform 0.2s; }
+    .lang-picker__trigger[aria-expanded="true"] .lang-picker__chevron { transform: rotate(180deg); }
+    .lang-picker__panel {
+      display: none;
+      position: absolute;
+      right: 0; top: calc(100% + 6px);
+      background: #0D2E58;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      min-width: 140px;
+      overflow: hidden;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+    }
+    .lang-picker__trigger[aria-expanded="true"] + .lang-picker__panel { display: block; }
+    .lang-picker__panel-header {
+      padding: 0.5rem 1rem;
+      font-size: 0.65rem;
+      color: var(--color-text-muted);
+      font-family: var(--font-en);
+      letter-spacing: 0.1em;
+      border-bottom: 1px solid var(--color-border);
+    }
+    .lang-picker__item {
+      display: flex; align-items: center; gap: 0.6rem;
+      width: 100%; padding: 0.6rem 1rem;
+      background: none; border: none;
+      color: var(--color-text); cursor: pointer;
+      font-family: var(--font-en); font-size: 0.82rem;
+    }
+    .lang-picker__item:hover { background: rgba(75,179,255,0.08); }
+    .lang-picker__item--active { color: var(--color-primary); }
+    .lang-picker__code { font-weight: 700; font-size: 0.7rem; width: 22px; }
+    .lang-picker__check { width: 12px; height: 12px; margin-left: auto; opacity: 0; }
+    .lang-picker__item--active .lang-picker__check { opacity: 1; }
+
+    /* ── Container ── */
+    .container { max-width: 900px; margin: 0 auto; padding: 3rem 2rem; }
+
+    /* ── Hero ── */
+    .report-hero {
+      text-align: center;
+      padding: 3rem 0 2.5rem;
+      border-bottom: 1px solid var(--color-border);
+      margin-bottom: 3rem;
+    }
+    .report-hero__en {
+      font-family: var(--font-en);
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      color: var(--color-primary);
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+    }
+    .report-hero__title {
+      font-family: var(--font-ja);
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: var(--color-accent);
+      margin-bottom: 1rem;
+    }
+    .report-hero__meta {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      font-size: 0.8rem;
+      color: var(--color-text-muted);
+      font-family: var(--font-en);
+    }
+    .report-hero__meta span { display: flex; align-items: center; gap: 0.4rem; }
+
+    /* ── Section ── */
+    .report-section { margin-bottom: 2.5rem; }
+    .report-section__title {
+      font-family: var(--font-en);
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      color: var(--color-primary);
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--color-border);
+    }
+    .report-section h2 {
+      font-family: var(--font-ja);
+      font-size: 1.15rem;
+      color: var(--color-accent);
+      margin-bottom: 1rem;
+    }
+
+    /* ── Table ── */
+    .report-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.85rem;
+      margin-bottom: 1rem;
+    }
+    .report-table th {
+      background: rgba(75,179,255,0.1);
+      color: var(--color-primary);
+      font-family: var(--font-en);
+      font-size: 0.7rem;
+      letter-spacing: 0.08em;
+      padding: 0.6rem 1rem;
+      text-align: left;
+      border-bottom: 1px solid var(--color-border);
+    }
+    .report-table td {
+      padding: 0.6rem 1rem;
+      border-bottom: 1px solid rgba(75,179,255,0.08);
+      color: var(--color-text-muted);
+      vertical-align: top;
+    }
+    .report-table td:first-child {
+      color: var(--color-text);
+      font-weight: 500;
+      white-space: nowrap;
+    }
+    code {
+      font-family: 'Courier New', monospace;
+      font-size: 0.78rem;
+      background: rgba(75,179,255,0.1);
+      color: var(--color-primary);
+      padding: 0.1em 0.4em;
+      border-radius: 4px;
+    }
+
+    /* ── Cards ── */
+    .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem; margin-bottom: 1rem; }
+    .info-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: 1.25rem;
+    }
+    .info-card__label {
+      font-family: var(--font-en);
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      color: var(--color-primary);
+      text-transform: uppercase;
+      margin-bottom: 0.4rem;
+    }
+    .info-card__value {
+      font-size: 0.9rem;
+      color: var(--color-accent);
+      font-weight: 500;
+    }
+
+    /* ── Commit list ── */
+    .commit-list { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+    .commit-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      font-size: 0.85rem;
+      color: var(--color-text-muted);
+      padding: 0.6rem 1rem;
+      background: rgba(255,255,255,0.03);
+      border-radius: 8px;
+      border: 1px solid rgba(75,179,255,0.08);
+    }
+    .commit-list li code { flex-shrink: 0; }
+
+    /* ── Lesson list ── */
+    .lesson-list { list-style: none; display: flex; flex-direction: column; gap: 0.75rem; }
+    .lesson-list li {
+      padding-left: 1.25rem;
+      position: relative;
+      font-size: 0.88rem;
+      color: var(--color-text-muted);
+      line-height: 1.7;
+    }
+    .lesson-list li::before {
+      content: '→';
+      position: absolute;
+      left: 0;
+      color: var(--color-primary);
+      font-family: var(--font-en);
+    }
+    .lesson-list li strong { color: var(--color-text); }
+
+    /* ── Version badges ── */
+    .version-grid { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .version-badge {
+      display: flex; align-items: center; gap: 0.5rem;
+      background: rgba(75,179,255,0.08);
+      border: 1px solid var(--color-border);
+      border-radius: 6px;
+      padding: 0.35rem 0.75rem;
+      font-size: 0.8rem;
+    }
+    .version-badge__file { color: var(--color-text-muted); font-family: var(--font-en); }
+    .version-badge__ver { color: var(--color-primary); font-family: var(--font-en); font-weight: 700; }
+
+    /* ── Footer ── */
+    .report-footer {
+      margin-top: 4rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--color-border);
+      text-align: center;
+      font-size: 0.75rem;
+      color: var(--color-text-muted);
+      font-family: var(--font-en);
+    }
+
+    @media (max-width: 600px) {
+      .container { padding: 2rem 1rem; }
+      .report-hero__meta { flex-direction: column; gap: 0.5rem; align-items: center; }
+      .header { padding: 0 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="header">
+    <div class="header__logo"><span>BI</span>SIN — Project Report</div>
+    <div style="display:flex;align-items:center;gap:1.5rem;">
+      <span class="header__meta" id="header-date">2026-04-09</span>
+      <div class="lang-picker" id="langPicker">
+        <button class="lang-picker__trigger" aria-expanded="false" aria-label="言語選択">
+          <svg class="lang-picker__globe" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="8" r="7"/><path d="M8 1c-1.5 2.5-2 4.5-2 7s.5 4.5 2 7"/><path d="M8 1c1.5 2.5 2 4.5 2 7s-.5 4.5-2 7"/><path d="M1 8h14"/><path d="M2 5h12"/><path d="M2 11h12"/></svg>
+          <span class="lang-picker__label" id="langLabel">日本語</span>
+          <svg class="lang-picker__chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6l4 4 4-4"/></svg>
+        </button>
+        <div class="lang-picker__panel">
+          <div class="lang-picker__panel-header">Language</div>
+          <button class="lang-picker__item lang-picker__item--active" data-lang="ja" data-label="日本語">
+            <span class="lang-picker__code">JP</span><span>日本語</span>
+            <svg class="lang-picker__check" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 8l4 4 6-7"/></svg>
+          </button>
+          <button class="lang-picker__item" data-lang="zh" data-label="中文">
+            <span class="lang-picker__code">CN</span><span>中文</span>
+            <svg class="lang-picker__check" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 8l4 4 6-7"/></svg>
+          </button>
+          <button class="lang-picker__item" data-lang="en" data-label="English">
+            <span class="lang-picker__code">EN</span><span>English</span>
+            <svg class="lang-picker__check" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 8l4 4 6-7"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+
+    <!-- Hero -->
+    <div class="report-hero">
+      <p class="report-hero__en">Project Summary Report</p>
+      <h1 class="report-hero__title" id="hero-title">BISINウェブサイト 制作プロジェクト</h1>
+      <div class="report-hero__meta">
+        <span>📅 <span id="meta-date">2026-04-09</span></span>
+        <span>🌐 bisincool.co.jp</span>
+        <span>📁 bisincool/bisin-website</span>
+      </div>
+    </div>
+
+    <!-- Section 1: Overview -->
+    <div class="report-section">
+      <p class="report-section__title" id="s1-label">01 — Overview</p>
+      <p id="s1-desc" style="font-size:0.9rem;color:var(--color-text-muted);line-height:1.9;">
+        合同会社BISIN（美信）の脂肪冷却マシン「COOLSPA」の販売・サロン導入支援を目的とした静的Webサイト。美容サロンオーナーをターゲットに、日本語・中文・英語の3言語対応で制作。
+      </p>
+    </div>
+
+    <!-- Section 2: Tech Stack -->
+    <div class="report-section">
+      <p class="report-section__title" id="s2-label">02 — Tech Stack</p>
+      <table class="report-table">
+        <thead><tr><th id="th-item">項目</th><th id="th-content">内容</th></tr></thead>
+        <tbody>
+          <tr><td id="ts1-k">構成</td><td id="ts1-v">静的HTML + CSS + JS（フレームワークなし）</td></tr>
+          <tr><td id="ts2-k">デプロイ</td><td id="ts2-v">Cloudflare Pages（mainブランチ自動デプロイ）</td></tr>
+          <tr><td id="ts3-k">多言語</td><td><code>data-i18n</code> / <code>data-i18n-html</code> + <code>js/i18n.js</code></td></tr>
+          <tr><td id="ts4-k">アニメーション</td><td id="ts4-v"><code>js/particles.js</code>（六角形雪花、Canvas自己生成）</td></tr>
+          <tr><td id="ts5-k">CSS管理</td><td id="ts5-v">CSS変数 + バージョンクエリ（現在 <code>v=9</code>）</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Section 3: Pages -->
+    <div class="report-section">
+      <p class="report-section__title" id="s3-label">03 — Pages</p>
+      <div class="card-grid">
+        <div class="info-card"><div class="info-card__label">index.html</div><div class="info-card__value" id="p1">LP メイン（12セクション）</div></div>
+        <div class="info-card"><div class="info-card__label">product.html</div><div class="info-card__value" id="p2">COOLSPA製品詳細・症例</div></div>
+        <div class="info-card"><div class="info-card__label">service.html</div><div class="info-card__value" id="p3">導入支援・3プラン</div></div>
+        <div class="info-card"><div class="info-card__label">about.html</div><div class="info-card__value" id="p4">会社情報・ミッション</div></div>
+        <div class="info-card"><div class="info-card__label">contact.html</div><div class="info-card__value" id="p5">お問い合わせ・FAQ</div></div>
+        <div class="info-card"><div class="info-card__label">outsourcing.html</div><div class="info-card__value" id="p6">業務委託（AIマーケ・IT）</div></div>
+      </div>
+    </div>
+
+    <!-- Section 4: Changes -->
+    <div class="report-section">
+      <p class="report-section__title" id="s4-label">04 — Changes This Session</p>
+      <table class="report-table">
+        <thead><tr><th id="th-change">改修内容</th><th id="th-detail">詳細</th></tr></thead>
+        <tbody>
+          <tr><td id="c1-k">FAQアコーディオン</td><td id="c1-v">質問リスト → クリック開閉式。<code>aria-expanded</code> 対応</td></tr>
+          <tr><td id="c2-k">FAQ コンテンツ</td><td id="c2-v">4問すべてに回答追加。A.プレフィックス・ハイライト実装</td></tr>
+          <tr><td id="c3-k">三言語対応</td><td id="c3-v"><code>data-i18n-html</code> で回答を ja/zh/en 切替。i18n.js に全キー追加</td></tr>
+          <tr><td id="c4-k">営業時間更新</td><td id="c4-v">平日→月曜から土曜、土日祝休→日祝休。三言語すべて更新</td></tr>
+          <tr><td id="c5-k">Q.ラベル修正</td><td id="c5-v">CSS <code>::before</code> → HTML <code>&lt;span&gt;</code> に変更。<code>flex:1</code> で gap 均等化</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Section 5: Hooks -->
+    <div class="report-section">
+      <p class="report-section__title" id="s5-label">05 — Claude Code Automation</p>
+      <table class="report-table">
+        <thead><tr><th id="th-hook">Hook</th><th id="th-timing">タイミング</th><th id="th-action">動作</th></tr></thead>
+        <tbody>
+          <tr><td>PostToolUse</td><td id="h1-t">HTML編集時</td><td id="h1-a">フラグ作成 + i18n更新リマインダー注入</td></tr>
+          <tr><td>Stop</td><td id="h2-t">1ターン終了時</td><td id="h2-a">index.html をブラウザで1回だけ開く</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Section 6: Commits -->
+    <div class="report-section">
+      <p class="report-section__title" id="s6-label">06 — Git Commits</p>
+      <ul class="commit-list">
+        <li><code>2598795</code> <span id="cm1">FAQアコーディオン実装・三言語対応</span></li>
+        <li><code>a4bf1fe</code> <span id="cm2">chevronサイズ縮小（14px→10px）</span></li>
+        <li><code>67259dc</code> <span id="cm3">CSS v=8 キャッシュバスト</span></li>
+        <li><code>f120347</code> <span id="cm4">Q.ラベル位置ズレ修正（span化・flex:1）</span></li>
+        <li><code>20cf910</code> <span id="cm5">CSS v=9 キャッシュバスト</span></li>
+      </ul>
+    </div>
+
+    <!-- Section 7: Lessons -->
+    <div class="report-section">
+      <p class="report-section__title" id="s7-label">07 — Lessons Learned</p>
+      <ul class="lesson-list">
+        <li id="l1"><strong>CSS変更時は必ずバージョン番号を +1</strong>（Cloudflareキャッシュ対策）</li>
+        <li id="l2"><strong>Q.ラベルはHTMLのspanで実装</strong>（CSS <code>::before</code> はflex環境で位置ズレが起きやすい）</li>
+        <li id="l3"><strong><code>justify-content: space-between</code> + テキスト可変の場合は <code>flex:1</code> で制御</strong></li>
+        <li id="l4"><strong>HTML込みの翻訳は <code>data-i18n-html</code> を使用</strong>（<code>data-i18n</code> はtextContentのみ）</li>
+      </ul>
+    </div>
+
+    <!-- Section 8: Versions -->
+    <div class="report-section">
+      <p class="report-section__title" id="s8-label">08 — Current Versions</p>
+      <div class="version-grid">
+        <div class="version-badge"><span class="version-badge__file">style.css</span><span class="version-badge__ver">v=9</span></div>
+        <div class="version-badge"><span class="version-badge__file">i18n.js</span><span class="version-badge__ver">v=4</span></div>
+        <div class="version-badge"><span class="version-badge__file">main.js</span><span class="version-badge__ver">v=6</span></div>
+        <div class="version-badge"><span class="version-badge__file">particles.js</span><span class="version-badge__ver">v=5</span></div>
+      </div>
+    </div>
+
+    <div class="report-footer">
+      &copy; 2026 合同会社BISIN &nbsp;|&nbsp; Generated with Claude Code
+    </div>
+
+  </div>
+
+  <script>
+    // ── Lang data ──
+    const T = {
+      ja: {
+        'hero-title':  'BISINウェブサイト 制作プロジェクト',
+        's1-label': '01 — プロジェクト概要', 's2-label': '02 — 技術スタック',
+        's3-label': '03 — ページ構成', 's4-label': '04 — 今回の主な改修',
+        's5-label': '05 — Claude Code 自動化', 's6-label': '06 — Gitコミット履歴',
+        's7-label': '07 — 学んだ教訓', 's8-label': '08 — 現在のバージョン',
+        's1-desc': '合同会社BISIN（美信）の脂肪冷却マシン「COOLSPA」の販売・サロン導入支援を目的とした静的Webサイト。美容サロンオーナーをターゲットに、日本語・中文・英語の3言語対応で制作。',
+        'th-item': '項目', 'th-content': '内容', 'th-change': '改修内容', 'th-detail': '詳細',
+        'th-hook': 'Hook', 'th-timing': 'タイミング', 'th-action': '動作',
+        'ts1-k': '構成', 'ts1-v': '静的HTML + CSS + JS（フレームワークなし）',
+        'ts2-k': 'デプロイ', 'ts2-v': 'Cloudflare Pages（mainブランチ自動デプロイ）',
+        'ts4-k': 'アニメーション', 'ts4-v': 'js/particles.js（六角形雪花、Canvas自己生成）',
+        'ts5-k': 'CSS管理', 'ts5-v': 'CSS変数 + バージョンクエリ（現在 v=9）',
+        'p1': 'LP メイン（12セクション）', 'p2': 'COOLSPA製品詳細・症例',
+        'p3': '導入支援・3プラン', 'p4': '会社情報・ミッション',
+        'p5': 'お問い合わせ・FAQ', 'p6': '業務委託（AIマーケ・IT）',
+        'c1-k': 'FAQアコーディオン', 'c1-v': '質問リスト → クリック開閉式。aria-expanded 対応',
+        'c2-k': 'FAQコンテンツ', 'c2-v': '4問すべてに回答追加。A.プレフィックス・ハイライト実装',
+        'c3-k': '三言語対応', 'c3-v': 'data-i18n-html で回答を ja/zh/en 切替。i18n.js に全キー追加',
+        'c4-k': '営業時間更新', 'c4-v': '平日→月曜から土曜、土日祝休→日祝休。三言語すべて更新',
+        'c5-k': 'Q.ラベル修正', 'c5-v': 'CSS ::before → HTML <span> に変更。flex:1 で gap 均等化',
+        'h1-t': 'HTML編集時', 'h1-a': 'フラグ作成 + i18n更新リマインダー注入',
+        'h2-t': '1ターン終了時', 'h2-a': 'index.html をブラウザで1回だけ開く',
+        'cm1': 'FAQアコーディオン実装・三言語対応', 'cm2': 'chevronサイズ縮小（14px→10px）',
+        'cm3': 'CSS v=8 キャッシュバスト', 'cm4': 'Q.ラベル位置ズレ修正（span化・flex:1）',
+        'cm5': 'CSS v=9 キャッシュバスト',
+        'l1': '<strong>CSS変更時は必ずバージョン番号を +1</strong>（Cloudflareキャッシュ対策）',
+        'l2': '<strong>Q.ラベルはHTMLのspanで実装</strong>（CSS ::before はflex環境で位置ズレが起きやすい）',
+        'l3': '<strong>justify-content: space-between + テキスト可変の場合は flex:1 で制御</strong>',
+        'l4': '<strong>HTML込みの翻訳は data-i18n-html を使用</strong>（data-i18n はtextContentのみ）',
+      },
+      zh: {
+        'hero-title':  'BISIN 网站制作项目',
+        's1-label': '01 — 项目概要', 's2-label': '02 — 技术栈',
+        's3-label': '03 — 页面构成', 's4-label': '04 — 本次主要改动',
+        's5-label': '05 — Claude Code 自动化', 's6-label': '06 — Git 提交记录',
+        's7-label': '07 — 经验总结', 's8-label': '08 — 当前版本',
+        's1-desc': '合同会社BISIN（美信）以销售脂肪冷冻仪「COOLSPA」及沙龙导入支援为目的的静态网站。面向美容沙龙经营者，支持日文、中文、英文三语言。',
+        'th-item': '项目', 'th-content': '内容', 'th-change': '改动内容', 'th-detail': '详情',
+        'th-hook': 'Hook', 'th-timing': '触发时机', 'th-action': '动作',
+        'ts1-k': '构成', 'ts1-v': '静态 HTML + CSS + JS（无框架）',
+        'ts2-k': '部署', 'ts2-v': 'Cloudflare Pages（main 分支自动部署）',
+        'ts4-k': '动画', 'ts4-v': 'js/particles.js（六角形雪花，Canvas 自动生成）',
+        'ts5-k': 'CSS 管理', 'ts5-v': 'CSS 变量 + 版本查询参数（当前 v=9）',
+        'p1': 'LP 主页（12个板块）', 'p2': 'COOLSPA 产品详情・症例',
+        'p3': '导入支援・3个方案', 'p4': '公司介绍・使命',
+        'p5': '联系方式・FAQ', 'p6': '业务外包（AI营销・IT）',
+        'c1-k': 'FAQ 折叠展开', 'c1-v': '问题列表 → 点击展开。支持 aria-expanded',
+        'c2-k': 'FAQ 内容完善', 'c2-v': '4题全部添加回答。A.前缀 + 关键词高亮',
+        'c3-k': '三语言对应', 'c3-v': 'data-i18n-html 实现 ja/zh/en 回答切换。i18n.js 全键追加',
+        'c4-k': '营业时间更新', 'c4-v': '工作日→周一至周六，三语言全部更新',
+        'c5-k': 'Q.标签对齐修复', 'c5-v': 'CSS ::before → HTML <span>。flex:1 均等间距',
+        'h1-t': '编辑 HTML 时', 'h1-a': '写入标志文件 + 向 Claude 注入 i18n 更新提醒',
+        'h2-t': '每轮对话结束时', 'h2-a': '若有标志则打开 index.html（仅一次）',
+        'cm1': 'FAQ 折叠展开实装・三语言对应', 'cm2': 'chevron 尺寸缩小（14px→10px）',
+        'cm3': 'CSS v=8 缓存清除', 'cm4': 'Q.标签位置偏移修复（span化・flex:1）',
+        'cm5': 'CSS v=9 缓存清除',
+        'l1': '<strong>每次修改 CSS 必须将版本号 +1</strong>（Cloudflare 缓存对策）',
+        'l2': '<strong>Q.等标签用 HTML span 实现</strong>（CSS ::before 在 flex 环境易出现位置偏移）',
+        'l3': '<strong>justify-content: space-between + 文字长度可变时，用 flex:1 控制间距</strong>',
+        'l4': '<strong>含 HTML 的翻译使用 data-i18n-html</strong>（data-i18n 只替换 textContent）',
+      },
+      en: {
+        'hero-title':  'BISIN Website Project',
+        's1-label': '01 — Overview', 's2-label': '02 — Tech Stack',
+        's3-label': '03 — Pages', 's4-label': '04 — Changes This Session',
+        's5-label': '05 — Claude Code Automation', 's6-label': '06 — Git Commits',
+        's7-label': '07 — Lessons Learned', 's8-label': '08 — Current Versions',
+        's1-desc': 'A static website for BISIN LLC promoting COOLSPA fat-freezing devices and salon installation support. Targets beauty salon owners with trilingual support (JP / ZH / EN).',
+        'th-item': 'Item', 'th-content': 'Details', 'th-change': 'Change', 'th-detail': 'Details',
+        'th-hook': 'Hook', 'th-timing': 'Trigger', 'th-action': 'Action',
+        'ts1-k': 'Stack', 'ts1-v': 'Static HTML + CSS + JS (no framework)',
+        'ts2-k': 'Deploy', 'ts2-v': 'Cloudflare Pages (auto-deploy on main push)',
+        'ts4-k': 'Animation', 'ts4-v': 'js/particles.js (hexagonal snowflakes, self-generating Canvas)',
+        'ts5-k': 'CSS', 'ts5-v': 'CSS variables + cache-busting query (current v=9)',
+        'p1': 'Main LP (12 sections)', 'p2': 'COOLSPA product details & cases',
+        'p3': 'Installation support & 3 plans', 'p4': 'Company info & mission',
+        'p5': 'Contact & FAQ', 'p6': 'Outsourcing (AI marketing & IT)',
+        'c1-k': 'FAQ Accordion', 'c1-v': 'Question list → click to expand. aria-expanded support',
+        'c2-k': 'FAQ Content', 'c2-v': 'Added answers to all 4 questions. A. prefix + highlights',
+        'c3-k': 'Trilingual', 'c3-v': 'data-i18n-html for ja/zh/en answer switching. All keys added to i18n.js',
+        'c4-k': 'Business Hours', 'c4-v': 'Weekdays → Mon–Sat, updated across all 3 languages',
+        'c5-k': 'Q. Label Fix', 'c5-v': 'CSS ::before → HTML <span>. flex:1 for equal gap',
+        'h1-t': 'On HTML edit', 'h1-a': 'Write flag file + inject i18n update reminder to Claude',
+        'h2-t': 'End of each turn', 'h2-a': 'Open index.html in browser once if flag exists',
+        'cm1': 'FAQ accordion + trilingual support', 'cm2': 'Shrink chevron (14px→10px)',
+        'cm3': 'Bump CSS to v=8', 'cm4': 'Fix Q. label misalignment (span + flex:1)',
+        'cm5': 'Bump CSS to v=9',
+        'l1': '<strong>Always bump CSS version number after changes</strong> (Cloudflare cache busting)',
+        'l2': '<strong>Use HTML span for labels like Q.</strong> (CSS ::before causes misalignment in flex)',
+        'l3': '<strong>With space-between and variable text lengths, use flex:1</strong> to control gaps',
+        'l4': '<strong>Use data-i18n-html for HTML-containing translations</strong> (data-i18n is textContent only)',
+      }
+    };
+
+    // ── Apply lang ──
+    function applyLang(lang) {
+      const d = T[lang];
+      Object.keys(d).forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.innerHTML = d[id];
+      });
+      document.documentElement.lang = lang;
+    }
+
+    // ── Lang picker ──
+    const trigger = document.querySelector('.lang-picker__trigger');
+    const items   = document.querySelectorAll('.lang-picker__item');
+    const label   = document.getElementById('langLabel');
+    let currentLang = 'ja';
+
+    trigger.addEventListener('click', () => {
+      const open = trigger.getAttribute('aria-expanded') === 'true';
+      trigger.setAttribute('aria-expanded', open ? 'false' : 'true');
+    });
+
+    document.addEventListener('click', e => {
+      if (!e.target.closest('#langPicker')) {
+        trigger.setAttribute('aria-expanded', 'false');
+      }
+    });
+
+    items.forEach(item => {
+      item.addEventListener('click', () => {
+        currentLang = item.dataset.lang;
+        label.textContent = item.dataset.label;
+        items.forEach(i => i.classList.remove('lang-picker__item--active'));
+        item.classList.add('lang-picker__item--active');
+        trigger.setAttribute('aria-expanded', 'false');
+        applyLang(currentLang);
+      });
+    });
+  </script>
+
+</body>
+</html>
