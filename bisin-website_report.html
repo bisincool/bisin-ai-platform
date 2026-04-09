@@ -350,7 +350,7 @@
           <tr><td id="ts2-k">デプロイ</td><td id="ts2-v">Cloudflare Pages（mainブランチ自動デプロイ）</td></tr>
           <tr><td id="ts3-k">多言語</td><td><code>data-i18n</code> / <code>data-i18n-html</code> + <code>js/i18n.js</code></td></tr>
           <tr><td id="ts4-k">アニメーション</td><td id="ts4-v"><code>js/particles.js</code>（六角形雪花、Canvas自己生成）</td></tr>
-          <tr><td id="ts5-k">CSS管理</td><td id="ts5-v">CSS変数 + バージョンクエリ（現在 <code>v=9</code>）</td></tr>
+          <tr><td id="ts5-k">CSS管理</td><td id="ts5-v">CSS変数 + バージョンクエリ（現在 <code>v=10</code>）</td></tr>
         </tbody>
       </table>
     </div>
@@ -379,6 +379,9 @@
           <tr><td id="c3-k">三言語対応</td><td id="c3-v"><code>data-i18n-html</code> で回答を ja/zh/en 切替。i18n.js に全キー追加</td></tr>
           <tr><td id="c4-k">営業時間更新</td><td id="c4-v">平日→月曜から土曜、土日祝休→日祝休。三言語すべて更新</td></tr>
           <tr><td id="c5-k">Q.ラベル修正</td><td id="c5-v">CSS <code>::before</code> → HTML <code>&lt;span&gt;</code> に変更。<code>flex:1</code> で gap 均等化</td></tr>
+          <tr><td id="c6-k">モバイル言語バグ修正</td><td id="c6-v">開閉時に現在の言語を再適用。i18n.js v=5 にバージョンアップ</td></tr>
+          <tr><td id="c7-k">お客様の声</td><td id="c7-v">T.M. 1件のみ残し本文を「更新中」に変更</td></tr>
+          <tr><td id="c8-k">FAQ文言修正</td><td id="c8-v">「24時間以内の代替機手配」→「迅速に代替機手配」</td></tr>
         </tbody>
       </table>
     </div>
@@ -389,8 +392,8 @@
       <table class="report-table">
         <thead><tr><th id="th-hook">Hook</th><th id="th-timing">タイミング</th><th id="th-action">動作</th></tr></thead>
         <tbody>
-          <tr><td>PostToolUse</td><td id="h1-t">HTML編集時</td><td id="h1-a">フラグ作成 + i18n更新リマインダー注入</td></tr>
-          <tr><td>Stop</td><td id="h2-t">1ターン終了時</td><td id="h2-a">index.html をブラウザで1回だけ開く</td></tr>
+          <tr><td>PostToolUse</td><td id="h1-t">HTML編集時</td><td id="h1-a">ファイルパス記録 + i18n更新リマインダー注入</td></tr>
+          <tr><td>Stop</td><td id="h2-t">1ターン終了時</td><td id="h2-a">編集ファイルをデスクトップ版（通常）＋モバイル版（390px Chrome）で同時起動</td></tr>
         </tbody>
       </table>
     </div>
@@ -404,6 +407,10 @@
         <li><code>67259dc</code> <span id="cm3">CSS v=8 キャッシュバスト</span></li>
         <li><code>f120347</code> <span id="cm4">Q.ラベル位置ズレ修正（span化・flex:1）</span></li>
         <li><code>20cf910</code> <span id="cm5">CSS v=9 キャッシュバスト</span></li>
+        <li><code>9871017</code> <span id="cm6">お客様の声をT.M.のみ残し更新中表示</span></li>
+        <li><code>642554e</code> <span id="cm7">24時間以内の代替機→迅速に代替機</span></li>
+        <li><code>7a39581</code> <span id="cm8">i18n.js v=5・style.css v=10（モバイルキャッシュ修正）</span></li>
+        <li><code>f134898</code> <span id="cm9">FAQアコーディオン開閉時に言語再適用</span></li>
       </ul>
     </div>
 
@@ -412,9 +419,11 @@
       <p class="report-section__title" id="s7-label">07 — Lessons Learned</p>
       <ul class="lesson-list">
         <li id="l1"><strong>CSS変更時は必ずバージョン番号を +1</strong>（Cloudflareキャッシュ対策）</li>
-        <li id="l2"><strong>Q.ラベルはHTMLのspanで実装</strong>（CSS <code>::before</code> はflex環境で位置ズレが起きやすい）</li>
-        <li id="l3"><strong><code>justify-content: space-between</code> + テキスト可変の場合は <code>flex:1</code> で制御</strong></li>
-        <li id="l4"><strong>HTML込みの翻訳は <code>data-i18n-html</code> を使用</strong>（<code>data-i18n</code> はtextContentのみ）</li>
+        <li id="l2"><strong>i18n.js に翻訳キーを追加・変更した場合もバージョン番号を +1</strong></li>
+        <li id="l3"><strong>Q.ラベルはHTMLのspanで実装</strong>（CSS <code>::before</code> はflex環境で位置ズレが起きやすい）</li>
+        <li id="l4"><strong><code>justify-content: space-between</code> + テキスト可変の場合は <code>flex:1</code> で制御</strong></li>
+        <li id="l5"><strong>HTML込みの翻訳は <code>data-i18n-html</code> を使用</strong>（<code>data-i18n</code> はtextContentのみ）</li>
+        <li id="l6"><strong>モバイルでアコーディオン内翻訳が効かない場合は開閉時に言語を再適用する</strong></li>
       </ul>
     </div>
 
@@ -422,8 +431,8 @@
     <div class="report-section">
       <p class="report-section__title" id="s8-label">08 — Current Versions</p>
       <div class="version-grid">
-        <div class="version-badge"><span class="version-badge__file">style.css</span><span class="version-badge__ver">v=9</span></div>
-        <div class="version-badge"><span class="version-badge__file">i18n.js</span><span class="version-badge__ver">v=4</span></div>
+        <div class="version-badge"><span class="version-badge__file">style.css</span><span class="version-badge__ver">v=10</span></div>
+        <div class="version-badge"><span class="version-badge__file">i18n.js</span><span class="version-badge__ver">v=5</span></div>
         <div class="version-badge"><span class="version-badge__file">main.js</span><span class="version-badge__ver">v=6</span></div>
         <div class="version-badge"><span class="version-badge__file">particles.js</span><span class="version-badge__ver">v=5</span></div>
       </div>
@@ -450,7 +459,7 @@
         'ts1-k': '構成', 'ts1-v': '静的HTML + CSS + JS（フレームワークなし）',
         'ts2-k': 'デプロイ', 'ts2-v': 'Cloudflare Pages（mainブランチ自動デプロイ）',
         'ts4-k': 'アニメーション', 'ts4-v': 'js/particles.js（六角形雪花、Canvas自己生成）',
-        'ts5-k': 'CSS管理', 'ts5-v': 'CSS変数 + バージョンクエリ（現在 v=9）',
+        'ts5-k': 'CSS管理', 'ts5-v': 'CSS変数 + バージョンクエリ（現在 v=10）',
         'p1': 'LP メイン（12セクション）', 'p2': 'COOLSPA製品詳細・症例',
         'p3': '導入支援・3プラン', 'p4': '会社情報・ミッション',
         'p5': 'お問い合わせ・FAQ', 'p6': '業務委託（AIマーケ・IT）',
@@ -459,15 +468,24 @@
         'c3-k': '三言語対応', 'c3-v': 'data-i18n-html で回答を ja/zh/en 切替。i18n.js に全キー追加',
         'c4-k': '営業時間更新', 'c4-v': '平日→月曜から土曜、土日祝休→日祝休。三言語すべて更新',
         'c5-k': 'Q.ラベル修正', 'c5-v': 'CSS ::before → HTML <span> に変更。flex:1 で gap 均等化',
-        'h1-t': 'HTML編集時', 'h1-a': 'フラグ作成 + i18n更新リマインダー注入',
-        'h2-t': '1ターン終了時', 'h2-a': 'index.html をブラウザで1回だけ開く',
+        'c6-k': 'モバイル言語バグ修正', 'c6-v': '開閉時に現在の言語を再適用。i18n.js v=5 にバージョンアップ',
+        'c7-k': 'お客様の声', 'c7-v': 'T.M. 1件のみ残し本文を「更新中」に変更',
+        'c8-k': 'FAQ文言修正', 'c8-v': '「24時間以内の代替機手配」→「迅速に代替機手配」',
+        'h1-t': 'HTML編集時', 'h1-a': 'ファイルパス記録 + i18n更新リマインダー注入',
+        'h2-t': '1ターン終了時', 'h2-a': '編集ファイルをデスクトップ版（通常）＋モバイル版（390px Chrome）で同時起動',
         'cm1': 'FAQアコーディオン実装・三言語対応', 'cm2': 'chevronサイズ縮小（14px→10px）',
         'cm3': 'CSS v=8 キャッシュバスト', 'cm4': 'Q.ラベル位置ズレ修正（span化・flex:1）',
         'cm5': 'CSS v=9 キャッシュバスト',
+        'cm6': 'お客様の声をT.M.のみ残し更新中表示',
+        'cm7': '24時間以内の代替機→迅速に代替機',
+        'cm8': 'i18n.js v=5・style.css v=10（モバイルキャッシュ修正）',
+        'cm9': 'FAQアコーディオン開閉時に言語再適用',
         'l1': '<strong>CSS変更時は必ずバージョン番号を +1</strong>（Cloudflareキャッシュ対策）',
-        'l2': '<strong>Q.ラベルはHTMLのspanで実装</strong>（CSS ::before はflex環境で位置ズレが起きやすい）',
-        'l3': '<strong>justify-content: space-between + テキスト可変の場合は flex:1 で制御</strong>',
-        'l4': '<strong>HTML込みの翻訳は data-i18n-html を使用</strong>（data-i18n はtextContentのみ）',
+        'l2': '<strong>i18n.js に翻訳キーを追加・変更した場合もバージョン番号を +1</strong>',
+        'l3': '<strong>Q.ラベルはHTMLのspanで実装</strong>（CSS <code>::before</code> はflex環境で位置ズレが起きやすい）',
+        'l4': '<strong><code>justify-content: space-between</code> + テキスト可変の場合は <code>flex:1</code> で制御</strong>',
+        'l5': '<strong>HTML込みの翻訳は <code>data-i18n-html</code> を使用</strong>（<code>data-i18n</code> はtextContentのみ）',
+        'l6': '<strong>モバイルでアコーディオン内翻訳が効かない場合は開閉時に言語を再適用する</strong>',
       },
       zh: {
         'hero-title':  'BISIN 网站制作项目',
@@ -481,7 +499,7 @@
         'ts1-k': '构成', 'ts1-v': '静态 HTML + CSS + JS（无框架）',
         'ts2-k': '部署', 'ts2-v': 'Cloudflare Pages（main 分支自动部署）',
         'ts4-k': '动画', 'ts4-v': 'js/particles.js（六角形雪花，Canvas 自动生成）',
-        'ts5-k': 'CSS 管理', 'ts5-v': 'CSS 变量 + 版本查询参数（当前 v=9）',
+        'ts5-k': 'CSS 管理', 'ts5-v': 'CSS 变量 + 版本查询参数（当前 v=10）',
         'p1': 'LP 主页（12个板块）', 'p2': 'COOLSPA 产品详情・症例',
         'p3': '导入支援・3个方案', 'p4': '公司介绍・使命',
         'p5': '联系方式・FAQ', 'p6': '业务外包（AI营销・IT）',
@@ -490,15 +508,24 @@
         'c3-k': '三语言对应', 'c3-v': 'data-i18n-html 实现 ja/zh/en 回答切换。i18n.js 全键追加',
         'c4-k': '营业时间更新', 'c4-v': '工作日→周一至周六，三语言全部更新',
         'c5-k': 'Q.标签对齐修复', 'c5-v': 'CSS ::before → HTML <span>。flex:1 均等间距',
-        'h1-t': '编辑 HTML 时', 'h1-a': '写入标志文件 + 向 Claude 注入 i18n 更新提醒',
-        'h2-t': '每轮对话结束时', 'h2-a': '若有标志则打开 index.html（仅一次）',
+        'c6-k': '移动端语言切换修复', 'c6-v': '每次开闭时重新应用当前语言。i18n.js 升至 v=5',
+        'c7-k': '顾客评价', 'c7-v': '仅保留 T.M. 一条，正文改为「更新中」',
+        'c8-k': 'FAQ 措辞修正', 'c8-v': '「24小时内备用机」→「迅速安排备用机」',
+        'h1-t': '编辑 HTML 时', 'h1-a': '记录文件路径 + 向 Claude 注入 i18n 更新提醒',
+        'h2-t': '每轮对话结束时', 'h2-a': '同时以桌面版（普通窗口）和移动版（390px Chrome）打开编辑文件',
         'cm1': 'FAQ 折叠展开实装・三语言对应', 'cm2': 'chevron 尺寸缩小（14px→10px）',
         'cm3': 'CSS v=8 缓存清除', 'cm4': 'Q.标签位置偏移修复（span化・flex:1）',
         'cm5': 'CSS v=9 缓存清除',
+        'cm6': '顾客评价仅保留 T.M. 并显示更新中',
+        'cm7': '24小时内备用机→迅速安排备用机',
+        'cm8': 'i18n.js v=5・style.css v=10（移动端缓存修复）',
+        'cm9': 'FAQ 折叠开闭时重新应用语言',
         'l1': '<strong>每次修改 CSS 必须将版本号 +1</strong>（Cloudflare 缓存对策）',
-        'l2': '<strong>Q.等标签用 HTML span 实现</strong>（CSS ::before 在 flex 环境易出现位置偏移）',
-        'l3': '<strong>justify-content: space-between + 文字长度可变时，用 flex:1 控制间距</strong>',
-        'l4': '<strong>含 HTML 的翻译使用 data-i18n-html</strong>（data-i18n 只替换 textContent）',
+        'l2': '<strong>修改或新增 i18n.js 翻译键时也必须将版本号 +1</strong>',
+        'l3': '<strong>Q.等标签用 HTML span 实现</strong>（CSS <code>::before</code> 在 flex 环境易出现位置偏移）',
+        'l4': '<strong><code>justify-content: space-between</code> + 文字长度可变时，用 <code>flex:1</code> 控制间距</strong>',
+        'l5': '<strong>含 HTML 的翻译使用 <code>data-i18n-html</code></strong>（<code>data-i18n</code> 只替换 textContent）',
+        'l6': '<strong>移动端折叠内容语言切换无效时，在每次开闭时重新应用语言</strong>',
       },
       en: {
         'hero-title':  'BISIN Website Project',
@@ -512,7 +539,7 @@
         'ts1-k': 'Stack', 'ts1-v': 'Static HTML + CSS + JS (no framework)',
         'ts2-k': 'Deploy', 'ts2-v': 'Cloudflare Pages (auto-deploy on main push)',
         'ts4-k': 'Animation', 'ts4-v': 'js/particles.js (hexagonal snowflakes, self-generating Canvas)',
-        'ts5-k': 'CSS', 'ts5-v': 'CSS variables + cache-busting query (current v=9)',
+        'ts5-k': 'CSS', 'ts5-v': 'CSS variables + cache-busting query (current v=10)',
         'p1': 'Main LP (12 sections)', 'p2': 'COOLSPA product details & cases',
         'p3': 'Installation support & 3 plans', 'p4': 'Company info & mission',
         'p5': 'Contact & FAQ', 'p6': 'Outsourcing (AI marketing & IT)',
@@ -521,15 +548,24 @@
         'c3-k': 'Trilingual', 'c3-v': 'data-i18n-html for ja/zh/en answer switching. All keys added to i18n.js',
         'c4-k': 'Business Hours', 'c4-v': 'Weekdays → Mon–Sat, updated across all 3 languages',
         'c5-k': 'Q. Label Fix', 'c5-v': 'CSS ::before → HTML <span>. flex:1 for equal gap',
-        'h1-t': 'On HTML edit', 'h1-a': 'Write flag file + inject i18n update reminder to Claude',
-        'h2-t': 'End of each turn', 'h2-a': 'Open index.html in browser once if flag exists',
+        'c6-k': 'Mobile Language Bug Fix', 'c6-v': 'Re-apply language on each accordion open. Bumped i18n.js to v=5',
+        'c7-k': 'Testimonials', 'c7-v': 'Kept only T.M., changed body text to "更新中" (updating)',
+        'c8-k': 'FAQ Text Fix', 'c8-v': '"Within 24h replacement" → "Prompt replacement arrangement"',
+        'h1-t': 'On HTML edit', 'h1-a': 'Record file path + inject i18n update reminder to Claude',
+        'h2-t': 'End of each turn', 'h2-a': 'Open edited file in both desktop (normal) and mobile (390px Chrome) simultaneously',
         'cm1': 'FAQ accordion + trilingual support', 'cm2': 'Shrink chevron (14px→10px)',
         'cm3': 'Bump CSS to v=8', 'cm4': 'Fix Q. label misalignment (span + flex:1)',
         'cm5': 'Bump CSS to v=9',
+        'cm6': 'Keep only T.M. testimonial, show "updating" text',
+        'cm7': 'Change "within 24h replacement" to "prompt replacement"',
+        'cm8': 'Bump i18n.js to v=5 and style.css to v=10 (mobile cache fix)',
+        'cm9': 'Re-apply language on FAQ accordion open/close',
         'l1': '<strong>Always bump CSS version number after changes</strong> (Cloudflare cache busting)',
-        'l2': '<strong>Use HTML span for labels like Q.</strong> (CSS ::before causes misalignment in flex)',
-        'l3': '<strong>With space-between and variable text lengths, use flex:1</strong> to control gaps',
-        'l4': '<strong>Use data-i18n-html for HTML-containing translations</strong> (data-i18n is textContent only)',
+        'l2': '<strong>Also bump i18n.js version when adding or changing translation keys</strong>',
+        'l3': '<strong>Use HTML span for labels like Q.</strong> (CSS <code>::before</code> causes misalignment in flex)',
+        'l4': '<strong>With <code>space-between</code> and variable text lengths, use <code>flex:1</code></strong> to control gaps',
+        'l5': '<strong>Use <code>data-i18n-html</code> for HTML-containing translations</strong> (<code>data-i18n</code> is textContent only)',
+        'l6': '<strong>If mobile accordion content ignores language switch, re-apply language on each open</strong>',
       }
     };
 
