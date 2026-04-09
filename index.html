@@ -850,6 +850,15 @@
       gap: 1.5rem;
       margin-top: 3rem;
     }
+    .lp-testimonials__grid--single {
+      grid-template-columns: minmax(280px, 480px);
+      justify-content: center;
+    }
+    .lp-testi-card__text--updating {
+      font-style: italic;
+      color: rgba(75,179,255,0.5);
+      letter-spacing: 0.05em;
+    }
     .lp-testi-card {
       border-radius: var(--radius-lg);
       padding: 2.2rem 2rem;
@@ -1484,37 +1493,15 @@
           <h2 class="lp-title" data-i18n="lp.testi.title">導入されたオーナー様の声</h2>
           <div class="lp-divider"></div>
         </div>
-        <div class="lp-testimonials__grid">
+        <div class="lp-testimonials__grid lp-testimonials__grid--single">
           <div class="lp-testi-card">
             <div class="lp-testi-card__stars">★★★★★</div>
-            <p class="lp-testi-card__text" data-i18n="lp.testi1.text">「フェイシャル専門だった私のサロンに初めてボディメニューを追加しました。放置型なので、施術中に他のお客様の対応ができて、スタッフ一人でも回せています。回数券の先売りで、月末の資金繰りの不安がなくなりました。」</p>
+            <p class="lp-testi-card__text lp-testi-card__text--updating" data-i18n="lp.testi1.text">更新中</p>
             <div class="lp-testi-card__author">
               <div class="lp-testi-card__avatar">👩</div>
               <div>
                 <p class="lp-testi-card__name">T.M. 様</p>
                 <p class="lp-testi-card__role" data-i18n="lp.testi1.role">福岡県 / 個人エステサロン オーナー</p>
-              </div>
-            </div>
-          </div>
-          <div class="lp-testi-card">
-            <div class="lp-testi-card__stars">★★★★★</div>
-            <p class="lp-testi-card__text" data-i18n="lp.testi2.text">「導入前は機械操作に自信がなくて不安でしたが、BISINさんの研修がとても丁寧で、すぐに自信を持って使えるようになりました。地域で脂肪冷却を提供できる数少ないサロンになれたことで、新規のお問い合わせが増えています。」</p>
-            <div class="lp-testi-card__author">
-              <div class="lp-testi-card__avatar">👩</div>
-              <div>
-                <p class="lp-testi-card__name">K.Y. 様</p>
-                <p class="lp-testi-card__role" data-i18n="lp.testi2.role">熊本県 / 痩身エステサロン オーナー</p>
-              </div>
-            </div>
-          </div>
-          <div class="lp-testi-card">
-            <div class="lp-testi-card__stars">★★★★★</div>
-            <p class="lp-testi-card__text" data-i18n="lp.testi3.text">「美容室を経営していますが、ボディケアの需要があることは感じていました。COOLSPAは待ち時間に受けていただける手軽さが好評で、リピーターのお客様が増えました。アフターサポートも心強く、安心して継続できています。」</p>
-            <div class="lp-testi-card__author">
-              <div class="lp-testi-card__avatar">👨</div>
-              <div>
-                <p class="lp-testi-card__name">S.H. 様</p>
-                <p class="lp-testi-card__role" data-i18n="lp.testi3.role">大分県 / 美容室 オーナー</p>
               </div>
             </div>
           </div>
