@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="zh-CN">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="脂肪冷却マシン COOLSPA｜美容サロン・エステサロン向け導入LP。50万円以下で導入可能。放置型・スタッフ負担ゼロ。無料デモ受付中。" />
-  <title>COOLSPA 脂肪冷却マシン導入 | 合同会社BISIN</title>
+  <meta name="description" content="脂肪冷冻塑形仪 COOLSPA｜面向美容沙龙・纤体沙龙的导入方案。50万日元以下即可引进。免操作・零员工负担。免费体验预约受理中。" />
+  <title>COOLSPA 脂肪冷冻塑形仪导入 | 合同会社BISIN</title>
   <link rel="stylesheet" href="css/style.css?v=10" />
   <style>
     /* ── LP OVERRIDES & UNIQUE SECTIONS ────────────────────── */
@@ -687,16 +687,42 @@
     #intro-section {
       width: 100%;
       background: #000;
+      position: relative;
       display: flex;
       justify-content: center;
       align-items: center;
     }
-    #intro-section video {
+    #intro-video-el {
       width: 100%;
       max-height: 90vh;
       object-fit: contain;
       display: block;
     }
+    #intro-play-btn {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      background: rgba(75,179,255,0.18);
+      border: 2px solid rgba(75,179,255,0.7);
+      color: #fff;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(6px);
+      transition: background 0.2s, transform 0.15s;
+      z-index: 10;
+    }
+    #intro-play-btn:hover {
+      background: rgba(75,179,255,0.35);
+      transform: translate(-50%, -50%) scale(1.08);
+    }
+    #intro-play-btn svg { width: 28px; height: 28px; }
+    #intro-play-btn.hidden { display: none; }
 
     /* btn sizes */
     .btn--large {
@@ -1022,16 +1048,16 @@
       <div class="lang-picker" id="langPicker">
         <button class="lang-picker__trigger" aria-expanded="false" aria-haspopup="listbox" aria-label="言語選択">
           <svg class="lang-picker__globe" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="8" cy="8" r="7"/><path d="M8 1c-1.5 2.5-2 4.5-2 7s.5 4.5 2 7"/><path d="M8 1c1.5 2.5 2 4.5 2 7s-.5 4.5-2 7"/><path d="M1 8h14"/><path d="M2 5h12"/><path d="M2 11h12"/></svg>
-          <span class="lang-picker__label">日本語</span>
+          <span class="lang-picker__label">中文</span>
           <svg class="lang-picker__chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M4 6l4 4 4-4"/></svg>
         </button>
         <div class="lang-picker__panel" role="listbox" aria-label="言語を選択">
           <div class="lang-picker__panel-header">Language</div>
-          <button class="lang-picker__item lang-picker__item--active" role="option" aria-selected="true" data-lang="ja" data-label="日本語">
+          <button class="lang-picker__item" role="option" aria-selected="false" data-lang="ja" data-label="日本語">
             <span class="lang-picker__code">JP</span><span class="lang-picker__name">日本語</span>
             <svg class="lang-picker__check" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 8l4 4 6-7"/></svg>
           </button>
-          <button class="lang-picker__item" role="option" aria-selected="false" data-lang="zh" data-label="中文">
+          <button class="lang-picker__item lang-picker__item--active" role="option" aria-selected="true" data-lang="zh" data-label="中文">
             <span class="lang-picker__code">CN</span><span class="lang-picker__name">中文</span>
             <svg class="lang-picker__check" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 8l4 4 6-7"/></svg>
           </button>
@@ -1049,9 +1075,15 @@
 
   <!-- INTRO VIDEO — 常時表示、ページ最上部 -->
   <section id="intro-section">
-    <video autoplay muted loop playsinline preload="auto">
+    <video id="intro-video-el" autoplay muted playsinline preload="auto">
       <source src="assets/intro.mp4" type="video/mp4">
     </video>
+    <button id="intro-play-btn" aria-label="播放">
+      <!-- play icon -->
+      <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+        <path d="M8 5v14l11-7z"/>
+      </svg>
+    </button>
   </section>
 
   <main>
@@ -1748,6 +1780,37 @@
   <script src="js/main.js?v=6"></script>
   <script src="js/particles.js?v=5"></script>
   <script>
+    /* ── Intro Video ── */
+    (function () {
+      const video   = document.getElementById('intro-video-el');
+      const playBtn = document.getElementById('intro-play-btn');
+
+      // Autoplay muted first (browser policy). Hide play btn while playing.
+      video.addEventListener('play', () => { playBtn.classList.add('hidden'); });
+
+      // When video ends: unmute for next play, show play btn
+      video.addEventListener('ended', () => {
+        video.muted = false;
+        playBtn.classList.remove('hidden');
+      });
+
+      // Play button: replay with sound from beginning
+      playBtn.addEventListener('click', () => {
+        video.muted = false;
+        video.currentTime = 0;
+        video.play();
+      });
+
+      // If autoplay is blocked, show play btn immediately
+      const autoplayPromise = video.play();
+      if (autoplayPromise !== undefined) {
+        autoplayPromise.catch(() => {
+          video.muted = false;
+          playBtn.classList.remove('hidden');
+        });
+      }
+    })();
+
     /* ── FAQ Accordion ── */
     document.querySelectorAll('.lp-faq-item__q').forEach(btn => {
       btn.addEventListener('click', () => {
