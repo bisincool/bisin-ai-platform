@@ -1,85 +1,76 @@
-# BISIN Website (AI-powered Beauty Service Platform)
+# BISIN AI Beauty Platform
 
-This repository contains the official website for BISIN, a beauty-tech business focused on fat-freezing treatment services and salon solutions.
+This repository contains the official website and AI integration project for BISIN, a beauty-tech business based in Fukuoka, Japan.
 
-The project is evolving into an AI-assisted platform to improve customer experience, marketing efficiency, and salon operation optimization.
+BISIN operates real beauty salons and is expanding into an AI-powered platform to improve marketing, customer experience, and salon operations.
 
 ---
 
-## 🧠 Project Overview
+## 🧠 Overview
 
-BISIN operates beauty salons in Fukuoka, Japan, and provides:
+BISIN provides:
 
-- Fat-freezing treatment services (CoolSculpting-style)
+- Fat-freezing treatment services
 - Beauty equipment rental and distribution
 - Customer acquisition and retention systems
 
-This project aims to integrate AI (LLMs like Claude) into real-world salon operations.
+This project focuses on integrating large language models (LLMs) into real-world salon workflows.
 
 ---
 
-## 🎯 Purpose of Using Claude API
+## 🎯 Claude API Use Cases
 
-We plan to use Claude API to build AI-driven features:
+We plan to integrate Claude API into the following features:
 
 ### 1. AI Content Generation
-- Generate blog posts from before/after treatment data
-- Create marketing copy (LINE, Instagram, landing pages)
-- Auto-generate campaign texts based on seasonal demand
+- Automatically generate blog posts from treatment results
+- Create marketing content (LINE, Instagram, landing pages)
+- Generate promotional campaigns based on seasonality
 
-### 2. Customer Communication Automation
-- AI-powered chat assistant for customer inquiries
+### 2. Customer Interaction Assistant
+- AI chatbot for handling customer inquiries
 - Personalized treatment recommendations
-- Follow-up message generation for retention
+- Automated follow-up messaging
 
-### 3. Data Analysis & Insights
-- Analyze customer data (weight, body fat, measurements)
-- Generate progress summaries
-- Suggest optimal treatment plans
+### 3. Data-driven Insights
+- Analyze customer body data (weight, fat %, measurements)
+- Generate progress reports
+- Suggest optimized treatment plans
 
-### 4. Internal Operation Support
-- Staff scripting (sales, consultation)
-- Training material generation
-- Campaign planning support
+### 4. Staff Productivity Tools
+- Generate consultation scripts
+- Create training materials
+- Assist campaign planning
 
 ---
 
 ## 💡 Why Claude
 
-We chose Claude (Anthropic) because of:
+We chose Claude because of its:
 
-- Strong long-context understanding
-- High-quality natural language generation
-- Safety and reliability for customer-facing content
+- Strong contextual understanding
+- High-quality and safe language generation
+- Suitability for customer-facing applications
 
 ---
 
 ## 🛠️ Tech Stack
 
 - Frontend: HTML / CSS / JavaScript
-- Backend (planned): Node.js / API integration
-- AI Integration: Claude API (Anthropic)
+- Backend: Node.js (planned)
+- AI: Claude API (Anthropic)
 
 ---
 
-## 📈 Expected Impact
+## 🌍 Real-world Impact
 
-- Reduce content creation time by 80%
-- Improve customer conversion rates
-- Increase repeat customer engagement
-- Enable scalable salon operations with minimal staff
-
----
-
-## 🌏 Real-world Application
-
-Unlike experimental projects, this platform is directly connected to:
+This project is directly connected to:
 
 - Active beauty salons
-- Paying customers
-- Real business operations
+- Real customers and transactions
+- Ongoing marketing operations
 
-This ensures immediate real-world impact of Claude API usage.
+This ensures immediate real-world usage of AI.
 
 ---
 
@@ -92,8 +83,6 @@ This ensures immediate real-world impact of Claude API usage.
 ---
 
 ## 📩 Contact
-
-For more information about this project:
 
 Website: https://bisincool.co.jp
 
