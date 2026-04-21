@@ -80,6 +80,10 @@ This ensures immediate real-world usage of AI.
 - AI features: In development
 - Claude integration: Planned
 
+## 🔗 Related Projects
+
+- BeautyMarket: AI-powered market analysis and competitor intelligence system
+
 ---
 
 ## 📩 Contact
