@@ -17,7 +17,7 @@ jobs:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
-          ssh_port: 10022
+          port: 10022
           local_path: './*'
           remote_path: '/home/bisin202603/bisincool.co.jp/public_html/'
           sftp_only: true
