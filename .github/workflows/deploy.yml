@@ -9,21 +9,15 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
-      - name: Deploy via FTP
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+      - name: Deploy via SFTP
+        uses: wlixcc/SFTP-Deploy-Action@v1.2.4
         with:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: ./
-          server-dir: /bisincool.co.jp/public_html/
-          exclude: |
-            **/.git*
-            **/.git*/**
-            README.md
-            _headers
-            _redirects
-            docs/**
-            bisin-website_report.*
+          ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
+          ssh_port: 10022
+          local_path: './*'
+          remote_path: '/home/bisin202603/bisincool.co.jp/public_html/'
+          sftp_only: true
