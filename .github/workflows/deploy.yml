@@ -30,4 +30,4 @@ jobs:
             --exclude='docs/' \
             --exclude='bisin-website_report.*' \
             --exclude='coolspa.bisincool.co.jp/' \
-           ./ bisin202603@sv17041.xserver.jp:/home/bisin202603/coolspa.bisincool.co.jp/public_html/
+           ./ bisin202603@sv17041.xserver.jp:/home/bisin202603/bisincool.co.jp/public_html/coolspa.bisincool.co.jp/
