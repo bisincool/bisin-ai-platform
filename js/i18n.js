@@ -222,7 +222,7 @@ const TRANSLATIONS = {
     'lp.barrier1.title': '専門スペース不要', 'lp.barrier1.body': '既存の施術ベッド周りに設置可能。大掛かりな工事や専用ルームは必要ありません。',
     'lp.barrier2.title': '研修・マニュアル完備', 'lp.barrier2.body': '導入時に現地研修を実施。初めての方でも安心してスタートできる操作マニュアルをご用意しています。',
     'lp.barrier3.title': '導入後も継続サポート', 'lp.barrier3.body': '稼働後のご質問は電話・LINEでいつでも受付。メニュー設計のご相談にも対応しています。',
-    'lp.barrier4.title': '1年間メーカー保証', 'lp.barrier4.body': '万が一の故障も安心。九州エリアは24時間以内に代替機の手配にも対応しています。',
+    'lp.barrier4.title': '1年間メーカー保証', 'lp.barrier4.body': '九州エリアでは万が一の故障の際に迅速に代替機手配にも対応しています。遠方のサロン様も電話・LINEで迅速にサポートします。',
     'lp.barrier5.title': '50万円以下で導入可能', 'lp.barrier5.body': '高性能な脂肪冷却機器でありながら、リーズナブルな導入価格を実現。初期投資の負担を最小化しています。',
     'lp.barrier6.title': 'メニュー設計をご支援', 'lp.barrier6.body': '価格設定・コース内容・集客施策など、サロン運営に合わせた導入プランをご提案します。',
     'lp.roi.title': '費用はどのくらいで回収できるか', 'lp.roi.lead': '以下はあくまで一例のシミュレーションです。実際の数値はサロンの規模・稼働状況によって異なります。',
@@ -609,7 +609,7 @@ const TRANSLATIONS = {
     'lp.barrier1.title': '无需专用空间', 'lp.barrier1.body': '可安装在现有施术床周围。无需大规模工程或专用房间。',
     'lp.barrier2.title': '培训·手册完备', 'lp.barrier2.body': '导入时进行现场培训。为初次使用者准备了详细操作手册，让您安心起步。',
     'lp.barrier3.title': '导入后持续支持', 'lp.barrier3.body': '运营后的问题可随时通过电话·LINE咨询。也可就菜单设计提供建议。',
-    'lp.barrier4.title': '1年质保', 'lp.barrier4.body': '故障时无需担心。九州地区可在24小时内安排替代机。',
+    'lp.barrier4.title': '1年质保', 'lp.barrier4.body': '九州地区如发生故障，可迅速安排替代机。远方的沙龙也可通过电话·LINE迅速获得支持。',
     'lp.barrier5.title': '50万日元以下可导入', 'lp.barrier5.body': '在保持高性能的同时实现了合理的导入价格。最大程度降低初期投资负担。',
     'lp.barrier6.title': '支持菜单设计', 'lp.barrier6.body': '价格设定、课程内容、吸引客户方案等，根据沙龙运营情况为您定制导入计划。',
     'lp.roi.title': '费用大约多久能收回？', 'lp.roi.lead': '以下仅为示例模拟。实际数值因沙龙规模和运营状况而异。',
@@ -657,7 +657,7 @@ const TRANSLATIONS = {
     'lp.faq.title': '常见问题',
     'lp.faq1.q': 'Q. 导入需要多大空间？', 'lp.faq1.a': '紧凑设计，可安装在现有施术床周围。无需大规模工程或专用房间。详细尺寸将在咨询时告知。',
     'lp.faq2.q': 'Q. 员工需要特别资质吗？', 'lp.faq2.a': '无需特别国家资质。导入时BISIN将在现场进行操作培训，并提供完整手册。专为让未经验员工也能在短时间内掌握而设计。',
-    'lp.faq3.q': 'Q. 如果发生故障怎么办？', 'lp.faq3.a': '导入后享有1年质保。九州地区发生故障时可在24小时内安排替代机。远方沙龙也可通过电话·LINE迅速获得支持。',
+    'lp.faq3.q': 'Q. 如果发生故障怎么办？', 'lp.faq3.a': '导入后享有1年质保。九州地区如发生故障，可迅速安排替代机。远方的沙龙也可通过电话·LINE迅速获得支持。',
     'lp.faq4.q': 'Q. 在哪里可以体验免费演示？', 'lp.faq4.a': '可在小郡店或天神店体验。根据条件也可安排上门演示。请先随时联系我们，远方老板也欢迎咨询。',
     'lp.faq5.q': 'Q. 导入后的菜单设计可以得到支持吗？', 'lp.faq5.a': '是的，我们提供此服务。包括价格设定、多次券课程设计、引客建议等，根据您沙龙的规模和客群为您量身定制菜单方案。导入后也可持续咨询。',
     'lp.faq6.q': 'Q. 看完演示后必须立即决定购买吗？', 'lp.faq6.a': '不，完全没问题。我们绝不进行强迫推销。您可以在演示后按自己的节奏考虑。如有疑问随时联系我们。',
@@ -999,7 +999,7 @@ const TRANSLATIONS = {
     'lp.barrier1.title': 'No Dedicated Space Needed', 'lp.barrier1.body': 'Can be set up around your existing treatment bed. No major renovation or dedicated room required.',
     'lp.barrier2.title': 'Full Training & Manual Package', 'lp.barrier2.body': 'On-site training provided at installation. Complete operation manuals ensure even first-timers can start confidently.',
     'lp.barrier3.title': 'Ongoing Post-Installation Support', 'lp.barrier3.body': 'Questions after launch are answered via phone or LINE anytime. Menu design consultations also available.',
-    'lp.barrier4.title': '1-Year Manufacturer Warranty', 'lp.barrier4.body': 'Peace of mind in case of malfunction. Kyushu area gets a replacement unit within 24 hours.',
+    'lp.barrier4.title': '1-Year Manufacturer Warranty', 'lp.barrier4.body': 'In the Kyushu area, we quickly arrange a replacement unit in case of malfunction. Salons further away can also get rapid support by phone or LINE.',
     'lp.barrier5.title': 'Under ¥500K Investment', 'lp.barrier5.body': 'High-performance cryolipolysis device at a reasonable price. Minimizing the burden of initial investment.',
     'lp.barrier6.title': 'Menu Design Support', 'lp.barrier6.body': 'We propose an introduction plan tailored to your salon — pricing, course structure, and customer acquisition strategies.',
     'lp.roi.title': 'How Quickly Can You Recoup the Cost?', 'lp.roi.lead': 'The following is an example simulation only. Actual figures vary by salon scale and operating conditions.',
@@ -1047,7 +1047,7 @@ const TRANSLATIONS = {
     'lp.faq.title': 'Frequently Asked Questions',
     'lp.faq1.q': 'Q. How much space is needed for installation?', 'lp.faq1.a': 'The compact design fits around your existing treatment bed. No major renovation or dedicated room is required. Detailed dimensions will be provided upon inquiry.',
     'lp.faq2.q': 'Q. Do staff need special certifications?', 'lp.faq2.a': 'No national certifications are required. BISIN provides on-site operation training at installation, along with a complete manual set. Designed so even inexperienced staff can master it quickly.',
-    'lp.faq3.q': 'Q. What happens if the machine breaks down?', 'lp.faq3.a': 'A 1-year manufacturer warranty is included. In the Kyushu area, a replacement unit can be arranged within 24 hours in case of malfunction. Remote salons are promptly supported via phone or LINE.',
+    'lp.faq3.q': 'Q. What happens if the machine breaks down?', 'lp.faq3.a': 'A 1-year manufacturer warranty is included. In the Kyushu area, we quickly arrange a replacement unit in case of malfunction. Salons further away can also get rapid support by phone or LINE.',
     'lp.faq4.q': 'Q. Where can I experience the free demo?', 'lp.faq4.a': 'Available at either our Ogori or Tenjin location. On-site demo visits may also be arranged. Please feel free to contact us first — salon owners from anywhere are welcome.',
     'lp.faq5.q': 'Q. Can you help with menu design after installation?', 'lp.faq5.a': "Yes, we do. We propose menu plans tailored to your salon's scale and clientele — including pricing, course ticket structure, and customer acquisition advice. Ongoing consultations are welcome after installation too.",
     'lp.faq6.q': 'Q. Must I decide to purchase immediately after the demo?', 'lp.faq6.a': "Not at all. We never engage in high-pressure sales. You're welcome to take as much time as you need after the demo. Feel free to contact us with any questions anytime.",
@@ -1171,7 +1171,7 @@ function applyLang(lang) {
 }
 
 function initLang() {
-  return localStorage.getItem('bisin-lang') || 'ja';
+  return localStorage.getItem('bisin-lang') || 'zh';
 }
 
 window.BISIN_I18N = { applyLang, initLang, TRANSLATIONS };
