@@ -1,16 +1,10 @@
 /* ============================================================
    合同会社BISIN — chatbot.js
    COOLSPA導入相談チャットウィジェット
-   送信先: bisin202603@gmail.com (Formspree経由)
+   送信先: bisin202603@gmail.com (mailto / メールソフト起動)
    ============================================================ */
 (function () {
   'use strict';
-
-  /* ── Formspree endpoint ─────────────────────────────────────
-     https://formspree.io/f/YOUR_FORM_ID に差し替える
-     無料プラン: 月50件。bisin202603@gmail.com 宛に転送設定。
-  ──────────────────────────────────────────────────────────── */
-  var FORMSPREE_URL = 'https://formspree.io/f/xpwzgvwk';
 
   /* ── LINE公式アカウントURL（差し替え可） ── */
   var LINE_URL = 'https://lin.ee/BISIN';
@@ -370,7 +364,7 @@
     document.getElementById('cbHfPurpose').value = answers.purpose || '';
     document.getElementById('cbHfHope').value    = answers.hope    || '';
 
-    /* Submit handler */
+    /* Submit handler — mailto でメールソフトを起動 */
     document.getElementById('cbForm').addEventListener('submit', function (e) {
       e.preventDefault();
       if (!validateForm()) return;
@@ -378,16 +372,9 @@
       var submitBtn = document.getElementById('cbSubmit');
       submitBtn.disabled = true;
       submitBtn.innerHTML =
-        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> 送信中…';
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> メールを準備中…';
 
-      var data = new FormData(document.getElementById('cbForm'));
-
-      fetch(FORMSPREE_URL, { method: 'POST', body: data, headers: { 'Accept': 'application/json' } })
-        .then(function (res) {
-          if (res.ok) { showSuccess(); }
-          else        { fallbackMailto(); }
-        })
-        .catch(function () { fallbackMailto(); });
+      openMailto();
     });
   }
 
@@ -423,15 +410,15 @@
     return ok;
   }
 
-  /* ── mailto fallback ── */
-  function fallbackMailto() {
+  /* ── mailto でメールソフトを起動 ── */
+  function openMailto() {
     var name  = document.getElementById('cbName').value;
     var salon = document.getElementById('cbSalon').value;
     var email = document.getElementById('cbEmail').value;
     var tel   = document.getElementById('cbTel').value;
     var msg   = document.getElementById('cbMsg').value;
 
-    var body = [
+    var bodyText = [
       '■ お客様情報',
       'お名前　　　: ' + name,
       'サロン名　　: ' + salon,
@@ -449,11 +436,21 @@
     ].join('\n');
 
     var subject = encodeURIComponent('【COOLSPA導入相談】お問い合わせ — ' + salon);
-    window.location.href = 'mailto:bisin202603@gmail.com?subject=' + subject + '&body=' + encodeURIComponent(body);
-    showSuccess();
+    var mailtoUrl = 'mailto:bisin202603@gmail.com?subject=' + subject + '&body=' + encodeURIComponent(bodyText);
+
+    /* メールソフトを起動（新しいタブを開かずに遷移） */
+    var link = document.createElement('a');
+    link.href = mailtoUrl;
+    link.style.display = 'none';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+
+    /* 少し待ってから完了画面を表示 */
+    setTimeout(showSuccess, 600);
   }
 
-  /* ── Success ── */
+  /* ── 完了画面（メールソフト起動後 + 送れない場合の連絡先表示） ── */
   function showSuccess() {
     var body = document.getElementById('cbBody');
     body.innerHTML = '';
@@ -461,15 +458,21 @@
     panel.className = 'cb-success';
     panel.innerHTML =
       '<div class="cb-success__icon">' +
-        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>' +
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>' +
       '</div>' +
-      '<div class="cb-success__title">送信が完了しました</div>' +
+      '<div class="cb-success__title">メールソフトが開きます</div>' +
       '<div class="cb-success__desc">' +
-        'お問い合わせありがとうございます。<br>' +
-        '<strong>2営業日以内</strong>に担当者よりご連絡いたします。<br><br>' +
-        '急ぎの場合はお電話・LINEへ。<br>' +
-        '小郡店：0942-80-6688<br>' +
-        '天神店：0927-53-5515' +
+        '内容はすでに入力済みです。<br>' +
+        '送信ボタンを押してください。' +
+      '</div>' +
+      /* 送れない場合の連絡先 */
+      '<div class="cb-fallback">' +
+        '<div class="cb-fallback__title">メールソフトが開かない場合</div>' +
+        '<a class="cb-fallback__email" href="mailto:bisin202603@gmail.com">bisin202603@gmail.com</a>' +
+        '<div class="cb-fallback__tel">' +
+          '<a href="tel:0942806688">📞 小郡店　0942-80-6688</a>' +
+          '<a href="tel:0927535515">📞 天神店　0927-53-5515</a>' +
+        '</div>' +
       '</div>' +
       '<div class="cb-cta-row" style="width:100%">' +
         '<a class="cb-cta-line" href="' + LINE_URL + '" target="_blank" rel="noopener">' +
