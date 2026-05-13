@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BISIN Chatbot — Design Prototype v3</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Noto Sans JP', 'Hiragino Kaku Gothic ProN', sans-serif;
+      background: linear-gradient(160deg, #0A2A52 0%, #061C36 100%);
+      min-height: 100vh;
+      color: #EAF6FF;
+    }
+
+    /* ── Prototype bar ── */
+    .proto-bar {
+      background: rgba(75,179,255,0.10);
+      border-bottom: 1px solid rgba(75,179,255,0.25);
+      padding: 9px 20px;
+      font-size: 11px;
+      color: #4BB3FF;
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .proto-bar strong { color: #fff; font-size: 12px; }
+    .proto-tag {
+      background: rgba(75,179,255,0.14);
+      border: 1px solid rgba(75,179,255,0.30);
+      border-radius: 4px;
+      padding: 2px 8px;
+      font-size: 10px;
+    }
+
+    .page-bg {
+      display: flex; align-items: center; justify-content: center;
+      padding: 80px 24px 180px; text-align: center;
+    }
+    .page-bg h1 {
+      font-size: clamp(32px,6vw,64px);
+      font-family: 'Montserrat',sans-serif;
+      letter-spacing: 0.14em; opacity: 0.12;
+    }
+    .page-bg p { opacity: 0.09; margin-top: 10px; font-size: 13px; }
+
+    /* ════════════════════════════════
+       FLOATING LAUNCHER
+    ════════════════════════════════ */
+    .chat-launcher {
+      position: fixed; bottom: 24px; right: 24px;
+      display: flex; flex-direction: column; align-items: center; gap: 6px;
+      cursor: pointer; border: none; background: none; z-index: 1000;
+    }
+    .launcher-circle {
+      width: 64px; height: 64px; border-radius: 50%;
+      background: linear-gradient(145deg,#1E4F8A 0%,#0A2A52 100%);
+      border: 2px solid rgba(75,179,255,0.55);
+      box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+      display: flex; align-items: center; justify-content: center;
+      transition: transform .25s, box-shadow .25s;
+      animation: lpulse 3s ease-in-out infinite;
+      position: relative;
+    }
+    .chat-launcher:hover .launcher-circle {
+      transform: scale(1.07);
+      box-shadow: 0 6px 32px rgba(0,0,0,0.5), 0 0 0 6px rgba(75,179,255,0.12);
+    }
+    .launcher-circle svg { width: 30px; height: 30px; color: #4BB3FF; }
+    .launcher-badge {
+      position: absolute; top: -4px; right: -4px;
+      width: 20px; height: 20px; border-radius: 50%;
+      background: #e05a5a; border: 2px solid #061C36;
+      font-size: 11px; font-weight: 700; color: #fff;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .launcher-label {
+      background: linear-gradient(135deg,#0A2A52,#061C36);
+      border: 1px solid rgba(75,179,255,0.40);
+      border-radius: 20px; padding: 4px 14px;
+      font-size: 11px; font-weight: 700; color: #EAF6FF;
+      letter-spacing: 0.04em; white-space: nowrap;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.3);
+    }
+    @keyframes lpulse {
+      0%,100% { box-shadow: 0 4px 24px rgba(0,0,0,0.4), 0 0 0 0 rgba(75,179,255,0.30); }
+      50%      { box-shadow: 0 4px 24px rgba(0,0,0,0.4), 0 0 0 10px rgba(75,179,255,0); }
+    }
+
+    /* ════════════════════════════════
+       CHAT WINDOW
+    ════════════════════════════════ */
+    .chat-window {
+      position: fixed; bottom: 108px; right: 24px;
+      width: 360px; max-height: 640px;
+      background: #fff;
+      border-radius: 20px;
+      box-shadow: 0 12px 60px rgba(0,0,0,0.45), 0 0 0 1px rgba(75,179,255,0.20);
+      display: flex; flex-direction: column;
+      overflow: hidden; z-index: 999;
+      transform-origin: bottom right;
+      transition: opacity .25s, transform .25s;
+    }
+    .chat-window.hidden {
+      opacity: 0; transform: scale(0.88) translateY(14px); pointer-events: none;
+    }
+
+    /* ── Header ── */
+    .chat-header {
+      background: linear-gradient(135deg,#0A2A52 0%,#1E4F8A 100%);
+      padding: 15px 18px;
+      display: flex; align-items: center; gap: 11px; flex-shrink: 0;
+    }
+    .header-icon {
+      width: 40px; height: 40px; border-radius: 50%;
+      background: rgba(75,179,255,0.18);
+      border: 1.5px solid rgba(75,179,255,0.45);
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .header-icon svg { width: 22px; height: 22px; color: #4BB3FF; }
+    .header-info { flex: 1; }
+    .header-title { font-size: 14px; font-weight: 700; color: #fff; letter-spacing: 0.02em; }
+    .header-sub {
+      font-size: 11px; color: rgba(75,179,255,0.85); margin-top: 2px;
+      display: flex; align-items: center; gap: 5px;
+    }
+    .header-sub::before {
+      content: ''; width: 6px; height: 6px; border-radius: 50%;
+      background: #4ade80; flex-shrink: 0;
+    }
+    .header-close {
+      background: rgba(255,255,255,0.10); border: none; color: rgba(255,255,255,0.65);
+      cursor: pointer; width: 28px; height: 28px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      transition: background .2s, color .2s; flex-shrink: 0;
+    }
+    .header-close:hover { background: rgba(255,255,255,0.22); color: #fff; }
+
+    /* ── Progress bar ── */
+    .progress-bar {
+      height: 3px; background: rgba(75,179,255,0.15); flex-shrink: 0;
+    }
+    .progress-fill {
+      height: 100%; background: #4BB3FF;
+      transition: width .4s ease; width: 0%;
+    }
+
+    /* ── Chat body (scroll area) ── */
+    .chat-body {
+      flex: 1; overflow-y: auto;
+      padding: 18px 14px 12px;
+      display: flex; flex-direction: column; gap: 10px;
+      background: #f6f9fc;
+      scrollbar-width: thin; scrollbar-color: #c5d8eb transparent;
+    }
+    .chat-body::-webkit-scrollbar { width: 4px; }
+    .chat-body::-webkit-scrollbar-thumb { background: #c5d8eb; border-radius: 2px; }
+
+    /* ── Bubbles ── */
+    .bot-bubble {
+      background: #fff; border: 1px solid #dce8f4;
+      border-radius: 14px; border-top-left-radius: 4px;
+      padding: 12px 14px; font-size: 13px; line-height: 1.7;
+      color: #1a2e45; box-shadow: 0 1px 6px rgba(10,42,82,0.07);
+      max-width: 92%; align-self: flex-start;
+    }
+    .bot-bubble strong { color: #0A2A52; }
+
+    .user-bubble {
+      background: linear-gradient(135deg,#1E4F8A,#0A2A52);
+      color: #fff; border-radius: 14px; border-top-right-radius: 4px;
+      padding: 10px 14px; font-size: 13px; line-height: 1.6;
+      max-width: 80%; align-self: flex-end;
+    }
+
+    /* ── Typing indicator ── */
+    .typing-wrap {
+      display: flex; align-items: center; gap: 4px;
+      padding: 10px 14px;
+      background: #fff; border: 1px solid #dce8f4;
+      border-radius: 14px; border-top-left-radius: 4px;
+      align-self: flex-start;
+      box-shadow: 0 1px 6px rgba(10,42,82,0.07);
+    }
+    .tdot {
+      width: 7px; height: 7px; border-radius: 50%; background: #4BB3FF;
+      animation: tdota 1.2s ease-in-out infinite;
+    }
+    .tdot:nth-child(2) { animation-delay: .18s; }
+    .tdot:nth-child(3) { animation-delay: .36s; }
+    @keyframes tdota {
+      0%,80%,100% { opacity:.3; transform:translateY(0); }
+      40%          { opacity:1;  transform:translateY(-4px); }
+    }
+
+    /* ── 2×2 action grid ── */
+    .action-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 8px; width: 100%;
+    }
+    .action-btn {
+      background: #fff; border: 1.5px solid #c8ddf0; border-radius: 12px;
+      padding: 13px 8px;
+      display: flex; flex-direction: column; align-items: center; gap: 7px;
+      cursor: pointer; text-align: center; font-size: 12px; font-weight: 600;
+      color: #0A2A52; line-height: 1.35;
+      transition: border-color .2s, background .2s, transform .15s;
+      font-family: inherit; box-shadow: 0 1px 4px rgba(10,42,82,0.07);
+    }
+    .action-btn:hover {
+      border-color: #1E6EDB; background: #EEF6FF;
+      transform: translateY(-1px); box-shadow: 0 3px 12px rgba(30,110,219,0.15);
+    }
+    .action-icon {
+      width: 36px; height: 36px; border-radius: 50%;
+      background: linear-gradient(135deg,#EEF6FF,#dbeeff);
+      border: 1px solid #c8ddf0;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .action-icon svg { width: 18px; height: 18px; color: #1E6EDB; }
+
+    /* ── Choice chips ── */
+    .choice-group { display: flex; flex-direction: column; gap: 6px; width: 100%; }
+    .choice-btn {
+      background: #fff; border: 1.5px solid #c8ddf0; border-radius: 10px;
+      padding: 10px 14px; font-size: 13px; color: #1a2e45;
+      cursor: pointer; text-align: left; font-family: inherit;
+      transition: border-color .2s, background .2s;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .choice-btn::before {
+      content: ''; width: 8px; height: 8px; border-radius: 50%;
+      border: 2px solid #4BB3FF; flex-shrink: 0;
+    }
+    .choice-btn:hover { border-color: #1E6EDB; background: #EEF6FF; }
+    .choice-btn.selected {
+      border-color: #1E6EDB; background: #EEF6FF;
+      color: #0A2A52; font-weight: 600;
+    }
+    .choice-btn.selected::before { background: #4BB3FF; border-color: #4BB3FF; }
+
+    /* ── CTA row (LINE + フォーム) ── */
+    .cta-row { display: flex; gap: 8px; }
+    .cta-line {
+      flex: 1; background: #06C755; color: #fff; border: none;
+      border-radius: 10px; padding: 12px 6px;
+      font-size: 12px; font-weight: 700; cursor: pointer;
+      display: flex; align-items: center; justify-content: center; gap: 6px;
+      font-family: inherit; transition: opacity .2s, transform .15s;
+      box-shadow: 0 2px 10px rgba(6,199,85,0.3);
+    }
+    .cta-line:hover { opacity: .88; transform: translateY(-1px); }
+    .cta-form {
+      flex: 1; background: #fff; color: #1a2e45;
+      border: 1.5px solid #c8ddf0; border-radius: 10px;
+      padding: 12px 6px; font-size: 12px; font-weight: 600; cursor: pointer;
+      display: flex; align-items: center; justify-content: center; gap: 6px;
+      font-family: inherit; transition: border-color .2s, background .2s, transform .15s;
+    }
+    .cta-form:hover { border-color: #1E6EDB; background: #EEF6FF; transform: translateY(-1px); }
+    .cta-line svg, .cta-form svg { width: 14px; height: 14px; flex-shrink: 0; }
+
+    .chat-divider {
+      font-size: 11px; color: #8fa8c0; text-align: center;
+      white-space: pre-line; line-height: 1.65; padding: 2px 0;
+    }
+
+    /* ════════════════════════════════
+       CONTACT FORM PANEL
+    ════════════════════════════════ */
+    .form-panel {
+      display: flex; flex-direction: column; gap: 0;
+    }
+
+    /* Summary strip (chatbot selections) */
+    .form-summary {
+      background: linear-gradient(135deg,#EEF6FF,#dbeeff);
+      border: 1px solid #c8ddf0; border-radius: 10px;
+      padding: 11px 13px; font-size: 12px; color: #1a2e45;
+      line-height: 1.7; margin-bottom: 2px;
+    }
+    .form-summary__title {
+      font-size: 11px; font-weight: 700; color: #1E4F8A;
+      letter-spacing: 0.04em; margin-bottom: 6px;
+      display: flex; align-items: center; gap: 5px;
+    }
+    .form-summary__title::before {
+      content: '';
+      width: 3px; height: 14px; background: #4BB3FF; border-radius: 2px;
+    }
+    .form-summary__row {
+      display: flex; gap: 6px; align-items: baseline;
+    }
+    .form-summary__label {
+      color: #1E4F8A; font-weight: 600; font-size: 11px;
+      white-space: nowrap; min-width: 70px;
+    }
+    .form-summary__val { color: #1a2e45; }
+
+    /* Form fields */
+    .form-fields { display: flex; flex-direction: column; gap: 9px; }
+
+    .form-group { display: flex; flex-direction: column; gap: 4px; }
+    .form-label {
+      font-size: 11px; font-weight: 700; color: #1E4F8A;
+      display: flex; align-items: center; gap: 5px;
+    }
+    .form-label .req {
+      background: #e05a5a; color: #fff; font-size: 9px; font-weight: 700;
+      border-radius: 3px; padding: 1px 5px; line-height: 1.4;
+    }
+    .form-label .opt {
+      background: #8fa8c0; color: #fff; font-size: 9px; font-weight: 700;
+      border-radius: 3px; padding: 1px 5px; line-height: 1.4;
+    }
+    .form-input, .form-textarea {
+      border: 1.5px solid #c8ddf0; border-radius: 8px;
+      padding: 9px 12px; font-size: 13px; color: #1a2e45;
+      font-family: inherit; outline: none;
+      transition: border-color .2s, background .2s;
+      background: #fff;
+      width: 100%;
+    }
+    .form-input::placeholder, .form-textarea::placeholder { color: #a0b8cc; }
+    .form-input:focus, .form-textarea:focus {
+      border-color: #4BB3FF; background: #f6fbff;
+    }
+    .form-input.error { border-color: #e05a5a; }
+    .form-error {
+      font-size: 11px; color: #e05a5a; display: none; margin-top: 1px;
+    }
+    .form-textarea { resize: none; height: 72px; line-height: 1.6; }
+
+    /* Submit button */
+    .form-submit {
+      width: 100%; background: linear-gradient(135deg,#1E4F8A,#0A2A52);
+      color: #fff; border: none; border-radius: 10px;
+      padding: 13px; font-size: 14px; font-weight: 700;
+      cursor: pointer; font-family: inherit; letter-spacing: 0.03em;
+      transition: opacity .2s, transform .15s;
+      box-shadow: 0 3px 14px rgba(10,42,82,0.3);
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      margin-top: 4px;
+    }
+    .form-submit:hover { opacity: .88; transform: translateY(-1px); }
+    .form-submit:disabled { opacity: .5; cursor: not-allowed; transform: none; }
+    .form-submit svg { width: 16px; height: 16px; }
+
+    .form-note {
+      font-size: 10px; color: #8fa8c0; text-align: center; line-height: 1.6;
+      margin-top: 2px;
+    }
+
+    /* ── Success screen ── */
+    .success-panel {
+      display: flex; flex-direction: column; align-items: center;
+      text-align: center; gap: 12px; padding: 10px 4px;
+    }
+    .success-icon {
+      width: 56px; height: 56px; border-radius: 50%;
+      background: linear-gradient(135deg,#EEF6FF,#dbeeff);
+      border: 2px solid #4BB3FF;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .success-icon svg { width: 28px; height: 28px; color: #1E6EDB; }
+    .success-title { font-size: 15px; font-weight: 700; color: #0A2A52; }
+    .success-desc { font-size: 12px; color: #4a6a85; line-height: 1.7; }
+
+    /* ── Input footer ── */
+    .chat-footer {
+      background: #fff; border-top: 1px solid #e2edf6;
+      padding: 10px 12px;
+      display: flex; gap: 8px; align-items: center; flex-shrink: 0;
+    }
+    .chat-footer input {
+      flex: 1; border: 1.5px solid #c8ddf0; border-radius: 22px;
+      padding: 9px 16px; font-size: 13px; color: #1a2e45;
+      outline: none; font-family: inherit;
+      transition: border-color .2s; background: #f6f9fc;
+    }
+    .chat-footer input::placeholder { color: #a0b8cc; }
+    .chat-footer input:focus { border-color: #4BB3FF; background: #fff; }
+    .footer-send {
+      width: 38px; height: 38px; border-radius: 50%;
+      background: linear-gradient(135deg,#1E4F8A,#0A2A52);
+      border: none; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; box-shadow: 0 2px 10px rgba(10,42,82,0.25);
+      transition: transform .18s, box-shadow .18s;
+    }
+    .footer-send:hover { transform: scale(1.08); box-shadow: 0 4px 16px rgba(10,42,82,0.35); }
+    .footer-send svg { width: 15px; height: 15px; color: #fff; }
+
+    @media (max-width: 500px) {
+      .chat-window { width: calc(100vw - 20px); right: 10px; bottom: 96px; }
+      .chat-launcher { right: 14px; bottom: 14px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="proto-bar">
+    <strong>BISIN チャットボット — Design v3</strong>
+    <span class="proto-tag">インラインお問い合わせフォーム</span>
+    <span class="proto-tag">Formspree → bisin202603@gmail.com</span>
+    <span class="proto-tag">チャット選択内容をメール本文に自動添付</span>
+  </div>
+
+  <div class="page-bg">
+    <div><h1>BISIN</h1><p>bisincool.co.jp — background</p></div>
+  </div>
+
+  <!-- LAUNCHER -->
+  <button class="chat-launcher" id="launcher">
+    <div style="position:relative;">
+      <div class="launcher-circle">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="12" y1="3" x2="12" y2="21"/><line x1="3" y1="12" x2="21" y2="12"/>
+          <line x1="5.6" y1="5.6" x2="18.4" y2="18.4"/><line x1="18.4" y1="5.6" x2="5.6" y2="18.4"/>
+          <circle cx="12" cy="12" r="2" fill="#4BB3FF" stroke="none"/>
+        </svg>
+      </div>
+      <span class="launcher-badge" id="badge">1</span>
+    </div>
+    <div class="launcher-label">導入相談はこちら</div>
+  </button>
+
+  <!-- CHAT WINDOW -->
+  <div class="chat-window hidden" id="chatWindow">
+
+    <!-- Header -->
+    <div class="chat-header">
+      <div class="header-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="12" y1="3" x2="12" y2="21"/><line x1="3" y1="12" x2="21" y2="12"/>
+          <line x1="5.6" y1="5.6" x2="18.4" y2="18.4"/><line x1="18.4" y1="5.6" x2="5.6" y2="18.4"/>
+          <circle cx="12" cy="12" r="2" fill="#4BB3FF" stroke="none"/>
+        </svg>
+      </div>
+      <div class="header-info">
+        <div class="header-title">COOLSPA 導入相談</div>
+        <div class="header-sub">オンライン — すぐにご案内します</div>
+      </div>
+      <button class="header-close" id="closeBtn">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+
+    <!-- Progress bar -->
+    <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+
+    <!-- Chat body -->
+    <div class="chat-body" id="chatBody"></div>
+
+    <!-- Text input -->
+    <div class="chat-footer">
+      <input type="text" id="chatInput" placeholder="その他のご質問はこちら…" autocomplete="off" />
+      <button class="footer-send" id="sendBtn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <script>
+  (function(){
+    'use strict';
+
+    /* ─── Formspree endpoint ───────────────────────────────────────
+       本番前に https://formspree.io/f/YOUR_FORM_ID に差し替える
+       (無料プラン: 月50件。bisin202603@gmail.com 宛に転送設定)
+    ──────────────────────────────────────────────────────────────── */
+    const FORMSPREE_URL = 'https://formspree.io/f/REPLACE_ME';
+
+    /* ─── DOM ─────────────────────────────────────────────────── */
+    const launcher     = document.getElementById('launcher');
+    const chatWindow   = document.getElementById('chatWindow');
+    const chatBody     = document.getElementById('chatBody');
+    const closeBtn     = document.getElementById('closeBtn');
+    const chatInput    = document.getElementById('chatInput');
+    const sendBtn      = document.getElementById('sendBtn');
+    const badge        = document.getElementById('badge');
+    const progressFill = document.getElementById('progressFill');
+
+    let isOpen = false;
+    const answers = {};   // stores qualification answers
+
+    /* ─── Steps ─────────────────────────────────────────────────── */
+    const STEPS = [
+      { id:'genre',   q:'サロンの業種をお聞かせください。',
+        choices:['ネイルサロン','エステサロン','美容室','リラクゼーション','その他'] },
+      { id:'area',    q:'店舗のエリアはどちらですか？',
+        choices:['福岡市内','九州（福岡市外）','関西・関東','その他の地域'] },
+      { id:'purpose', q:'導入のご目的を教えてください。',
+        choices:['客単価・売上UP','新メニューの追加','放置型メニューが欲しい','痩身メニューの強化'] },
+      { id:'hope',    q:'今すぐご希望の内容は？',
+        choices:['無料デモを体験したい','資料を見たい','料金・プランを確認したい','LINEで相談したい'] },
+    ];
+    const TOTAL_STEPS = STEPS.length + 2; // +welcome +form
+    let currentStep = 0;
+
+    /* ─── Helpers ────────────────────────────────────────────────── */
+    function scroll(){ chatBody.scrollTop = chatBody.scrollHeight; }
+
+    function setProgress(step){
+      progressFill.style.width = Math.round((step / TOTAL_STEPS) * 100) + '%';
+    }
+
+    function addEl(el){ chatBody.appendChild(el); scroll(); }
+
+    function makeBotBubble(html){
+      const d = document.createElement('div');
+      d.className = 'bot-bubble'; d.innerHTML = html; return d;
+    }
+    function makeUserBubble(text){
+      const d = document.createElement('div');
+      d.className = 'user-bubble'; d.textContent = text; return d;
+    }
+
+    function typing(cb, ms=750){
+      const wrap = document.createElement('div');
+      wrap.className = 'typing-wrap';
+      wrap.innerHTML = '<div class="tdot"></div><div class="tdot"></div><div class="tdot"></div>';
+      addEl(wrap);
+      setTimeout(()=>{ wrap.remove(); cb(); scroll(); }, ms);
+    }
+
+    /* ─── Action grid ──────────────────────────────────────────── */
+    const ACTIONS = [
+      { label:'導入費用を\n知りたい',       step:'cost',    icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 6v12M9 9.5c0-1.4 1.3-2.5 3-2.5s3 1.1 3 2.5-1.3 2.5-3 2.5-3 1.1-3 2.5 1.3 2.5 3 2.5 3-1.1 3-2.5"/></svg>' },
+      { label:'無料デモを\n予約したい',     step:'demo',    icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>' },
+      { label:'自分のサロンに\n合うか相談したい', step:'consult', icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>' },
+      { label:'資料を\n見たい',             step:'doc',     icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>' },
+    ];
+
+    function buildActionGrid(){
+      const grid = document.createElement('div');
+      grid.className = 'action-grid';
+      ACTIONS.forEach(a => {
+        const btn = document.createElement('button');
+        btn.className = 'action-btn';
+        btn.innerHTML = `<div class="action-icon">${a.icon}</div><span style="white-space:pre-line">${a.label}</span>`;
+        btn.addEventListener('click', () => handleAction(a, grid));
+        grid.appendChild(btn);
+      });
+      addEl(grid);
+    }
+
+    function handleAction(action, grid){
+      grid.querySelectorAll('.action-btn').forEach(b => b.disabled = true);
+      answers.intent = action.step;
+      addEl(makeUserBubble(action.label.replace('\n','')));
+      const map = {
+        cost:    'ありがとうございます。導入費用についてご案内するため、いくつか確認させてください。',
+        demo:    '無料デモのご予約を承ります！まず、いくつかお聞きします。',
+        consult: 'お客様のサロンに最適なご提案をいたします。状況を確認させてください。',
+        doc:     '最適な資料をお送りするため、いくつかお聞きします。',
+      };
+      setProgress(1);
+      typing(()=>{ addEl(makeBotBubble(map[action.step])); setTimeout(showStep, 400); });
+    }
+
+    /* ─── Qualification steps ────────────────────────────────────── */
+    function showStep(){
+      if(currentStep >= STEPS.length){ showFormPanel(); return; }
+      const step = STEPS[currentStep];
+      setProgress(currentStep + 2);
+      typing(()=>{
+        addEl(makeBotBubble(step.q));
+        setTimeout(()=> buildChoices(step), 300);
+      }, 650);
+    }
+
+    function buildChoices(step){
+      const group = document.createElement('div');
+      group.className = 'choice-group';
+      step.choices.forEach(c => {
+        const btn = document.createElement('button');
+        btn.className = 'choice-btn'; btn.textContent = c;
+        btn.addEventListener('click', ()=>{
+          group.querySelectorAll('.choice-btn').forEach(b => b.disabled = true);
+          btn.classList.add('selected');
+          answers[step.id] = c;
+          addEl(makeUserBubble(c));
+          currentStep++;
+          setTimeout(showStep, 350);
+        });
+        group.appendChild(btn);
+      });
+      addEl(group);
+    }
+
+    /* ─── Inline contact form ────────────────────────────────────── */
+    function showFormPanel(){
+      setProgress(TOTAL_STEPS);
+
+      typing(()=>{
+        addEl(makeBotBubble(
+          'ありがとうございます！最後にご連絡先を教えてください。<br>' +
+          '選択いただいた内容を添えてご担当者よりご連絡いたします。'
+        ));
+        setTimeout(buildForm, 400);
+      }, 650);
+    }
+
+    function buildForm(){
+      const panel = document.createElement('div');
+      panel.className = 'form-panel';
+
+      /* ── Summary of chatbot selections ── */
+      const summaryRows = [
+        { label:'業種',     val: answers.genre   || '—' },
+        { label:'エリア',   val: answers.area    || '—' },
+        { label:'目的',     val: answers.purpose || '—' },
+        { label:'ご希望',   val: answers.hope    || '—' },
+      ];
+      const summaryHtml = summaryRows.map(r =>
+        `<div class="form-summary__row">
+           <span class="form-summary__label">${r.label}</span>
+           <span class="form-summary__val">${r.val}</span>
+         </div>`
+      ).join('');
+
+      panel.innerHTML = `
+        <!-- Selection summary -->
+        <div class="form-summary" style="margin-bottom:10px;">
+          <div class="form-summary__title">選択いただいた内容</div>
+          ${summaryHtml}
+        </div>
+
+        <!-- Form fields -->
+        <form id="contactForm" novalidate>
+          <div class="form-fields">
+
+            <div class="form-group">
+              <label class="form-label" for="f_name">
+                お名前 <span class="req">必須</span>
+              </label>
+              <input class="form-input" type="text" id="f_name" name="name"
+                     placeholder="山田 花子" autocomplete="name" />
+              <span class="form-error" id="err_name">お名前を入力してください</span>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="f_salon">
+                サロン名 <span class="req">必須</span>
+              </label>
+              <input class="form-input" type="text" id="f_salon" name="salon_name"
+                     placeholder="〇〇ネイルサロン" />
+              <span class="form-error" id="err_salon">サロン名を入力してください</span>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="f_email">
+                メールアドレス <span class="req">必須</span>
+              </label>
+              <input class="form-input" type="email" id="f_email" name="email"
+                     placeholder="example@salon.jp" autocomplete="email" />
+              <span class="form-error" id="err_email">正しいメールアドレスを入力してください</span>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="f_tel">
+                電話番号 <span class="opt">任意</span>
+              </label>
+              <input class="form-input" type="tel" id="f_tel" name="tel"
+                     placeholder="092-XXX-XXXX" autocomplete="tel" />
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="f_msg">
+                ご質問・ご要望 <span class="opt">任意</span>
+              </label>
+              <textarea class="form-textarea" id="f_msg" name="message"
+                        placeholder="その他、気になることがあればご記入ください。"></textarea>
+            </div>
+
+            <!-- Hidden: chatbot selections (will appear in email body) -->
+            <input type="hidden" name="_subject"
+                   value="【COOLSPA導入相談】お問い合わせが届きました" />
+            <input type="hidden" name="チャット選択_業種"   id="hf_genre" />
+            <input type="hidden" name="チャット選択_エリア" id="hf_area" />
+            <input type="hidden" name="チャット選択_目的"   id="hf_purpose" />
+            <input type="hidden" name="チャット選択_希望"   id="hf_hope" />
+            <input type="hidden" name="_next" value="/" />
+
+            <button type="submit" class="form-submit" id="submitBtn">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+              この内容で送信する
+            </button>
+
+            <p class="form-note">
+              送信先：bisin202603@gmail.com<br>
+              2営業日以内にご返答いたします。
+            </p>
+
+          </div>
+        </form>`;
+
+      addEl(panel);
+
+      /* ── Fill hidden fields ── */
+      document.getElementById('hf_genre').value   = answers.genre   || '';
+      document.getElementById('hf_area').value    = answers.area    || '';
+      document.getElementById('hf_purpose').value = answers.purpose || '';
+      document.getElementById('hf_hope').value    = answers.hope    || '';
+
+      /* ── Validation + submit ── */
+      const form = document.getElementById('contactForm');
+      form.addEventListener('submit', async e => {
+        e.preventDefault();
+        if(!validateForm()) return;
+
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> 送信中…';
+
+        /* Build plain-text email body for Formspree */
+        const bodyNote = [
+          '■ チャットでの選択内容',
+          `サロン業種　: ${answers.genre   || '未回答'}`,
+          `店舗エリア　: ${answers.area    || '未回答'}`,
+          `導入目的　　: ${answers.purpose || '未回答'}`,
+          `ご希望　　　: ${answers.hope    || '未回答'}`,
+        ].join('\n');
+        document.getElementById('hf_genre').value = bodyNote; // pack all into one field as fallback
+
+        try {
+          const data = new FormData(form);
+          const res = await fetch(FORMSPREE_URL, {
+            method: 'POST', body: data,
+            headers: { 'Accept': 'application/json' },
+          });
+
+          if(res.ok){
+            showSuccess();
+          } else {
+            /* Fallback: mailto link */
+            fallbackMailto();
+          }
+        } catch(_){
+          fallbackMailto();
+        }
+      });
+    }
+
+    /* ─── Validation ──────────────────────────────────────────────── */
+    function validateForm(){
+      let ok = true;
+      const nameEl  = document.getElementById('f_name');
+      const salonEl = document.getElementById('f_salon');
+      const emailEl = document.getElementById('f_email');
+
+      [nameEl, salonEl, emailEl].forEach(el => {
+        el.classList.remove('error');
+        document.getElementById('err_' + el.id.replace('f_','')).style.display = 'none';
+      });
+
+      if(!nameEl.value.trim()){
+        nameEl.classList.add('error');
+        document.getElementById('err_name').style.display = 'block';
+        ok = false;
+      }
+      if(!salonEl.value.trim()){
+        salonEl.classList.add('error');
+        document.getElementById('err_salon').style.display = 'block';
+        ok = false;
+      }
+      const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if(!emailRe.test(emailEl.value.trim())){
+        emailEl.classList.add('error');
+        document.getElementById('err_email').style.display = 'block';
+        ok = false;
+      }
+      return ok;
+    }
+
+    /* ─── Fallback: mailto ─────────────────────────────────────────── */
+    function fallbackMailto(){
+      const name    = document.getElementById('f_name').value;
+      const salon   = document.getElementById('f_salon').value;
+      const email   = document.getElementById('f_email').value;
+      const tel     = document.getElementById('f_tel').value;
+      const msg     = document.getElementById('f_msg').value;
+
+      const body = [
+        '■ お客様情報',
+        `お名前　　　: ${name}`,
+        `サロン名　　: ${salon}`,
+        `メール　　　: ${email}`,
+        `電話番号　　: ${tel || '未記入'}`,
+        '',
+        '■ チャットでの選択内容',
+        `サロン業種　: ${answers.genre   || '未回答'}`,
+        `店舗エリア　: ${answers.area    || '未回答'}`,
+        `導入目的　　: ${answers.purpose || '未回答'}`,
+        `ご希望　　　: ${answers.hope    || '未回答'}`,
+        '',
+        '■ ご質問・ご要望',
+        msg || '（なし）',
+      ].join('\n');
+
+      const subject = encodeURIComponent('【COOLSPA導入相談】お問い合わせ — ' + salon);
+      const bodyEnc = encodeURIComponent(body);
+      window.location.href = `mailto:bisin202603@gmail.com?subject=${subject}&body=${bodyEnc}`;
+
+      showSuccess();
+    }
+
+    /* ─── Success screen ────────────────────────────────────────────── */
+    function showSuccess(){
+      chatBody.innerHTML = '';
+      const panel = document.createElement('div');
+      panel.className = 'success-panel';
+      panel.innerHTML = `
+        <div class="success-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+            <polyline points="22 4 12 14.01 9 11.01"/>
+          </svg>
+        </div>
+        <div class="success-title">送信が完了しました</div>
+        <div class="success-desc">
+          お問い合わせありがとうございます。<br>
+          <strong>2営業日以内</strong>に担当者よりご連絡いたします。<br><br>
+          急ぎのお問い合わせはお電話・LINEへ。<br>
+          小郡店：0942-80-6688<br>
+          天神店：0927-53-5515
+        </div>
+        <div class="cta-row" style="width:100%">
+          <button class="cta-line" onclick="window.open('https://line.me/','_blank')">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M20 10.1C20 5.6 15.5 2 10 2S0 5.6 0 10.1c0 4 3.6 7.4 8.4 8l.6.1v-1.4H7.5v-2h1.5V13c0-1.7 1-2.5 2.4-2.5.7 0 1.4.1 2.1.2v1.9h-1.1c-.7 0-.9.4-.9.8v1.2h1.9l-.3 2h-1.6v4.3c5.1-.7 9-4.1 9-8.8z"/></svg>
+            LINEで相談する
+          </button>
+        </div>`;
+      addEl(panel);
+    }
+
+    /* ─── Free-text input ───────────────────────────────────────────── */
+    function handleFreeText(){
+      const val = chatInput.value.trim();
+      if(!val) return;
+      chatInput.value = '';
+      addEl(makeUserBubble(val));
+      const PRICE_KW = ['価格','費用','いくら','料金','値段'];
+      if(PRICE_KW.some(k => val.includes(k))){
+        typing(()=>{
+          addEl(makeBotBubble('機器の導入費用はプランにより異なります。担当者より個別にご案内しますので、下記よりお問い合わせください。'));
+          buildCtaRow();
+        });
+        return;
+      }
+      typing(()=>{
+        addEl(makeBotBubble('ご質問ありがとうございます。担当者よりご案内いたします。'));
+        buildCtaRow();
+      });
+    }
+
+    function buildCtaRow(){
+      const divider = document.createElement('div');
+      divider.className = 'chat-divider';
+      divider.textContent = 'LINEやお電話でもご相談いただけます。';
+      addEl(divider);
+      const row = document.createElement('div');
+      row.className = 'cta-row';
+      row.innerHTML = `
+        <button class="cta-line" onclick="window.open('https://line.me/','_blank')">
+          <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M20 10.1C20 5.6 15.5 2 10 2S0 5.6 0 10.1c0 4 3.6 7.4 8.4 8l.6.1v-1.4H7.5v-2h1.5V13c0-1.7 1-2.5 2.4-2.5.7 0 1.4.1 2.1.2v1.9h-1.1c-.7 0-.9.4-.9.8v1.2h1.9l-.3 2h-1.6v4.3c5.1-.7 9-4.1 9-8.8z"/></svg>
+          LINEで相談する
+        </button>
+        <button class="cta-form" id="openFormBtn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" width="14" height="14"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          お問い合わせフォーム
+        </button>`;
+      addEl(row);
+      row.querySelector('#openFormBtn').addEventListener('click', showFormPanel);
+    }
+
+    /* ─── Open / close ──────────────────────────────────────────────── */
+    function openChat(){
+      isOpen = true;
+      chatWindow.classList.remove('hidden');
+      badge.style.display = 'none';
+      if(chatBody.childElementCount === 0){
+        setProgress(0);
+        typing(()=>{
+          addEl(makeBotBubble(
+            'こんにちは。COOLSPAの導入について、気になることをすぐに確認できます。<br><br>' +
+            '<strong>導入費用・収益シミュレーション・無料デモ予約</strong>など、お気軽にご相談ください。'
+          ));
+          setTimeout(buildActionGrid, 500);
+        }, 650);
+      }
+      chatInput.focus();
+    }
+    function closeChat(){ isOpen = false; chatWindow.classList.add('hidden'); }
+
+    /* ─── Events ─────────────────────────────────────────────────────── */
+    launcher.addEventListener('click', () => isOpen ? closeChat() : openChat());
+    closeBtn.addEventListener('click', closeChat);
+    sendBtn.addEventListener('click', handleFreeText);
+    chatInput.addEventListener('keydown', e => { if(e.key==='Enter') handleFreeText(); });
+
+    /* ─── Auto-open ──────────────────────────────────────────────────── */
+    if(!sessionStorage.getItem('bisin-chat-v3')){
+      setTimeout(()=>{ sessionStorage.setItem('bisin-chat-v3','1'); openChat(); }, 3500);
+    }
+  })();
+  </script>
+</body>
+</html>
