@@ -128,7 +128,10 @@
   /* ── DOM helpers ── */
   function el(tag, attrs) {
     var node = document.createElement(tag);
-    Object.keys(attrs || {}).forEach(function (k) { node.setAttribute(k, attrs[k]); });
+    Object.keys(attrs || {}).forEach(function (k) {
+      if (k === 'className') { node.className = attrs[k]; }
+      else { node.setAttribute(k, attrs[k]); }
+    });
     return node;
   }
 
