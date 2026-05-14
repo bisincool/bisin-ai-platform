@@ -237,10 +237,16 @@
 
   /* ── SVG icons ── */
   function iconSnowflake() {
-    return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">' +
-      '<line x1="12" y1="3" x2="12" y2="21"/><line x1="3" y1="12" x2="21" y2="12"/>' +
-      '<line x1="5.6" y1="5.6" x2="18.4" y2="18.4"/><line x1="18.4" y1="5.6" x2="5.6" y2="18.4"/>' +
-      '<circle cx="12" cy="12" r="2" fill="#4BB3FF" stroke="none"/>' +
+    return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.55" stroke-linecap="round" stroke-linejoin="round">' +
+      '<g transform="translate(12,12)">' +
+        '<g transform="rotate(0)"><line x1="0" y1="-1.4" x2="0" y2="-8.8"/><line x1="0" y1="-5.5" x2="2.0" y2="-7.1"/><line x1="0" y1="-5.5" x2="-2.0" y2="-7.1"/></g>' +
+        '<g transform="rotate(60)"><line x1="0" y1="-1.4" x2="0" y2="-8.8"/><line x1="0" y1="-5.5" x2="2.0" y2="-7.1"/><line x1="0" y1="-5.5" x2="-2.0" y2="-7.1"/></g>' +
+        '<g transform="rotate(120)"><line x1="0" y1="-1.4" x2="0" y2="-8.8"/><line x1="0" y1="-5.5" x2="2.0" y2="-7.1"/><line x1="0" y1="-5.5" x2="-2.0" y2="-7.1"/></g>' +
+        '<g transform="rotate(180)"><line x1="0" y1="-1.4" x2="0" y2="-8.8"/><line x1="0" y1="-5.5" x2="2.0" y2="-7.1"/><line x1="0" y1="-5.5" x2="-2.0" y2="-7.1"/></g>' +
+        '<g transform="rotate(240)"><line x1="0" y1="-1.4" x2="0" y2="-8.8"/><line x1="0" y1="-5.5" x2="2.0" y2="-7.1"/><line x1="0" y1="-5.5" x2="-2.0" y2="-7.1"/></g>' +
+        '<g transform="rotate(300)"><line x1="0" y1="-1.4" x2="0" y2="-8.8"/><line x1="0" y1="-5.5" x2="2.0" y2="-7.1"/><line x1="0" y1="-5.5" x2="-2.0" y2="-7.1"/></g>' +
+        '<circle cx="0" cy="0" r="1.6" fill="#4BB3FF" stroke="none"/>' +
+      '</g>' +
       '</svg>';
   }
 
