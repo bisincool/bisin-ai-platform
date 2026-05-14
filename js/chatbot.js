@@ -9,36 +9,108 @@
   /* ── LINE公式アカウントURL（差し替え可） ── */
   var LINE_URL = 'https://lin.ee/BISIN';
 
-  /* ── Qualification steps ── */
-  var STEPS = [
-    {
-      id: 'genre',
-      q: 'サロンの業種をお聞かせください。',
-      choices: ['ネイルサロン', 'エステサロン', '美容室', 'リラクゼーション', 'その他'],
+  /* ── Knowledge base — 6 topics ── */
+  var TOPICS = {
+    cryo: {
+      label: '❄️ 脂肪冷却とは？',
+      related: ['effect', 'areas', 'salon'],
+      answer:
+        'COOLSPAは<strong>クライオリポリシス（脂肪冷却）技術</strong>を採用した次世代痩身機器です。<br><br>' +
+        '❄️ <strong>仕組み</strong><br>' +
+        '脂肪細胞は約4℃から凍り始めますが、血液・神経・皮膚組織はその温度では影響を受けません。この差を利用して、<strong>脂肪細胞だけを選択的に凍結・分解</strong>します。<br><br>' +
+        '✅ 切らない・痛みが少ない<br>' +
+        '✅ ダウンタイムほぼなし<br>' +
+        '✅ 部分痩せが可能<br>' +
+        '✅ リバウンドしにくい<br><br>' +
+        '通常ダイエットが脂肪の「大きさ」を縮めるのに対し、脂肪冷却は<strong>脂肪細胞の数そのものを減らす</strong>ため、リバウンドが起きにくいのが特徴です。',
     },
-    {
-      id: 'area',
-      q: '店舗のエリアはどちらですか？',
-      choices: ['福岡市内', '九州（福岡市外）', '関西・関東', 'その他の地域'],
+    effect: {
+      label: '✨ 効果・施術回数',
+      related: ['cryo', 'areas', 'demo'],
+      answer:
+        '実際のお客様データです（食事制限・激しい運動なし）。<br><br>' +
+        '📊 <strong>施術実績</strong><br>' +
+        '・30代女性 2回：腹囲 <strong>−6cm</strong>、ウエスト <strong>−3cm</strong><br>' +
+        '・40代女性 5回：お腹 <strong>−5cm</strong>、太もも <strong>−3cm</strong><br>' +
+        '・50代女性 5回：お腹 <strong>−10cm</strong>、ウエスト <strong>−10cm</strong><br>' +
+        '・50代女性 7回：体重 <strong>−5.6kg</strong>、ウエスト <strong>−10cm</strong><br><br>' +
+        '⏱ <strong>施術の目安</strong><br>' +
+        '・1回あたり：約60〜90分（放置型なのでスタッフ不要）<br>' +
+        '・推奨間隔：1〜2ヶ月に1回<br>' +
+        '・効果実感：3〜5回で多くの方が変化を実感<br><br>' +
+        '<span style="font-size:0.78em;opacity:0.7;">※効果には個人差があります。HotPepper評価 4.71/5.0（196件）</span>',
     },
-    {
-      id: 'purpose',
-      q: '導入のご目的を教えてください。',
-      choices: ['客単価・売上UP', '新メニューの追加', '放置型メニューが欲しい', '痩身メニューの強化'],
+    areas: {
+      label: '📍 施術できる部位',
+      related: ['effect', 'cryo', 'demo'],
+      answer:
+        'COOLSPAの専用アプリケーターで対応している部位です。<br><br>' +
+        '📍 <strong>施術対応部位</strong><br>' +
+        '・お腹・下腹部・わき腹<br>' +
+        '・ウエスト（前後）<br>' +
+        '・太もも（前面・外側・内側）<br>' +
+        '・二の腕（上腕）<br>' +
+        '・背中・ウエスト後ろ<br>' +
+        '・お尻・ヒップライン<br><br>' +
+        '360°冷却テクノロジーにより、アプリケーターが体の凹凸にフィットし、全方向から均一に冷却。<strong>気になる部位をピンポイントで集中ケア</strong>できます。',
     },
-    {
-      id: 'hope',
-      q: '今すぐご希望の内容は？',
-      choices: ['無料デモを体験したい', '資料を見たい', '料金・プランを確認したい', 'LINEで相談したい'],
+    salon: {
+      label: '🏪 サロン導入について',
+      related: ['demo', 'store'],
+      answer:
+        '<strong>COOLSPAはB2Bサロン向けの放置型痩身機器</strong>です。<br><br>' +
+        '💡 <strong>放置型の特長</strong><br>' +
+        '・施術中スタッフが付きっきり不要<br>' +
+        '・他のお客様の対応と同時並行OK<br>' +
+        '・1人〜少人数サロンでも無理なく運用可能<br>' +
+        '・特別な工事不要、既存スペースに設置可能<br><br>' +
+        '🛠 <strong>BISINのサポート内容</strong><br>' +
+        '・現状ヒアリング＋ROIシミュレーション（無料）<br>' +
+        '・現地設置＋スタッフ操作研修（半日）<br>' +
+        '・施術プロトコルマニュアル一式提供<br>' +
+        '・1年間メーカー保証／故障時代替機対応<br>' +
+        '・電話・LINEサポート（月〜土 10:00〜20:00）<br><br>' +
+        '⏱ <strong>最短2週間で稼働開始</strong>できます。<br>' +
+        '<span style="font-size:0.78em;opacity:0.7;">※機器価格は担当者より個別にご案内します。</span>',
     },
-  ];
+    demo: {
+      label: '📅 デモ体験の予約',
+      related: ['salon', 'store'],
+      answer:
+        '<strong>無料デモ体験</strong>は2つの方法でご利用いただけます。<br><br>' +
+        '📍 <strong>来店デモ（完全無料）</strong><br>' +
+        '小郡店 または 天神店にてご体験いただけます。<br>' +
+        '所要：約60〜90分<br>' +
+        '内容：マシン体験・操作説明・メニュー設計アドバイス・収益シミュレーション<br><br>' +
+        '📦 <strong>出張デモ</strong><br>' +
+        '遠方のサロン様には条件によりご対応可能です。まずはご相談ください。<br><br>' +
+        '📞 <strong>ご予約・お問い合わせ</strong><br>' +
+        '小郡店　<a href="tel:0942806688" style="color:#1E6EDB;font-weight:700;">0942-80-6688</a><br>' +
+        '天神店　<a href="tel:0927535515" style="color:#1E6EDB;font-weight:700;">0927-53-5515</a><br>' +
+        '💬 LINEでのご予約も承っています',
+    },
+    store: {
+      label: '🕐 店舗・営業時間',
+      related: ['demo', 'salon'],
+      answer:
+        '◆ <strong>小郡店</strong><br>' +
+        '📞 <a href="tel:0942806688" style="color:#1E6EDB;font-weight:700;">0942-80-6688</a><br>' +
+        '⏰ 月〜土　10:00〜20:00（日祝休）<br><br>' +
+        '◆ <strong>天神店（福岡市）</strong><br>' +
+        '📞 <a href="tel:0927535515" style="color:#1E6EDB;font-weight:700;">0927-53-5515</a><br>' +
+        '⏰ 月〜土　10:00〜20:00（日祝休）<br><br>' +
+        '📍 <strong>本社住所</strong><br>' +
+        '〒810-0004<br>福岡県福岡市中央区渡辺通５丁目２４−３０<br><br>' +
+        '✉ <a href="mailto:bisin202603@gmail.com" style="color:#1E6EDB;">bisin202603@gmail.com</a><br>' +
+        '<span style="font-size:0.78em;opacity:0.7;">2営業日以内にご返答いたします。</span>',
+    },
+  };
 
-  var TOTAL_STEPS = STEPS.length + 2;
+  var TOPIC_ORDER = ['cryo', 'effect', 'areas', 'salon', 'demo', 'store'];
 
   /* ── State ── */
-  var isOpen = false;
+  var isOpen  = false;
   var answers = {};
-  var currentStep = 0;
 
   /* ── Build DOM on first load ── */
   function buildWidget() {
@@ -54,7 +126,6 @@
     /* Window */
     var win = el('div', { className: 'cb-window cb-hidden', id: 'cbWindow', role: 'dialog', 'aria-label': 'COOLSPA導入相談チャット' });
     win.innerHTML =
-      /* Header */
       '<div class="cb-header">' +
         '<div class="cb-header__icon">' + iconSnowflake() + '</div>' +
         '<div class="cb-header__info">' +
@@ -65,11 +136,8 @@
           '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6L6 18M6 6l12 12"/></svg>' +
         '</button>' +
       '</div>' +
-      /* Progress */
       '<div class="cb-progress"><div class="cb-progress__fill" id="cbProgress"></div></div>' +
-      /* Body */
       '<div class="cb-body" id="cbBody"></div>' +
-      /* Footer */
       '<div class="cb-footer">' +
         '<input class="cb-footer__input" id="cbInput" type="text" placeholder="その他のご質問はこちら…" autocomplete="off" aria-label="メッセージ入力" />' +
         '<button class="cb-footer__send" id="cbSend" aria-label="送信">' +
@@ -106,10 +174,9 @@
       setProgress(0);
       typing(function () {
         addEl(botBubble(
-          'こんにちは。COOLSPAの導入について、気になることをすぐに確認できます。<br><br>' +
-          '<strong>導入費用・収益シミュレーション・無料デモ予約</strong>など、お気軽にご相談ください。'
+          'こんにちは！COOLSPAについて知りたいことをお選びください。'
         ));
-        setTimeout(buildActionGrid, 500);
+        setTimeout(buildTopicGrid, 400);
       }, 700);
     }
     document.getElementById('cbInput').focus();
@@ -121,8 +188,8 @@
   }
 
   /* ── Progress ── */
-  function setProgress(step) {
-    document.getElementById('cbProgress').style.width = Math.round((step / TOTAL_STEPS) * 100) + '%';
+  function setProgress(pct) {
+    document.getElementById('cbProgress').style.width = pct + '%';
   }
 
   /* ── DOM helpers ── */
@@ -190,102 +257,87 @@
       '</svg>';
   }
 
-  /* ── Action grid ── */
-  var ACTIONS = [
-    {
-      label: '導入費用を\n知りたい',
-      intent: 'cost',
-      icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 6v12M9 9.5c0-1.4 1.3-2.5 3-2.5s3 1.1 3 2.5-1.3 2.5-3 2.5-3 1.1-3 2.5 1.3 2.5 3 2.5 3-1.1 3-2.5"/></svg>',
-    },
-    {
-      label: '無料デモを\n予約したい',
-      intent: 'demo',
-      icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>',
-    },
-    {
-      label: '自分のサロンに\n合うか相談したい',
-      intent: 'consult',
-      icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>',
-    },
-    {
-      label: '資料を\n見たい',
-      intent: 'doc',
-      icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>',
-    },
-  ];
-
-  function buildActionGrid() {
+  /* ── 6-topic grid ── */
+  function buildTopicGrid() {
     var grid = document.createElement('div');
-    grid.className = 'cb-grid';
-    ACTIONS.forEach(function (a) {
+    grid.className = 'cb-topic-grid';
+    TOPIC_ORDER.forEach(function (id) {
+      var t = TOPICS[id];
       var btn = document.createElement('button');
-      btn.className = 'cb-grid__btn';
-      btn.innerHTML =
-        '<div class="cb-grid__icon">' + a.icon + '</div>' +
-        '<span style="white-space:pre-line">' + a.label + '</span>';
-      btn.addEventListener('click', function () { handleAction(a, grid); });
+      btn.className = 'cb-topic-btn';
+      btn.textContent = t.label;
+      btn.addEventListener('click', function () {
+        grid.querySelectorAll('.cb-topic-btn').forEach(function (b) { b.disabled = true; b.style.opacity = '0.45'; });
+        handleTopic(id);
+      });
       grid.appendChild(btn);
     });
     addEl(grid);
   }
 
-  function handleAction(action, grid) {
-    grid.querySelectorAll('.cb-grid__btn').forEach(function (b) { b.disabled = true; });
-    answers.intent = action.intent;
-    addEl(userBubble(action.label.replace('\n', '')));
+  /* ── Topic handler — shows answer + related chips ── */
+  function handleTopic(id) {
+    var t = TOPICS[id];
+    answers.topic = t.label;
+    setProgress(40);
 
-    var map = {
-      cost:    'ありがとうございます。導入費用についてご案内するため、いくつか確認させてください。',
-      demo:    '無料デモのご予約を承ります！まず、いくつかお聞きします。',
-      consult: 'お客様のサロンに最適なご提案をいたします。状況を確認させてください。',
-      doc:     '最適な資料をお送りするため、いくつかお聞きします。',
-    };
-
-    setProgress(1);
+    addEl(userBubble(t.label));
     typing(function () {
-      addEl(botBubble(map[action.intent]));
-      setTimeout(showStep, 400);
-    });
+      addEl(botBubble(t.answer));
+      setTimeout(function () { buildRelatedRow(t.related); }, 350);
+    }, 680);
   }
 
-  /* ── Qualification flow ── */
-  function showStep() {
-    if (currentStep >= STEPS.length) { showFormPanel(); return; }
-    var step = STEPS[currentStep];
-    setProgress(currentStep + 2);
-    typing(function () {
-      addEl(botBubble(step.q));
-      setTimeout(function () { buildChoices(step); }, 300);
-    }, 650);
-  }
+  /* ── Related topic chips + contact CTA ── */
+  function buildRelatedRow(relatedIds) {
+    var wrap = document.createElement('div');
+    wrap.className = 'cb-related-wrap';
 
-  function buildChoices(step) {
-    var group = document.createElement('div');
-    group.className = 'cb-choices';
-    step.choices.forEach(function (c) {
-      var btn = document.createElement('button');
-      btn.className = 'cb-choice';
-      btn.textContent = c;
-      btn.addEventListener('click', function () {
-        group.querySelectorAll('.cb-choice').forEach(function (b) { b.disabled = true; });
-        btn.classList.add('cb-selected');
-        answers[step.id] = c;
-        addEl(userBubble(c));
-        currentStep++;
-        setTimeout(showStep, 350);
+    var lbl = document.createElement('div');
+    lbl.className = 'cb-related-label';
+    lbl.textContent = '他にご質問はありますか？';
+    wrap.appendChild(lbl);
+
+    var row = document.createElement('div');
+    row.className = 'cb-related';
+
+    relatedIds.forEach(function (id) {
+      var t = TOPICS[id];
+      var chip = document.createElement('button');
+      chip.className = 'cb-related__chip';
+      chip.textContent = t.label;
+      chip.addEventListener('click', function () {
+        disableWrap(wrap);
+        handleTopic(id);
       });
-      group.appendChild(btn);
+      row.appendChild(chip);
     });
-    addEl(group);
+
+    /* お問い合わせフォーム chip */
+    var formChip = document.createElement('button');
+    formChip.className = 'cb-related__form';
+    formChip.innerHTML = iconMail() + '&nbsp;お問い合わせフォーム';
+    formChip.addEventListener('click', function () {
+      disableWrap(wrap);
+      showFormPanel();
+    });
+    row.appendChild(formChip);
+
+    wrap.appendChild(row);
+    addEl(wrap);
+  }
+
+  function disableWrap(wrap) {
+    wrap.querySelectorAll('button').forEach(function (b) { b.disabled = true; b.style.opacity = '0.45'; });
   }
 
   /* ── Contact form ── */
   function showFormPanel() {
-    setProgress(TOTAL_STEPS);
+    setProgress(70);
     typing(function () {
       addEl(botBubble(
-        'ありがとうございます！最後にご連絡先を教えてください。<br>' +
-        '選択いただいた内容を添えてご担当者よりご連絡いたします。'
+        'ありがとうございます！ご連絡先をご入力ください。<br>' +
+        '担当者より2営業日以内にご返答いたします。'
       ));
       setTimeout(buildForm, 400);
     }, 650);
@@ -294,22 +346,7 @@
   function buildForm() {
     var panel = document.createElement('div');
 
-    /* Summary */
-    var rows = [
-      { label: '業種',   val: answers.genre   || '—' },
-      { label: 'エリア', val: answers.area     || '—' },
-      { label: '目的',   val: answers.purpose  || '—' },
-      { label: 'ご希望', val: answers.hope     || '—' },
-    ];
-    var rowHtml = rows.map(function (r) {
-      return '<div class="cb-summary__row"><span class="cb-summary__label">' + r.label + '</span><span>' + r.val + '</span></div>';
-    }).join('');
-
     panel.innerHTML =
-      '<div class="cb-summary">' +
-        '<div class="cb-summary__title">選択いただいた内容</div>' +
-        rowHtml +
-      '</div>' +
       '<form id="cbForm" novalidate>' +
         '<div class="cb-fields">' +
 
@@ -341,14 +378,6 @@
             '<textarea class="cb-textarea" id="cbMsg" name="message" placeholder="その他、気になることがあればご記入ください。"></textarea>' +
           '</div>' +
 
-          /* Hidden fields — chatbot selections */
-          '<input type="hidden" name="_subject" value="【COOLSPA導入相談】お問い合わせが届きました" />' +
-          '<input type="hidden" name="チャット選択_業種"   id="cbHfGenre" />' +
-          '<input type="hidden" name="チャット選択_エリア" id="cbHfArea" />' +
-          '<input type="hidden" name="チャット選択_目的"   id="cbHfPurpose" />' +
-          '<input type="hidden" name="チャット選択_希望"   id="cbHfHope" />' +
-          '<input type="hidden" name="_next" value="/" />' +
-
           '<button type="submit" class="cb-submit" id="cbSubmit">' +
             '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" width="16" height="16"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>' +
             'この内容で送信する' +
@@ -361,24 +390,16 @@
 
     addEl(panel);
 
-    /* Fill hidden fields */
-    document.getElementById('cbHfGenre').value   = answers.genre   || '';
-    document.getElementById('cbHfArea').value    = answers.area    || '';
-    document.getElementById('cbHfPurpose').value = answers.purpose || '';
-    document.getElementById('cbHfHope').value    = answers.hope    || '';
-
-    /* Submit handler — mailto でメールソフトを起動 */
     document.getElementById('cbForm').addEventListener('submit', function (e) {
       e.preventDefault();
       if (!validateForm()) return;
-
       var submitBtn = document.getElementById('cbSubmit');
       submitBtn.disabled = true;
       submitBtn.innerHTML =
         '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> メールを準備中…';
-
       openMailto();
     });
+    setProgress(80);
   }
 
   /* ── Validation ── */
@@ -388,9 +409,7 @@
     var salonEl = document.getElementById('cbSalon');
     var emailEl = document.getElementById('cbEmail');
 
-    [nameEl, salonEl, emailEl].forEach(function (el) {
-      el.classList.remove('cb-error');
-    });
+    [nameEl, salonEl, emailEl].forEach(function (e) { e.classList.remove('cb-error'); });
     document.getElementById('cbErrName').style.display  = 'none';
     document.getElementById('cbErrSalon').style.display = 'none';
     document.getElementById('cbErrEmail').style.display = 'none';
@@ -428,20 +447,16 @@
       'メール　　　: ' + email,
       '電話番号　　: ' + (tel || '未記入'),
       '',
-      '■ チャットでの選択内容',
-      'サロン業種　: ' + (answers.genre   || '未回答'),
-      '店舗エリア　: ' + (answers.area    || '未回答'),
-      '導入目的　　: ' + (answers.purpose || '未回答'),
-      'ご希望　　　: ' + (answers.hope    || '未回答'),
+      '■ チャットで閲覧されたトピック',
+      'トピック　　: ' + (answers.topic || '未選択'),
       '',
       '■ ご質問・ご要望',
       msg || '（なし）',
     ].join('\n');
 
-    var subject = encodeURIComponent('【COOLSPA導入相談】お問い合わせ — ' + salon);
-    var mailtoUrl = 'mailto:bisin202603@gmail.com?subject=' + subject + '&body=' + encodeURIComponent(bodyText);
+    var subject    = encodeURIComponent('【COOLSPA導入相談】お問い合わせ — ' + salon);
+    var mailtoUrl  = 'mailto:bisin202603@gmail.com?subject=' + subject + '&body=' + encodeURIComponent(bodyText);
 
-    /* メールソフトを起動（新しいタブを開かずに遷移） */
     var link = document.createElement('a');
     link.href = mailtoUrl;
     link.style.display = 'none';
@@ -449,12 +464,12 @@
     link.click();
     document.body.removeChild(link);
 
-    /* 少し待ってから完了画面を表示 */
     setTimeout(showSuccess, 600);
   }
 
-  /* ── 完了画面（メールソフト起動後 + 送れない場合の連絡先表示） ── */
+  /* ── 完了画面 ── */
   function showSuccess() {
+    setProgress(100);
     var body = document.getElementById('cbBody');
     body.innerHTML = '';
     var panel = document.createElement('div');
@@ -464,11 +479,7 @@
         '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>' +
       '</div>' +
       '<div class="cb-success__title">メールソフトが開きます</div>' +
-      '<div class="cb-success__desc">' +
-        '内容はすでに入力済みです。<br>' +
-        '送信ボタンを押してください。' +
-      '</div>' +
-      /* 送れない場合の連絡先 */
+      '<div class="cb-success__desc">内容はすでに入力済みです。<br>送信ボタンを押してください。</div>' +
       '<div class="cb-fallback">' +
         '<div class="cb-fallback__title">メールソフトが開かない場合</div>' +
         '<a class="cb-fallback__email" href="mailto:bisin202603@gmail.com">bisin202603@gmail.com</a>' +
@@ -493,6 +504,7 @@
     input.value = '';
     addEl(userBubble(val));
 
+    /* 価格関連キーワードはLINEへ誘導 */
     var PRICE_KW = ['価格', '費用', 'いくら', '料金', '値段'];
     if (PRICE_KW.some(function (k) { return val.includes(k); })) {
       typing(function () {
