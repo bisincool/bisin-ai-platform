@@ -108,6 +108,71 @@
 
   var TOPIC_ORDER = ['cryo', 'effect', 'areas', 'salon', 'demo', 'store'];
 
+  /* ══════════════════════════════════════════════════════════════
+     方式C: JSONナレッジベース + キーワード検索
+     data/kb.json を fetch で読み込み、KB配列に格納する。
+     fetchに失敗した場合でも既存のTOPICS固定回答は動作し続ける。
+  ══════════════════════════════════════════════════════════════ */
+
+  /* KB配列: fetch後に格納される [{id, q, keywords, answer?, topic?, weight}] */
+  var KB = [];
+
+  function loadKB() {
+    /* キャッシュバスター: 開発中は ?v=DATE で上書き */
+    var url = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
+      ? 'data/kb.json?t=' + Date.now()
+      : 'data/kb.json';
+
+    fetch(url)
+      .then(function (res) { return res.json(); })
+      .then(function (data) { KB = data; })
+      .catch(function () { /* fetch失敗時はKBなしで動作 (TOPICSのみ) */ });
+  }
+
+  /* ── キーワード検索エンジン ──
+     アルゴリズム：
+       1. 入力テキストに各エントリのキーワードが含まれているか部分一致チェック
+       2. 一致したキーワード数 × entry.weight でスコア算出
+       3. スコア降順でソートし上位3件を返す
+     日本語は分かち書きしないので substring 検索が適切。
+  ─────────────────────────────────────────────────────────── */
+  function searchKB(rawQuery) {
+    var q = rawQuery.trim();
+    if (!q || KB.length === 0) return [];
+
+    var results = [];
+
+    KB.forEach(function (entry) {
+      var score = 0;
+      var matchedKws = [];
+
+      entry.keywords.forEach(function (kw) {
+        if (q.indexOf(kw) !== -1) {
+          score += (entry.weight || 1);
+          matchedKws.push(kw);
+        }
+      });
+
+      if (score > 0) {
+        results.push({ entry: entry, score: score, matched: matchedKws });
+      }
+    });
+
+    /* スコア降順ソート */
+    results.sort(function (a, b) { return b.score - a.score; });
+
+    return results.slice(0, 3);
+  }
+
+  /* ── 検索結果から表示するHTML回答を取得 ── */
+  function getKBAnswer(entry) {
+    /* entry.topic があればTOPICSの回答を流用、なければentry.answerを使う */
+    if (entry.topic && TOPICS[entry.topic]) {
+      return TOPICS[entry.topic].answer;
+    }
+    return entry.answer || '詳しくは担当者よりご案内いたします。';
+  }
+
   /* ── State ── */
   var isOpen  = false;
   var answers = {};
@@ -502,27 +567,158 @@
     body.appendChild(panel);
   }
 
-  /* ── Free-text handler ── */
+  /* ══════════════════════════════════════════════════════════════
+     方式C: Free-text handler — JSONナレッジベース + キーワード検索
+  ══════════════════════════════════════════════════════════════ */
   function handleFreeText() {
     var input = document.getElementById('cbInput');
-    var val = input.value.trim();
+    var val   = input.value.trim();
     if (!val) return;
     input.value = '';
     addEl(userBubble(val));
 
-    /* 価格関連キーワードはLINEへ誘導 */
-    var PRICE_KW = ['価格', '費用', 'いくら', '料金', '値段'];
-    if (PRICE_KW.some(function (k) { return val.includes(k); })) {
+    /* ── Step 1: 価格は常にLINE誘導（KB検索の前に処理） ── */
+    var PRICE_KW = ['価格', '費用', 'いくら', '料金', '値段', '金額'];
+    if (PRICE_KW.some(function (k) { return val.indexOf(k) !== -1; })) {
       typing(function () {
-        addEl(botBubble('機器の導入費用はプランにより異なります。担当者より個別にご案内しますので、下記よりお問い合わせください。'));
+        addEl(botBubble(
+          '機器の導入費用はプランにより異なります。<br>' +
+          '担当者より個別にご案内しますので、下記よりお問い合わせください。'
+        ));
         buildCtaRow();
-      });
+      }, 600);
       return;
     }
-    typing(function () {
-      addEl(botBubble('ご質問ありがとうございます。担当者よりご案内いたします。'));
+
+    /* ── Step 2: KB検索 ── */
+    var results = searchKB(val);
+
+    /* ── Step 3: 結果に応じて表示分岐 ── */
+    if (results.length === 0) {
+      /* 3a: 一致なし → スタッフへ誘導 */
+      typing(function () {
+        addEl(botBubble(
+          '申し訳ありません。「<strong>' + escHtml(val) + '</strong>」に関する情報が見つかりませんでした。<br>' +
+          '担当者が直接ご回答いたします。'
+        ));
+        buildCtaRow();
+      }, 700);
+
+    } else if (results[0].score >= 2) {
+      /* 3b: 高信頼度マッチ → 直接回答を表示 */
+      typing(function () {
+        var answerHtml = getKBAnswer(results[0].entry);
+        addEl(botBubble(answerHtml));
+
+        /* 関連質問があれば表示 */
+        setTimeout(function () {
+          buildKBRelatedRow(results.slice(1));
+        }, 350);
+      }, 700);
+
+    } else {
+      /* 3c: 低信頼度マッチ → 候補を選択肢として提示 */
+      typing(function () {
+        addEl(botBubble('以下のご質問に関するものでしょうか？'));
+        setTimeout(function () {
+          buildKBChoiceButtons(results, val);
+        }, 250);
+      }, 700);
+    }
+  }
+
+  /* ── 高信頼度マッチ後の「関連質問」チップ ── */
+  function buildKBRelatedRow(otherResults) {
+    if (otherResults.length === 0) {
       buildCtaRow();
+      return;
+    }
+    var wrap = document.createElement('div');
+    wrap.className = 'cb-related-wrap';
+    var lbl = document.createElement('div');
+    lbl.className = 'cb-related-label';
+    lbl.textContent = '関連する質問';
+    wrap.appendChild(lbl);
+
+    var row = document.createElement('div');
+    row.className = 'cb-related';
+
+    otherResults.forEach(function (r) {
+      var chip = document.createElement('button');
+      chip.className = 'cb-related__chip';
+      chip.textContent = r.entry.q;
+      chip.addEventListener('click', function () {
+        disableWrap(wrap);
+        addEl(userBubble(r.entry.q));
+        typing(function () {
+          addEl(botBubble(getKBAnswer(r.entry)));
+          setTimeout(function () { buildCtaRow(); }, 350);
+        }, 600);
+      });
+      row.appendChild(chip);
     });
+
+    /* お問い合わせチップ */
+    var formChip = document.createElement('button');
+    formChip.className = 'cb-related__form';
+    formChip.innerHTML = iconMail() + '&nbsp;お問い合わせフォーム';
+    formChip.addEventListener('click', function () { disableWrap(wrap); showFormPanel(); });
+    row.appendChild(formChip);
+    wrap.appendChild(row);
+    addEl(wrap);
+  }
+
+  /* ── 低信頼度マッチ: 候補を選択ボタンとして並べる ── */
+  function buildKBChoiceButtons(results, originalQuery) {
+    var wrap = document.createElement('div');
+    wrap.className = 'cb-kb-choices';
+
+    results.forEach(function (r) {
+      var btn = document.createElement('button');
+      btn.className = 'cb-kb-choice-btn';
+
+      /* マッチしたキーワードをハイライト */
+      var matchTag = r.matched.length
+        ? '<span class="cb-kb-match-tag">🔍 ' + escHtml(r.matched.slice(0, 2).join('・')) + '</span>'
+        : '';
+      btn.innerHTML = matchTag + '<span class="cb-kb-choice-q">' + escHtml(r.entry.q) + '</span>';
+
+      btn.addEventListener('click', function () {
+        /* 選択肢を全て無効化 */
+        wrap.querySelectorAll('.cb-kb-choice-btn').forEach(function (b) {
+          b.disabled = true; b.style.opacity = '0.45';
+        });
+        addEl(userBubble(r.entry.q));
+        typing(function () {
+          addEl(botBubble(getKBAnswer(r.entry)));
+          setTimeout(function () { buildKBRelatedRow([]); }, 350);
+        }, 650);
+      });
+      wrap.appendChild(btn);
+    });
+
+    /* 「該当なし」ボタン */
+    var noneBtn = document.createElement('button');
+    noneBtn.className = 'cb-kb-choice-none';
+    noneBtn.textContent = '⚠ 上記に該当しません';
+    noneBtn.addEventListener('click', function () {
+      wrap.querySelectorAll('button').forEach(function (b) { b.disabled = true; b.style.opacity = '0.45'; });
+      typing(function () {
+        addEl(botBubble('担当者がご対応いたします。下記よりお気軽にご連絡ください。'));
+        buildCtaRow();
+      }, 600);
+    });
+    wrap.appendChild(noneBtn);
+    addEl(wrap);
+  }
+
+  /* ── HTML エスケープユーティリティ ── */
+  function escHtml(str) {
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
   }
 
   function buildCtaRow() {
@@ -553,8 +749,9 @@
 
   /* ── Init ── */
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', buildWidget);
+    document.addEventListener('DOMContentLoaded', function () { loadKB(); buildWidget(); });
   } else {
+    loadKB();
     buildWidget();
   }
 })();

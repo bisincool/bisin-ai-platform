@@ -767,6 +767,80 @@
 
 .cb-footer__send svg { width: 13px; height: 13px; color: #fff; }
 
+/* ══════════════════════════════════════════════════════════════
+   方式C — KB キーワード検索 UI
+══════════════════════════════════════════════════════════════ */
+
+/* 低信頼度マッチ: 候補選択ボタン群 */
+.cb-kb-choices {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  width: 100%;
+}
+
+/* 各候補ボタン */
+.cb-kb-choice-btn {
+  background: #fff;
+  border: 1.5px solid #c8ddf0;
+  border-radius: 10px;
+  padding: 9px 12px;
+  text-align: left;
+  cursor: pointer;
+  font-family: 'Noto Sans JP', 'Hiragino Kaku Gothic ProN', sans-serif;
+  transition: border-color 0.18s, background 0.18s, transform 0.12s;
+  box-shadow: 0 1px 4px rgba(10, 42, 82, 0.06);
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.cb-kb-choice-btn:hover {
+  border-color: #1E6EDB;
+  background: #EEF6FF;
+  transform: translateY(-1px);
+  box-shadow: 0 3px 10px rgba(30, 110, 219, 0.13);
+}
+
+.cb-kb-choice-btn:disabled { cursor: not-allowed; transform: none; }
+
+/* マッチキーワードのタグ */
+.cb-kb-match-tag {
+  font-size: 9.5px;
+  font-weight: 700;
+  color: #1E6EDB;
+  background: rgba(30, 110, 219, 0.09);
+  border-radius: 4px;
+  padding: 1px 6px;
+  display: inline-block;
+  line-height: 1.5;
+}
+
+/* 候補ボタンの質問テキスト */
+.cb-kb-choice-q {
+  font-size: 11.5px;
+  font-weight: 600;
+  color: #0A2A52;
+  line-height: 1.4;
+}
+
+/* 「該当なし」ボタン */
+.cb-kb-choice-none {
+  background: transparent;
+  border: 1px dashed #c8ddf0;
+  border-radius: 9px;
+  padding: 7px 12px;
+  font-size: 10.5px;
+  color: #8fa8c0;
+  cursor: pointer;
+  font-family: 'Noto Sans JP', 'Hiragino Kaku Gothic ProN', sans-serif;
+  text-align: left;
+  transition: border-color 0.18s, color 0.18s;
+}
+
+.cb-kb-choice-none:hover { border-color: #8fa8c0; color: #4a6a85; }
+.cb-kb-choice-none:disabled { cursor: not-allowed; }
+
 /* ── Mobile ──────────────────────────────────────────────── */
 @media (max-width: 500px) {
   .cb-window {

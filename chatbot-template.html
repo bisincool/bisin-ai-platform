@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>B2B Chatbot 実装テンプレート — BISIN</title>
+<style>
+  :root {
+    --navy: #0A1628;
+    --navy2: #0d1f38;
+    --card: #111d2e;
+    --border: #1c3050;
+    --blue: #1E6EDB;
+    --ice: #4BB3FF;
+    --gold: #C9A34B;
+    --green: #2ecc8a;
+    --red: #e05a5a;
+    --text: #c8d8e8;
+    --muted: #5a7a96;
+    --code-bg: #0d1825;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--navy);
+    color: var(--text);
+    font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', sans-serif;
+    font-size: 13px;
+    line-height: 1.75;
+  }
+
+  /* ── Sidebar nav ── */
+  .layout { display: flex; min-height: 100vh; }
+
+  .sidebar {
+    width: 220px;
+    flex-shrink: 0;
+    background: var(--navy2);
+    border-right: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+    padding: 28px 0 40px;
+  }
+
+  .sidebar-logo {
+    padding: 0 20px 24px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 20px;
+  }
+
+  .sidebar-logo .logo-bi { color: #e05a5a; font-weight: 900; }
+  .sidebar-logo .logo-title { font-size: 15px; font-weight: 800; letter-spacing: 0.04em; }
+  .sidebar-logo .logo-sub { font-size: 9.5px; color: var(--muted); letter-spacing: 0.12em; text-transform: uppercase; margin-top: 3px; }
+
+  .nav-section { padding: 0 12px; margin-bottom: 8px; }
+
+  .nav-section-label {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding: 6px 8px 4px;
+  }
+
+  .nav-link {
+    display: block;
+    padding: 7px 10px;
+    border-radius: 7px;
+    text-decoration: none;
+    color: #8aa8c4;
+    font-size: 12px;
+    font-weight: 500;
+    transition: background 0.15s, color 0.15s;
+  }
+
+  .nav-link:hover { background: rgba(75,179,255,0.1); color: var(--ice); }
+  .nav-link.active { background: rgba(30,110,219,0.2); color: var(--ice); font-weight: 700; }
+
+  /* ── Main content ── */
+  .main {
+    flex: 1;
+    padding: 48px 56px;
+    max-width: 900px;
+  }
+
+  /* ── Page header ── */
+  .page-header {
+    margin-bottom: 48px;
+    padding-bottom: 28px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .page-header__eyebrow {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--ice);
+    margin-bottom: 10px;
+  }
+
+  .page-header__title {
+    font-size: 28px;
+    font-weight: 800;
+    color: #fff;
+    line-height: 1.2;
+    margin-bottom: 10px;
+  }
+
+  .page-header__desc { color: var(--muted); font-size: 13px; }
+
+  .badge-row { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 16px; }
+
+  .badge {
+    background: rgba(30,110,219,0.15);
+    border: 1px solid rgba(75,179,255,0.25);
+    border-radius: 20px;
+    padding: 3px 10px;
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--ice);
+    letter-spacing: 0.06em;
+  }
+
+  /* ── Sections ── */
+  .section { margin-bottom: 56px; scroll-margin-top: 24px; }
+
+  .section-title {
+    font-size: 17px;
+    font-weight: 800;
+    color: #fff;
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .section-title::before {
+    content: '';
+    width: 4px;
+    height: 18px;
+    background: linear-gradient(to bottom, var(--ice), var(--blue));
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
+
+  .section-sub {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--ice);
+    margin: 22px 0 10px;
+    letter-spacing: 0.04em;
+  }
+
+  /* ── File tree ── */
+  .file-tree {
+    background: var(--code-bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px 20px;
+    font-family: 'SF Mono', 'Fira Code', Consolas, monospace;
+    font-size: 12px;
+    line-height: 2;
+  }
+
+  .ft-dir  { color: var(--ice); font-weight: 700; }
+  .ft-file { color: #8cc8ff; }
+  .ft-comment { color: var(--muted); }
+
+  /* ── Code blocks ── */
+  pre {
+    background: var(--code-bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px 20px;
+    overflow-x: auto;
+    font-family: 'SF Mono', 'Fira Code', Consolas, monospace;
+    font-size: 11.5px;
+    line-height: 1.75;
+    margin: 10px 0;
+    white-space: pre;
+  }
+
+  code {
+    font-family: 'SF Mono', 'Fira Code', Consolas, monospace;
+    font-size: 11px;
+    background: rgba(75,179,255,0.1);
+    border: 1px solid rgba(75,179,255,0.2);
+    border-radius: 4px;
+    padding: 1px 5px;
+    color: var(--ice);
+  }
+
+  /* Syntax colours inside <pre> */
+  .kw { color: #c792ea; }   /* keyword */
+  .fn { color: #82aaff; }   /* function name */
+  .str { color: #c3e88d; }  /* string */
+  .cmt { color: #546e7a; font-style: italic; }  /* comment */
+  .num { color: #f78c6c; }  /* number */
+  .sel { color: var(--ice); } /* selector / class */
+  .prop { color: #ffcb6b; }  /* css prop */
+  .val { color: #c3e88d; }   /* css value */
+
+  /* ── Tables ── */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+    margin: 10px 0;
+  }
+
+  th {
+    background: rgba(30,110,219,0.15);
+    color: var(--ice);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 9px 12px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+  }
+
+  td {
+    padding: 9px 12px;
+    border-bottom: 1px solid rgba(28,48,80,0.6);
+    vertical-align: top;
+  }
+
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: rgba(75,179,255,0.04); }
+
+  .tag-ok   { background: rgba(46,204,138,0.15); color: var(--green); border: 1px solid rgba(46,204,138,0.3); border-radius: 4px; padding: 1px 6px; font-size: 10px; font-weight: 700; }
+  .tag-bad  { background: rgba(224,90,90,0.15); color: var(--red); border: 1px solid rgba(224,90,90,0.3); border-radius: 4px; padding: 1px 6px; font-size: 10px; font-weight: 700; }
+  .tag-note { background: rgba(201,163,75,0.15); color: var(--gold); border: 1px solid rgba(201,163,75,0.3); border-radius: 4px; padding: 1px 6px; font-size: 10px; font-weight: 700; }
+
+  /* ── Cards ── */
+  .card-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 18px;
+  }
+
+  .card__title {
+    font-size: 11px;
+    font-weight: 800;
+    color: var(--ice);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+  }
+
+  .card__title .dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--ice); flex-shrink: 0;
+  }
+
+  .card p, .card li { font-size: 12px; color: #8aa8c4; line-height: 1.7; }
+  .card ul { padding-left: 16px; }
+  .card li { margin-bottom: 3px; }
+
+  /* ── Checklist ── */
+  .checklist { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+  .checklist li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 12.5px;
+    color: #8aa8c4;
+  }
+
+  .checklist li::before {
+    content: '□';
+    color: var(--ice);
+    font-size: 14px;
+    line-height: 1.4;
+    flex-shrink: 0;
+  }
+
+  /* ── Alert ── */
+  .alert {
+    border-radius: 10px;
+    padding: 14px 16px;
+    font-size: 12px;
+    line-height: 1.7;
+    margin: 12px 0;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+
+  .alert--red { background: rgba(224,90,90,0.1); border: 1px solid rgba(224,90,90,0.3); color: #ffaaaa; }
+  .alert--green { background: rgba(46,204,138,0.1); border: 1px solid rgba(46,204,138,0.3); color: #aaffcc; }
+  .alert--gold { background: rgba(201,163,75,0.1); border: 1px solid rgba(201,163,75,0.3); color: #ffe0a0; }
+
+  .alert-icon { font-size: 16px; flex-shrink: 0; line-height: 1.6; }
+
+  /* ── Snowflake preview ── */
+  .snowflake-demo {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    padding: 28px;
+    background: var(--code-bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+  }
+
+  .sf-circle {
+    width: 64px; height: 64px; border-radius: 50%;
+    background: linear-gradient(145deg, #1E4F8A, #0A2A52);
+    border: 2px solid rgba(75,179,255,0.55);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .sf-circle svg { width: 30px; height: 30px; }
+  .sf-label { font-size: 10px; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; text-align: center; margin-top: 8px; }
+  .sf-item { display: flex; flex-direction: column; align-items: center; }
+  .sf-arrow { color: var(--muted); font-size: 20px; }
+
+  /* ── UX flow diagram ── */
+  .flow {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    padding: 20px;
+    background: var(--code-bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+  }
+
+  .flow-step {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+  }
+
+  .flow-step__line {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-shrink: 0;
+  }
+
+  .flow-step__dot {
+    width: 10px; height: 10px; border-radius: 50%;
+    background: var(--blue);
+    border: 2px solid var(--ice);
+    flex-shrink: 0;
+  }
+
+  .flow-step__connector {
+    width: 2px; height: 28px;
+    background: linear-gradient(to bottom, var(--border), transparent);
+  }
+
+  .flow-step__body { padding-bottom: 20px; }
+  .flow-step__title { font-size: 12px; font-weight: 700; color: #fff; margin-bottom: 3px; }
+  .flow-step__desc  { font-size: 11px; color: var(--muted); }
+
+  /* ── Divider ── */
+  .divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 40px 0;
+  }
+
+  p { margin-bottom: 8px; }
+  strong { color: #d0e8ff; font-weight: 700; }
+</style>
+</head>
+<body>
+<div class="layout">
+
+<!-- ── Sidebar ── -->
+<nav class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-title"><span class="logo-bi">BI</span>SIN</div>
+    <div class="logo-sub">Chatbot Template</div>
+  </div>
+
+  <div class="nav-section">
+    <div class="nav-section-label">概要</div>
+    <a class="nav-link" href="#overview">プロジェクト概要</a>
+    <a class="nav-link" href="#files">ファイル構成</a>
+  </div>
+
+  <div class="nav-section">
+    <div class="nav-section-label">実装</div>
+    <a class="nav-link" href="#js-arch">JS アーキテクチャ</a>
+    <a class="nav-link" href="#el-bug">el() ヘルパー</a>
+    <a class="nav-link" href="#topics">トピックQA設計</a>
+    <a class="nav-link" href="#mailto">フォーム・mailto</a>
+    <a class="nav-link" href="#css">CSS パターン</a>
+    <a class="nav-link" href="#icon">雪花アイコン SVG</a>
+  </div>
+
+  <div class="nav-section">
+    <div class="nav-section-label">設計判断</div>
+    <a class="nav-link" href="#ux">UX フロー</a>
+    <a class="nav-link" href="#bugs">バグ一覧</a>
+    <a class="nav-link" href="#positioning">position:fixed 注意点</a>
+    <a class="nav-link" href="#checklist">実装チェックリスト</a>
+  </div>
+</nav>
+
+<!-- ── Main ── -->
+<main class="main">
+
+  <!-- Page header -->
+  <div class="page-header" id="overview">
+    <div class="page-header__eyebrow">B2B Website — Reusable Template</div>
+    <h1 class="page-header__title">チャットボット実装テンプレート</h1>
+    <p class="page-header__desc">bisincool.co.jp（合同会社BISIN）向けに設計・実装したCOOLSPA導入相談チャットウィジェットの完全記録。次のB2Bサイト制作に流用可能なテンプレートとして整理。</p>
+    <div class="badge-row">
+      <span class="badge">Vanilla JS</span>
+      <span class="badge">依存ゼロ</span>
+      <span class="badge">静的サイト対応</span>
+      <span class="badge">mailto送信</span>
+      <span class="badge">多言語対応可</span>
+      <span class="badge">position:fixed</span>
+    </div>
+  </div>
+
+
+  <!-- ① ファイル構成 -->
+  <section class="section" id="files">
+    <h2 class="section-title">ファイル構成</h2>
+
+    <div class="file-tree">
+<span class="ft-dir">project/</span>
+├── <span class="ft-dir">css/</span>
+│   └── <span class="ft-file">chatbot.css</span>     <span class="ft-comment"># ウィジェット専用スタイル（既存style.cssと完全分離）</span>
+├── <span class="ft-dir">js/</span>
+│   └── <span class="ft-file">chatbot.js</span>      <span class="ft-comment"># 自己完結型IIFE、外部依存ゼロ</span>
+├── index.html
+├── about.html          <span class="ft-comment"># 全ページ共通で以下を </span><span style="color:#e05a5a">&lt;/body&gt;</span><span class="ft-comment"> 直前に挿入</span>
+└── ...
+    </div>
+
+    <div class="section-sub">各HTMLページへの挿入（&lt;/body&gt;直前）</div>
+    <pre><span class="str">&lt;link rel="stylesheet" href="css/chatbot.css" /&gt;</span>
+<span class="str">&lt;script src="js/chatbot.js"&gt;&lt;/script&gt;</span></pre>
+
+    <div class="alert alert--gold">
+      <span class="alert-icon">⚠️</span>
+      <span><strong>必ず &lt;/body&gt; 直前</strong>に置くこと。&lt;head&gt;内や他スクリプトの前に置くと、DOMが未構築でwidgetが生成できない。chatbot.js内で<code>DOMContentLoaded</code>を使って対応済みだが、bodyの末尾が最も安全。</span>
+    </div>
+  </section>
+
+
+  <!-- ② JS アーキテクチャ -->
+  <section class="section" id="js-arch">
+    <h2 class="section-title">JS アーキテクチャ</h2>
+
+    <div class="card-grid">
+      <div class="card">
+        <div class="card__title"><span class="dot"></span>設計方針</div>
+        <ul>
+          <li>グローバル汚染ゼロの IIFE パターン</li>
+          <li>外部ライブラリ・フレームワーク不要</li>
+          <li>DOM を JS で動的生成（HTML側に要素不要）</li>
+          <li><code>document.body.appendChild()</code> で注入</li>
+          <li>ES5 構文（IE11 互換、古いサロン端末対応）</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card__title"><span class="dot"></span>状態管理</div>
+        <ul>
+          <li><code>isOpen</code> — チャット窓の開閉</li>
+          <li><code>answers.topic</code> — 最後に選んだトピック名（メール本文に使用）</li>
+          <li><code>sessionStorage</code> — 初回自動オープン管理（'bisin-chat-seen'）</li>
+          <li>クローズ後も状態保持（再開可能）</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="section-sub">関数一覧と役割</div>
+    <pre><span class="cmt">// ── 1. 定数 ──────────────────────────────────────</span>
+<span class="kw">var</span> LINE_URL = <span class="str">'https://lin.ee/XXXXX'</span>;
+
+<span class="cmt">// ── 2. ナレッジベース ─────────────────────────────</span>
+<span class="kw">var</span> TOPICS   = { topicId: { label, related[], answer }, ... };
+<span class="kw">var</span> TOPIC_ORDER = [<span class="str">'id1'</span>, <span class="str">'id2'</span>, ...];   <span class="cmt">// 表示順</span>
+
+<span class="cmt">// ── 3. 状態 ──────────────────────────────────────</span>
+<span class="kw">var</span> isOpen  = <span class="kw">false</span>;
+<span class="kw">var</span> answers = {};   <span class="cmt">// { topic: 'ラベル名' }</span>
+
+<span class="cmt">// ── 4. DOM構築 ────────────────────────────────────</span>
+<span class="fn">buildWidget</span>()        <span class="cmt">// launcher + window を body に追加</span>
+
+<span class="cmt">// ── 5. 開閉 ──────────────────────────────────────</span>
+<span class="fn">open</span>() / <span class="fn">close</span>()
+
+<span class="cmt">// ── 6. トピックUI ─────────────────────────────────</span>
+<span class="fn">buildTopicGrid</span>()      <span class="cmt">// 初期6ボタングリッド</span>
+<span class="fn">handleTopic</span>(id)       <span class="cmt">// ユーザーバブル + 回答表示</span>
+<span class="fn">buildRelatedRow</span>([])   <span class="cmt">// 関連トピックチップ + フォームボタン</span>
+
+<span class="cmt">// ── 7. フォーム ───────────────────────────────────</span>
+<span class="fn">showFormPanel</span>()       <span class="cmt">// 案内メッセージ → buildForm</span>
+<span class="fn">buildForm</span>()           <span class="cmt">// 入力フォームDOM生成</span>
+<span class="fn">validateForm</span>()        <span class="cmt">// 名前・サロン名・メール必須チェック</span>
+
+<span class="cmt">// ── 8. 送信 ───────────────────────────────────────</span>
+<span class="fn">openMailto</span>()          <span class="cmt">// mailto:リンクでメールソフト起動</span>
+<span class="fn">showSuccess</span>()         <span class="cmt">// 完了画面 + 連絡先フォールバック</span>
+
+<span class="cmt">// ── 9. 自由入力 ───────────────────────────────────</span>
+<span class="fn">handleFreeText</span>()      <span class="cmt">// 価格KW → LINE誘導 / その他 → CTA</span>
+<span class="fn">buildCtaRow</span>()         <span class="cmt">// LINE + フォームボタン行</span>
+
+<span class="cmt">// ── 10. 初期化 ────────────────────────────────────</span>
+<span class="kw">if</span> (document.readyState === <span class="str">'loading'</span>)
+  document.addEventListener(<span class="str">'DOMContentLoaded'</span>, buildWidget);
+<span class="kw">else</span> buildWidget();</pre>
+  </section>
+
+
+  <!-- ③ el() ヘルパー バグ修正 -->
+  <section class="section" id="el-bug">
+    <h2 class="section-title">el() ヘルパー — 最重要バグ修正</h2>
+
+    <div class="alert alert--red">
+      <span class="alert-icon">🚨</span>
+      <span>このバグを見落とすと<strong>全CSS クラスが無効化</strong>され、チャット全体が画面左端に流れ全幅表示になる。必ず修正済みバージョンを使うこと。</span>
+    </div>
+
+    <div class="section-sub">❌ バグあり（よくある間違い）</div>
+    <pre><span class="kw">function</span> <span class="fn">el</span>(tag, attrs) {
+  <span class="kw">var</span> node = document.createElement(tag);
+  Object.keys(attrs || {}).forEach(<span class="kw">function</span>(k) {
+    node.setAttribute(k, attrs[k]);   <span class="cmt">// ← setAttribute('className', ...) は</span>
+  });                                 <span class="cmt">//   HTML属性 classname= を作るだけ！</span>
+  <span class="kw">return</span> node;                        <span class="cmt">//   CSSのクラスセレクタが当たらない</span>
+}</pre>
+
+    <div class="section-sub">✅ 修正済み（こちらを使う）</div>
+    <pre><span class="kw">function</span> <span class="fn">el</span>(tag, attrs) {
+  <span class="kw">var</span> node = document.createElement(tag);
+  Object.keys(attrs || {}).forEach(<span class="kw">function</span>(k) {
+    <span class="kw">if</span> (k === <span class="str">'className'</span>) { node.className = attrs[k]; }  <span class="cmt">// ← DOM プロパティで設定</span>
+    <span class="kw">else</span> { node.setAttribute(k, attrs[k]); }
+  });
+  <span class="kw">return</span> node;
+}</pre>
+
+    <table>
+      <thead><tr><th>方法</th><th>結果</th><th>CSS有効？</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><code>node.setAttribute('className', 'cb-launcher')</code></td>
+          <td>HTML属性 <code>classname="cb-launcher"</code>（小文字）が付く</td>
+          <td><span class="tag-bad">❌ 無効</span></td>
+        </tr>
+        <tr>
+          <td><code>node.setAttribute('class', 'cb-launcher')</code></td>
+          <td>正しい <code>class="cb-launcher"</code> 属性</td>
+          <td><span class="tag-ok">✅ 有効</span></td>
+        </tr>
+        <tr>
+          <td><code>node.className = 'cb-launcher'</code></td>
+          <td>DOMプロパティ経由で正しく設定</td>
+          <td><span class="tag-ok">✅ 有効（推奨）</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+
+  <!-- ④ トピックQA設計 -->
+  <section class="section" id="topics">
+    <h2 class="section-title">トピックQA設計</h2>
+
+    <p>4ステップの資格確認フローは廃止。全ボタンが同じフォームに終着し、回答ゼロで顧客体験が悪いため、<strong>「選択→即回答」型</strong>に変更。</p>
+
+    <div class="section-sub">TOPICS オブジェクト構造</div>
+    <pre>
+<span class="kw">var</span> TOPICS = {
+  cryo: {
+    label: <span class="str">'❄️ 脂肪冷却とは？'</span>,          <span class="cmt">// ボタン表示テキスト（絵文字＋ラベル）</span>
+    related: [<span class="str">'effect'</span>, <span class="str">'areas'</span>, <span class="str">'salon'</span>],  <span class="cmt">// 回答後に表示する関連トピックID（最大3つ）</span>
+    answer: <span class="str">'HTMLコンテンツ文字列...'</span>,     <span class="cmt">// innerHTML に渡す。&lt;br&gt;&lt;strong&gt;等使用可</span>
+  },
+  effect:  { label, related, answer },
+  areas:   { label, related, answer },
+  salon:   { label, related, answer },
+  demo:    { label, related, answer },
+  store:   { label, related, answer },
+};
+
+<span class="kw">var</span> TOPIC_ORDER = [<span class="str">'cryo'</span>, <span class="str">'effect'</span>, <span class="str">'areas'</span>, <span class="str">'salon'</span>, <span class="str">'demo'</span>, <span class="str">'store'</span>];
+    </pre>
+
+    <div class="section-sub">BISIN の6トピック内容</div>
+    <table>
+      <thead><tr><th>ボタン</th><th>回答内容</th><th>related</th></tr></thead>
+      <tbody>
+        <tr><td>❄️ 脂肪冷却とは？</td><td>クライオリポリシス技術・4℃の仕組み・ダイエットとの違い</td><td>effect / areas / salon</td></tr>
+        <tr><td>✨ 効果・施術回数</td><td>実測データ（−10cm, −5.6kg等）・月1回ペース・HotPepper 4.71</td><td>cryo / areas / demo</td></tr>
+        <tr><td>📍 施術できる部位</td><td>8部位一覧・360°冷却の説明</td><td>effect / cryo / demo</td></tr>
+        <tr><td>🏪 サロン導入について</td><td>放置型特長・BISINサポート7項目・最短2週間稼働</td><td>demo / store</td></tr>
+        <tr><td>📅 デモ体験の予約</td><td>来店デモ60〜90分・出張デモ・電話番号</td><td>salon / store</td></tr>
+        <tr><td>🕐 店舗・営業時間</td><td>両店舗電話・住所・メール・営業時間（月〜土 10-20）</td><td>demo / salon</td></tr>
+      </tbody>
+    </table>
+
+    <div class="section-sub">価格ワードの処理</div>
+    <pre><span class="kw">var</span> PRICE_KW = [<span class="str">'価格'</span>, <span class="str">'費用'</span>, <span class="str">'いくら'</span>, <span class="str">'料金'</span>, <span class="str">'値段'</span>];
+<span class="kw">if</span> (PRICE_KW.some(<span class="kw">function</span>(k) { <span class="kw">return</span> val.includes(k); })) {
+  <span class="cmt">// → LINE 誘導メッセージ + buildCtaRow()</span>
+  <span class="cmt">// B2B価格は商談ベース。Webで公開しない設計。</span>
+}</pre>
+  </section>
+
+
+  <!-- ⑤ フォーム・mailto -->
+  <section class="section" id="mailto">
+    <h2 class="section-title">フォーム送信 — mailto 方式</h2>
+
+    <div class="alert alert--green">
+      <span class="alert-icon">✅</span>
+      <span>Formspree・サーバー不要。静的ホスティング（Cloudflare Pages / GitHub Pages）で完全動作。</span>
+    </div>
+
+    <div class="section-sub">mailto URL の組み立て</div>
+    <pre><span class="kw">function</span> <span class="fn">openMailto</span>() {
+  <span class="kw">var</span> bodyText = [
+    <span class="str">'■ お客様情報'</span>,
+    <span class="str">'お名前　　　: '</span> + name,
+    <span class="str">'サロン名　　: '</span> + salon,
+    <span class="str">'メール　　　: '</span> + email,
+    <span class="str">'電話番号　　: '</span> + (tel || <span class="str">'未記入'</span>),
+    <span class="str">''</span>,
+    <span class="str">'■ チャットで閲覧されたトピック'</span>,
+    <span class="str">'トピック　　: '</span> + (answers.topic || <span class="str">'未選択'</span>),
+    <span class="str">''</span>,
+    <span class="str">'■ ご質問・ご要望'</span>,
+    msg || <span class="str">'（なし）'</span>,
+  ].join(<span class="str">'\n'</span>);
+
+  <span class="kw">var</span> subject   = encodeURIComponent(<span class="str">'【COOLSPA導入相談】'</span> + salon);
+  <span class="kw">var</span> mailto    = <span class="str">'mailto:bisin202603@gmail.com?subject='</span>
+                + subject + <span class="str">'&amp;body='</span> + encodeURIComponent(bodyText);
+
+  <span class="kw">var</span> link = document.createElement(<span class="str">'a'</span>);
+  link.href = mailto; link.style.display = <span class="str">'none'</span>;
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+
+  setTimeout(showSuccess, <span class="num">600</span>);   <span class="cmt">// 600ms後に完了画面へ</span>
+}</pre>
+
+    <div class="section-sub">完了画面のフォールバック（メールソフトが開かない場合）</div>
+    <pre><span class="kw">function</span> <span class="fn">showSuccess</span>() {
+  <span class="cmt">// 完了画面に以下を表示:</span>
+  <span class="str">'&lt;div class="cb-fallback"&gt;'</span> +
+    <span class="str">'&lt;div class="cb-fallback__title"&gt;メールソフトが開かない場合&lt;/div&gt;'</span> +
+    <span class="str">'&lt;a href="mailto:xxx@gmail.com"&gt;xxx@gmail.com&lt;/a&gt;'</span> +
+    <span class="str">'&lt;a href="tel:0942806688"&gt;📞 小郡店　0942-80-6688&lt;/a&gt;'</span> +
+    <span class="str">'&lt;a href="tel:0927535515"&gt;📞 天神店　0927-53-5515&lt;/a&gt;'</span> +
+    <span class="str">'&lt;a href="LINE_URL"&gt;LINEで相談&lt;/a&gt;'</span> +
+  <span class="str">'&lt;/div&gt;'</span>
+}</pre>
+
+    <div class="section-sub">フォームバリデーション（必須3項目）</div>
+    <pre><span class="cmt">// 必須: お名前 / サロン名 / メールアドレス</span>
+<span class="cmt">// 任意: 電話番号 / ご質問テキストエリア</span>
+<span class="kw">if</span> (!/<span class="str">^[^\s@]+@[^\s@]+\.[^\s@]+$</span>/.test(email)) { <span class="cmt">/* メール形式エラー */</span> }</pre>
+  </section>
+
+
+  <!-- ⑥ CSS パターン -->
+  <section class="section" id="css">
+    <h2 class="section-title">CSS パターン</h2>
+
+    <div class="section-sub">レイアウト（固定配置）</div>
+    <pre><span class="sel">.cb-launcher</span> {
+  <span class="prop">position</span>: <span class="val">fixed</span>;
+  <span class="prop">bottom</span>: <span class="val">24px</span>;
+  <span class="prop">right</span>: <span class="val">24px</span>;    <span class="cmt">/* 業界標準位置 */</span>
+  <span class="prop">z-index</span>: <span class="val">9000</span>;
+}
+<span class="sel">.cb-window</span> {
+  <span class="prop">position</span>: <span class="val">fixed</span>;
+  <span class="prop">bottom</span>: <span class="val">96px</span>;   <span class="cmt">/* launcher高さ(56px) + gap(16px) + padding(24px) */</span>
+  <span class="prop">right</span>: <span class="val">24px</span>;
+  <span class="prop">width</span>: <span class="val">340px</span>;    <span class="cmt">/* 業界標準幅 */</span>
+  <span class="prop">max-height</span>: <span class="val">560px</span>;
+  <span class="prop">z-index</span>: <span class="val">8999</span>;
+}</pre>
+
+    <div class="section-sub">開閉アニメーション</div>
+    <pre><span class="sel">.cb-window</span> {
+  <span class="prop">transform-origin</span>: <span class="val">bottom right</span>;  <span class="cmt">/* 右下から展開 */</span>
+  <span class="prop">transition</span>: <span class="val">opacity 0.22s ease, transform 0.22s ease</span>;
+}
+<span class="sel">.cb-window.cb-hidden</span> {
+  <span class="prop">opacity</span>: <span class="val">0</span>;
+  <span class="prop">transform</span>: <span class="val">scale(0.90) translateY(12px)</span>;
+  <span class="prop">pointer-events</span>: <span class="val">none</span>;
+}</pre>
+
+    <div class="section-sub">6ボタングリッド（2列×3行）</div>
+    <pre><span class="sel">.cb-topic-grid</span> {
+  <span class="prop">display</span>: <span class="val">grid</span>;
+  <span class="prop">grid-template-columns</span>: <span class="val">1fr 1fr</span>;  <span class="cmt">/* 2列 → 6ボタンで3行になる */</span>
+  <span class="prop">gap</span>: <span class="val">5px</span>;
+  <span class="prop">width</span>: <span class="val">100%</span>;
+}
+<span class="sel">.cb-topic-btn</span> {
+  <span class="prop">border</span>: <span class="val">1.5px solid #c8ddf0</span>;
+  <span class="prop">border-radius</span>: <span class="val">10px</span>;
+  <span class="prop">padding</span>: <span class="val">10px 8px</span>;
+  <span class="prop">font-size</span>: <span class="val">11px</span>;
+  <span class="prop">font-weight</span>: <span class="val">600</span>;
+  <span class="prop">transition</span>: <span class="val">border-color 0.18s, background 0.18s, transform 0.14s</span>;
+}</pre>
+
+    <div class="section-sub">関連トピックチップ（pill型）</div>
+    <pre><span class="sel">.cb-related</span> { <span class="prop">display</span>: <span class="val">flex</span>; <span class="prop">flex-wrap</span>: <span class="val">wrap</span>; <span class="prop">gap</span>: <span class="val">5px</span>; }
+
+<span class="sel">.cb-related__chip</span> {
+  <span class="prop">border-radius</span>: <span class="val">20px</span>;   <span class="cmt">/* pill形状 */</span>
+  <span class="prop">padding</span>: <span class="val">5px 11px</span>;
+  <span class="prop">font-size</span>: <span class="val">10.5px</span>;
+  <span class="prop">font-weight</span>: <span class="val">600</span>;
+  <span class="prop">border</span>: <span class="val">1.5px solid #c8ddf0</span>;
+}</pre>
+
+    <div class="section-sub">カラーパレット（navy × ice-blue）</div>
+    <table>
+      <thead><tr><th>用途</th><th>カラー</th><th>CSS値</th></tr></thead>
+      <tbody>
+        <tr><td>ランチャー背景（グラデ上）</td><td style="color:#1E4F8A">■</td><td><code>#1E4F8A</code></td></tr>
+        <tr><td>ランチャー背景（グラデ下）</td><td style="color:#0A2A52">■</td><td><code>#0A2A52</code></td></tr>
+        <tr><td>アイコン色・ボーダー</td><td style="color:#4BB3FF">■</td><td><code>#4BB3FF</code></td></tr>
+        <tr><td>プライマリボタン</td><td style="color:#1E6EDB">■</td><td><code>#1E6EDB</code></td></tr>
+        <tr><td>ヘッダー背景</td><td style="color:#0A2A52">■</td><td><code>#0A2A52 → #1E4F8A</code> グラデ</td></tr>
+        <tr><td>LINE ボタン</td><td style="color:#06C755">■</td><td><code>#06C755</code></td></tr>
+        <tr><td>必須バッジ</td><td style="color:#e05a5a">■</td><td><code>#e05a5a</code></td></tr>
+      </tbody>
+    </table>
+  </section>
+
+
+  <!-- ⑦ 雪花アイコン SVG -->
+  <section class="section" id="icon">
+    <h2 class="section-title">雪花アイコン SVG</h2>
+
+    <div class="snowflake-demo">
+      <div class="sf-item">
+        <div class="sf-circle">
+          <!-- 現在（4軸）-->
+          <svg viewBox="0 0 24 24" fill="none" stroke="#4BB3FF" stroke-width="1.8" stroke-linecap="round">
+            <line x1="12" y1="3" x2="12" y2="21"/>
+            <line x1="3" y1="12" x2="21" y2="12"/>
+            <line x1="5.6" y1="5.6" x2="18.4" y2="18.4"/>
+            <line x1="18.4" y1="5.6" x2="5.6" y2="18.4"/>
+            <circle cx="12" cy="12" r="2" fill="#4BB3FF" stroke="none"/>
+          </svg>
+        </div>
+        <div class="sf-label">旧 — 4軸アスタリスク</div>
+      </div>
+      <div class="sf-arrow">→</div>
+      <div class="sf-item">
+        <div class="sf-circle">
+          <!-- 新（6腕雪花）-->
+          <svg viewBox="0 0 24 24" fill="none" stroke="#4BB3FF" stroke-width="1.55" stroke-linecap="round">
+            <g transform="translate(12,12)">
+              <g transform="rotate(0)"><line x1="0" y1="-1.4" x2="0" y2="-8.8"/><line x1="0" y1="-5.5" x2="2.0" y2="-7.1"/><line x1="0" y1="-5.5" x2="-2.0" y2="-7.1"/></g>
+              <g transform="rotate(60)"><line x1="0" y1="-1.4" x2="0" y2="-8.8"/><line x1="0" y1="-5.5" x2="2.0" y2="-7.1"/><line x1="0" y1="-5.5" x2="-2.0" y2="-7.1"/></g>
+              <g transform="rotate(120)"><line x1="0" y1="-1.4" x2="0" y2="-8.8"/><line x1="0" y1="-5.5" x2="2.0" y2="-7.1"/><line x1="0" y1="-5.5" x2="-2.0" y2="-7.1"/></g>
+              <g transform="rotate(180)"><line x1="0" y1="-1.4" x2="0" y2="-8.8"/><line x1="0" y1="-5.5" x2="2.0" y2="-7.1"/><line x1="0" y1="-5.5" x2="-2.0" y2="-7.1"/></g>
+              <g transform="rotate(240)"><line x1="0" y1="-1.4" x2="0" y2="-8.8"/><line x1="0" y1="-5.5" x2="2.0" y2="-7.1"/><line x1="0" y1="-5.5" x2="-2.0" y2="-7.1"/></g>
+              <g transform="rotate(300)"><line x1="0" y1="-1.4" x2="0" y2="-8.8"/><line x1="0" y1="-5.5" x2="2.0" y2="-7.1"/><line x1="0" y1="-5.5" x2="-2.0" y2="-7.1"/></g>
+              <circle cx="0" cy="0" r="1.6" fill="#4BB3FF" stroke="none"/>
+            </g>
+          </svg>
+        </div>
+        <div class="sf-label">新 — 6腕 60°均等</div>
+      </div>
+    </div>
+
+    <div class="section-sub">SVG コード（JS文字列版）</div>
+    <pre><span class="kw">function</span> <span class="fn">iconSnowflake</span>() {
+  <span class="kw">return</span> <span class="str">'&lt;svg viewBox="0 0 24 24" fill="none" stroke="currentColor"'</span> +
+         <span class="str">' stroke-width="1.55" stroke-linecap="round"&gt;'</span> +
+    <span class="str">'&lt;g transform="translate(12,12)"&gt;'</span> +
+    [<span class="str">'0'</span>,<span class="str">'60'</span>,<span class="str">'120'</span>,<span class="str">'180'</span>,<span class="str">'240'</span>,<span class="str">'300'</span>].map(<span class="kw">function</span>(deg) {
+      <span class="kw">return</span> <span class="str">'&lt;g transform="rotate('</span> + deg + <span class="str">')"&gt;'</span> +
+        <span class="str">'&lt;line x1="0" y1="-1.4" x2="0" y2="-8.8"/&gt;'</span> +   <span class="cmt">// 腕本体</span>
+        <span class="str">'&lt;line x1="0" y1="-5.5" x2="2.0" y2="-7.1"/&gt;'</span> + <span class="cmt">// 右枝</span>
+        <span class="str">'&lt;line x1="0" y1="-5.5" x2="-2.0" y2="-7.1"/&gt;'</span>+ <span class="cmt">// 左枝</span>
+      <span class="str">'&lt;/g&gt;'</span>;
+    }).join(<span class="str">''</span>) +
+    <span class="str">'&lt;circle cx="0" cy="0" r="1.6" fill="#4BB3FF" stroke="none"/&gt;'</span> +
+    <span class="str">'&lt;/g&gt;&lt;/svg&gt;'</span>;
+}</pre>
+  </section>
+
+
+  <!-- ⑧ UX フロー -->
+  <section class="section" id="ux">
+    <h2 class="section-title">UX フロー</h2>
+
+    <div class="flow">
+      <div class="flow-step">
+        <div class="flow-step__line"><div class="flow-step__dot"></div><div class="flow-step__connector"></div></div>
+        <div class="flow-step__body">
+          <div class="flow-step__title">ページロード → 4秒後 自動オープン（初回のみ）</div>
+          <div class="flow-step__desc">sessionStorage の 'bisin-chat-seen' で管理。2回目以降は自動オープンしない。</div>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-step__line"><div class="flow-step__dot"></div><div class="flow-step__connector"></div></div>
+        <div class="flow-step__body">
+          <div class="flow-step__title">ウェルカムメッセージ → 6トピックグリッド表示</div>
+          <div class="flow-step__desc">タイピングアニメーション(700ms) → ボットバブル → 400ms後にグリッド出現。</div>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-step__line"><div class="flow-step__dot"></div><div class="flow-step__connector"></div></div>
+        <div class="flow-step__body">
+          <div class="flow-step__title">トピック選択 → 即回答（ユーザーバブル + ボット回答）</div>
+          <div class="flow-step__desc">グリッドを無効化 → ユーザーバブル → タイピング(680ms) → 回答HTMLバブル → 350ms後に関連チップ表示。</div>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-step__line"><div class="flow-step__dot"></div><div class="flow-step__connector"></div></div>
+        <div class="flow-step__body">
+          <div class="flow-step__title">関連トピックチップ → 他のトピックへ遷移 or フォームへ</div>
+          <div class="flow-step__desc">3つの関連トピックボタン + 「お問い合わせフォーム」ボタン。</div>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-step__line"><div class="flow-step__dot"></div><div class="flow-step__connector"></div></div>
+        <div class="flow-step__body">
+          <div class="flow-step__title">フォーム入力 → 送信 → mailto起動 → 完了画面</div>
+          <div class="flow-step__desc">名前・サロン名・メール必須。600ms後に完了画面へ。メールソフトが開かない場合は連絡先表示。</div>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-step__line"><div class="flow-step__dot"></div></div>
+        <div class="flow-step__body">
+          <div class="flow-step__title">自由入力テキスト → 価格KW検知 or 汎用応答 → CTA</div>
+          <div class="flow-step__desc">フッターの入力欄からいつでも質問可能。</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ⑨ バグ一覧 -->
+  <section class="section" id="bugs">
+    <h2 class="section-title">バグ一覧 &amp; 対処法</h2>
+
+    <table>
+      <thead><tr><th>症状</th><th>原因</th><th>修正</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>チャットが左端・全幅表示</td>
+          <td><code>el()</code>の<code>setAttribute('className')</code>が<code>classname=</code>属性を作りCSSクラス無効化 → <code>position:static</code>になる</td>
+          <td><code>node.className = attrs[k]</code> に変更</td>
+        </tr>
+        <tr>
+          <td>修正ファイルを保存してもブラウザに反映されない</td>
+          <td>ブラウザが<code>&lt;script src="chatbot.js"&gt;</code>をキャッシュしている</td>
+          <td>デバッグ時は <code>src='chatbot.js?' + Date.now()</code> でキャッシュバスト</td>
+        </tr>
+        <tr>
+          <td>git commitしても本番に反映されない</td>
+          <td>worktreeで編集したがmainブランチのファイルが別</td>
+          <td>mainディレクトリで直接編集 or worktreeブランチをmainにmerge</td>
+        </tr>
+        <tr>
+          <td><code>position:fixed</code>が効かず画面外に出る</td>
+          <td>親要素に<code>transform</code>/<code>filter</code>/<code>will-change</code>があると新たなcontaining blockが作られる</td>
+          <td>particles.jsなど画面エフェクトを確認。要素を<code>&lt;html&gt;</code>直下に追加するか対象要素のスタイルを調査</td>
+        </tr>
+        <tr>
+          <td>worktreeのファイルとmainが食い違う</td>
+          <td>worktreeで修正 → mainに反映せず直接pushした</td>
+          <td>両方に同じ修正を適用するか、worktreeのブランチをmergeしてから push</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+
+  <!-- ⑩ position:fixed 注意点 -->
+  <section class="section" id="positioning">
+    <h2 class="section-title">position:fixed が崩れる原因</h2>
+
+    <div class="alert alert--gold">
+      <span class="alert-icon">⚠️</span>
+      <span>以下のCSSプロパティが<strong>祖先要素</strong>に付いていると、<code>position:fixed</code>の基準がビューポートではなくその要素になる（＝固定にならない）。</span>
+    </div>
+
+    <table>
+      <thead><tr><th>プロパティ</th><th>影響</th><th>よくある出どころ</th></tr></thead>
+      <tbody>
+        <tr><td><code>transform: *</code></td><td>fixed の基準がその要素になる</td><td>particles.js, スクロールアニメーション</td></tr>
+        <tr><td><code>filter: *</code></td><td>同上</td><td>背景ぼかし、オーバーレイ効果</td></tr>
+        <tr><td><code>will-change: transform</code></td><td>同上</td><td>パフォーマンス最適化記述</td></tr>
+        <tr><td><code>overflow: hidden</code> on body</td><td>一部ブラウザでfixed挙動が変わる</td><td>横スクロール防止のよくある記述</td></tr>
+        <tr><td><code>perspective: *</code></td><td>3D文脈でfixedが崩れる</td><td>3Dアニメーション</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+
+  <!-- ⑪ チェックリスト -->
+  <section class="section" id="checklist">
+    <h2 class="section-title">次の案件 実装チェックリスト</h2>
+
+    <div class="card-grid">
+      <div class="card">
+        <div class="card__title"><span class="dot"></span>JS実装</div>
+        <ul class="checklist">
+          <li><code>el()</code>の<code>className</code>は必ず<code>node.className</code>で設定</li>
+          <li>IIFE でグローバル汚染ゼロ</li>
+          <li>価格KWは LINE/問い合わせ誘導に分岐</li>
+          <li><code>sessionStorage</code>で自動オープンは初回のみ</li>
+          <li><code>DOMContentLoaded</code>またはbody末尾で初期化</li>
+          <li>mailto送信後600msで完了画面へ遷移</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card__title"><span class="dot"></span>CSS実装</div>
+        <ul class="checklist">
+          <li>既存CSSと完全分離（<code>chatbot.css</code>単体）</li>
+          <li>全クラスに<code>cb-</code>プレフィックスで名前衝突防止</li>
+          <li><code>position:fixed</code>で<code>right:24px / bottom:24px</code></li>
+          <li>開閉に<code>transform-origin: bottom right</code>でscaleアニメ</li>
+          <li>ランチャーに<code>pulse</code>アニメーションで注目喚起</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card__title"><span class="dot"></span>UX設計</div>
+        <ul class="checklist">
+          <li>トピックボタンは「選択→即回答」型</li>
+          <li>各回答に3つの関連トピックを表示</li>
+          <li>フォームはmailto方式（サーバー不要）</li>
+          <li>メールソフトが開かない場合の連絡先フォールバック必須</li>
+          <li>タイピングアニメで「読んでいる感」を演出</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card__title"><span class="dot"></span>デプロイ確認</div>
+        <ul class="checklist">
+          <li>全HTMLページの<code>&lt;/body&gt;</code>前にCSS・JS挿入済みか</li>
+          <li><code>position:fixed</code>を崩す親CSSがないか確認</li>
+          <li>ブラウザキャッシュをクリアして動作確認</li>
+          <li>実機スマホで位置・サイズを確認（right:24px）</li>
+          <li>メール送信テスト（mailto動作・本文フォーマット）</li>
+        </ul>
+      </div>
+    </div>
+
+    <hr class="divider"/>
+
+    <div class="section-sub">サイズ仕様（業界標準）</div>
+    <table>
+      <thead><tr><th>要素</th><th>値</th><th>備考</th></tr></thead>
+      <tbody>
+        <tr><td>ランチャー円</td><td>56 × 56 px</td><td>小さすぎず・大きすぎない標準サイズ</td></tr>
+        <tr><td>チャット窓幅</td><td>340 px</td><td>スマホ画面にも収まる幅</td></tr>
+        <tr><td>チャット窓高さ</td><td>max 560 px</td><td>スクロール可能</td></tr>
+        <tr><td>ランチャー位置</td><td>right: 24px / bottom: 24px</td><td>右下固定</td></tr>
+        <tr><td>窓の位置</td><td>right: 24px / bottom: 96px</td><td>ランチャーの上に重ならない</td></tr>
+        <tr><td>本文フォントサイズ</td><td>12 px</td><td>窓が小さいため通常より小さめ</td></tr>
+        <tr><td>ボタンフォントサイズ</td><td>11 px</td><td>グリッドボタン</td></tr>
+        <tr><td>チップフォントサイズ</td><td>10.5 px</td><td>関連トピックチップ</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+</main>
+</div>
+
+<script>
+  // Active nav link on scroll
+  var sections = document.querySelectorAll('.section, .page-header');
+  var links = document.querySelectorAll('.nav-link');
+  window.addEventListener('scroll', function () {
+    var current = '';
+    sections.forEach(function (s) {
+      if (window.scrollY >= s.offsetTop - 80) current = s.id;
+    });
+    links.forEach(function (l) {
+      l.classList.toggle('active', l.getAttribute('href') === '#' + current);
+    });
+  });
+</script>
+</body>
+</html>
